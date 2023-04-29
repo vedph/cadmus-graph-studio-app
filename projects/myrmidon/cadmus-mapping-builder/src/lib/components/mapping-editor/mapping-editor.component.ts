@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -9,6 +9,9 @@ import { NodeMapping } from '@myrmidon/cadmus-mapping-builder';
 
 import { NodeMappingOutput } from '../../models';
 
+/**
+ * Single node mapping editor.
+ */
 @Component({
   selector: 'cadmus-mapping-editor',
   templateUrl: './mapping-editor.component.html',
@@ -25,6 +28,12 @@ export class MappingEditorComponent {
     this._mapping = value || undefined;
     this.updateForm(this._mapping);
   }
+
+  @Output()
+  public mappingChange: EventEmitter<NodeMapping>;
+
+  @Output()
+  public editorClose: EventEmitter<any>;
 
   public parentId: FormControl<number | null>;
   public ordinal: FormControl<number | null>;
@@ -82,6 +91,9 @@ export class MappingEditorComponent {
       sid: this.sid,
       output: this.output,
     });
+    // events
+    this.mappingChange = new EventEmitter<NodeMapping>();
+    this.editorClose = new EventEmitter<any>();
   }
 
   private updateForm(mapping: NodeMapping | undefined): void {
@@ -89,6 +101,55 @@ export class MappingEditorComponent {
       this.form.reset();
       return;
     }
-    // TODO
+    this.parentId.setValue(mapping.parentId || 0);
+    this.ordinal.setValue(mapping.ordinal || 0);
+    this.name.setValue(mapping.name);
+    this.sourceType.setValue(mapping.sourceType);
+    this.facetFilter.setValue(mapping.facetFilter || null);
+    this.groupFilter.setValue(mapping.groupFilter || null);
+    this.flagsFilter.setValue(mapping.flagsFilter || 0);
+    this.titleFilter.setValue(mapping.titleFilter || null);
+    this.partTypeFilter.setValue(mapping.partTypeFilter || null);
+    this.partRoleFilter.setValue(mapping.partRoleFilter || null);
+    this.description.setValue(mapping.description || null);
+    this.source.setValue(mapping.source);
+    this.sid.setValue(mapping.sid);
+    this.output.setValue(mapping.output || null);
+    this.form.markAsPristine();
+  }
+
+  public onOutputChange(output: NodeMappingOutput): void {
+    this.output.setValue(output);
+    this.output.markAsDirty();
+    this.output.updateValueAndValidity();
+  }
+
+  private getMapping(): NodeMapping {
+    return {
+      id: this._mapping?.id || 0,
+      parentId: this.parentId.value || undefined,
+      ordinal: this.ordinal.value || undefined,
+      name: this.name.value,
+      sourceType: this.sourceType.value,
+      facetFilter: this.facetFilter.value || undefined,
+      groupFilter: this.groupFilter.value || undefined,
+      flagsFilter: this.flagsFilter.value || undefined,
+      titleFilter: this.titleFilter.value || undefined,
+      partTypeFilter: this.partTypeFilter.value || undefined,
+      partRoleFilter: this.partRoleFilter.value || undefined,
+      description: this.description.value || undefined,
+      source: this.source.value,
+      sid: this.sid.value,
+      output: this.output.value || undefined,
+    };
+  }
+
+  public cancel(): void {
+    this.editorClose.emit();
+  }
+
+  public save(): void {
+    this._mapping = this.getMapping();
+    this.mappingChange.emit(this._mapping);
   }
 }
