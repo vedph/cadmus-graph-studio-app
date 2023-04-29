@@ -1,5 +1,122 @@
 <form (submit)="save()">
-  TODO
+  <mat-tab-group>
+    <!-- METADATA -->
+    <mat-tab label="metadata">
+      <div class="form-row">
+        <!-- sourceType -->
+        <mat-form-field>
+          <mat-label>source type</mat-label>
+          <mat-select [formControl]="sourceType">
+            <mat-option [value]="1">item</mat-option>
+            <mat-option [value]="2">part</mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="
+              $any(sourceType).errors?.required &&
+              (sourceType.dirty || sourceType.touched)
+            "
+            >source type required</mat-error
+          >
+        </mat-form-field>
+
+        <!-- sid -->
+        <mat-form-field>
+          <mat-label>SID</mat-label>
+          <input matInput [formControl]="sid" />
+          <mat-error
+            *ngIf="$any(sid).errors?.required && (sid.dirty || sid.touched)"
+            >SID required</mat-error
+          >
+          <mat-error
+            *ngIf="$any(sid).errors?.maxLength && (sid.dirty || sid.touched)"
+            >SID too long</mat-error
+          >
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <!-- facetFilter -->
+        <mat-form-field>
+          <mat-label>facet filter</mat-label>
+          <input matInput [formControl]="facetFilter" />
+          <mat-error
+            *ngIf="
+              $any(facetFilter).errors?.maxLength &&
+              (facetFilter.dirty || facetFilter.touched)
+            "
+            >facet filter too long</mat-error
+          >
+        </mat-form-field>
+
+        <!-- groupFilter -->
+        <mat-form-field>
+          <mat-label>group filter</mat-label>
+          <input matInput [formControl]="groupFilter" />
+          <mat-error
+            *ngIf="
+              $any(groupFilter).errors?.maxLength &&
+              (groupFilter.dirty || groupFilter.touched)
+            "
+            >group filter too long</mat-error
+          >
+        </mat-form-field>
+
+        <!-- flagsFilter -->
+        <mat-form-field style="width: 5em">
+          <mat-label>flagsFilter</mat-label>
+          <input type="number" matInput [formControl]="flagsFilter" min="0" />
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <!-- partTypeFilter -->
+        <mat-form-field>
+          <mat-label>part type filter</mat-label>
+          <input matInput [formControl]="partTypeFilter" />
+          <mat-error
+            *ngIf="
+              $any(partTypeFilter).errors?.maxLength &&
+              (partTypeFilter.dirty || partTypeFilter.touched)
+            "
+            >part type filter too long</mat-error
+          >
+        </mat-form-field>
+
+        <!-- partRoleFilter -->
+        <mat-form-field>
+          <mat-label>part role filter</mat-label>
+          <input matInput [formControl]="partRoleFilter" />
+          <mat-error
+            *ngIf="
+              $any(partRoleFilter).errors?.maxLength &&
+              (partRoleFilter.dirty || partRoleFilter.touched)
+            "
+            >part role filter too long</mat-error
+          >
+        </mat-form-field>
+      </div>
+
+      <div>
+        <!-- description -->
+        <mat-form-field>
+          <mat-label>description</mat-label>
+          <textarea rows="3" matInput [formControl]="description"></textarea>
+          <mat-error
+            *ngIf="
+              $any(description).errors?.maxLength &&
+              (description.dirty || description.touched)
+            "
+            >description too long</mat-error
+          >
+        </mat-form-field>
+      </div>
+    </mat-tab>
+
+    <!-- INPUT -->
+    <mat-tab label="input"></mat-tab>
+    <!-- OUTPUT -->
+    <mat-tab label="output"></mat-tab>
+  </mat-tab-group>
   <div>
     <button
       type="button"
