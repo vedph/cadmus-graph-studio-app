@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -9,6 +9,11 @@ import {
 import { MappedNode, NodeMappingOutput } from '../../models';
 import { MappedTriple } from '../../models';
 
+/**
+ * Node mapping output editor. This allows the user to edit the output in text
+ * boxes, where each line is an entry; nodes have form "key: uid label [tag]";
+ * triples have form "s p o" or "s p "ol""; metadata have form "key=value".
+ */
 @Component({
   selector: 'cadmus-mapping-output-editor',
   templateUrl: './mapping-output-editor.component.html',
@@ -26,6 +31,12 @@ export class MappingOutputEditorComponent {
     this.updateForm(this._output);
   }
 
+  @Output()
+  public outputChange: EventEmitter<NodeMappingOutput>;
+
+  @Output()
+  public editorClose: EventEmitter<any>;
+
   public nodes: FormControl<string | null>;
   public triples: FormControl<string | null>;
   public metadata: FormControl<string | null>;
@@ -40,23 +51,47 @@ export class MappingOutputEditorComponent {
       triples: this.triples,
       metadata: this.metadata,
     });
+    // events
+    this.outputChange = new EventEmitter<NodeMappingOutput>();
+    this.editorClose = new EventEmitter<any>();
   }
 
   //#region helpers
-  private parseNode(text: string | null | undefined): MappedNode | null {
+  private parseNode(
+    text: string | null | undefined
+  ): { key: string; value: MappedNode } | null {
     if (!text) {
       return null;
     }
-    // parse node from "uid label [tag]"
-    const m = text.match(/^(\S+)\s+(.+?)(?:\s+\[(.+?)\])?$/);
+    // parse node from "key: uid label [tag]"
+    const m = text.match(/^([^:]+)\s+(\S+)\s+(.+?)(?:\s+\[(.+?)\])?$/);
     if (!m) {
       return null;
     }
     return {
-      uid: m[1],
-      label: m[2],
-      tag: m[3],
+      key: m[1],
+      value: {
+        uid: m[2],
+        label: m[3],
+        tag: m[4],
+      },
     };
+  }
+
+  private parseNodes(
+    text: string | null | undefined
+  ): { [key: string]: MappedNode } | null {
+    if (!text) {
+      return null;
+    }
+    return text
+      .split('\n')
+      .map((s) => this.parseNode(s))
+      .filter((kv) => kv !== null)
+      .reduce((p, c) => {
+        p[c!.key] = c!.value;
+        return p;
+      }, {} as { [key: string]: MappedNode });
   }
 
   private nodeToString(node: MappedNode | null): string | null {
@@ -87,6 +122,16 @@ export class MappingOutputEditorComponent {
         };
   }
 
+  private parseTriples(text: string | null | undefined): MappedTriple[] | null {
+    if (!text) {
+      return null;
+    }
+    return text
+      .split('\n')
+      .map((s) => this.parseTriple(s))
+      .filter((t) => t !== null) as MappedTriple[];
+  }
+
   private tripleToString(triple: MappedTriple | null): string | null {
     return triple
       ? triple.ol
@@ -95,9 +140,9 @@ export class MappingOutputEditorComponent {
       : null;
   }
 
-  private parseMetadata(
+  private parseMetadatum(
     text: string | null | undefined
-  ): { [key: string]: string } | null {
+  ): { key: string; value: string } | null {
     if (!text) {
       return null;
     }
@@ -106,8 +151,25 @@ export class MappingOutputEditorComponent {
       return null;
     }
     return {
-      [text.substring(0, i).trim()]: text.substring(i + 1).trim(),
+      key: text.substring(0, i).trim(),
+      value: text.substring(i + 1).trim(),
     };
+  }
+
+  private parseMetadata(
+    text: string | null | undefined
+  ): { [key: string]: string } | null {
+    if (!text) {
+      return null;
+    }
+    return text
+      .split('\n')
+      .map((s) => this.parseMetadatum(s))
+      .filter((kv) => kv !== null)
+      .reduce((p, c) => {
+        p[c!.key] = c!.value;
+        return p;
+      }, {} as { [key: string]: string });
   }
 
   private metadataToString(
@@ -142,5 +204,22 @@ export class MappingOutputEditorComponent {
     );
     // metadata
     this.metadata.setValue(this.metadataToString(output.metadata));
+  }
+
+  private getOutput(): NodeMappingOutput {
+    return {
+      nodes: this.parseNodes(this.nodes.value) || undefined,
+      triples: this.parseTriples(this.triples.value) || undefined,
+      metadata: this.parseMetadata(this.metadata.value) || undefined,
+    };
+  }
+
+  public cancel(): void {
+    this.editorClose.emit();
+  }
+
+  public save(): void {
+    this._output = this.getOutput();
+    this.outputChange.emit(this._output);
   }
 }
