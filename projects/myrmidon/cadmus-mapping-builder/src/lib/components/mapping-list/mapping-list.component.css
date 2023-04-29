@@ -1,0 +1,13 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+td.fit-width {
+  width: 1px;
+  white-space: nowrap;
+}
+th {
+  text-align: left;
+  font-weight: normal;
+  color: silver;
+}

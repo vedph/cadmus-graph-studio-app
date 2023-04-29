@@ -1,0 +1,45 @@
+<mat-progress-bar *ngIf="loading$ | async"></mat-progress-bar>
+<div *ngIf="pagination$ | async as pagination">
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>ID</th>
+        <th>name</th>
+        <th>type</th>
+        <th>facet</th>
+        <th>part</th>
+        <th>role</th>
+        <th>source</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let m of pagination.data">
+        <td>
+          <button type="button" mat-icon-button color="primary">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button type="button" mat-icon-button color="warn">
+            <mat-icon>trash</mat-icon>
+          </button>
+        </td>
+        <td class="fit-width">{{ m.id }}</td>
+        <td>{{ m.name }}</td>
+        <td>{{ m.sourceType }}</td>
+        <td>{{ m.facetFilter }}</td>
+        <td>{{ m.partTypeFilter }}</td>
+        <td>{{ m.partRoleFilter }}</td>
+        <td>{{ m.source }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <mat-paginator
+    [length]="(pagination$ | async)?.total || 0"
+    [pageSize]="(pagination$ | async)?.perPage || 20"
+    [pageSizeOptions]="[2, 20, 50, 75, 100]"
+    [pageIndex]="((pagination$ | async)?.currentPage || 1) - 1"
+    [showFirstLastButtons]="true"
+    (page)="pageChange($event)"
+  ></mat-paginator>
+</div>
