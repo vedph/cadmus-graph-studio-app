@@ -43,9 +43,20 @@ export class MappingOutputEditorComponent {
   public form: FormGroup;
 
   constructor(formBuilder: FormBuilder) {
-    this.nodes = formBuilder.control(null, Validators.maxLength(5000));
-    this.triples = formBuilder.control(null, Validators.maxLength(5000));
-    this.metadata = formBuilder.control(null, Validators.maxLength(5000));
+    this.nodes = formBuilder.control(null, [
+      Validators.pattern(
+        /^(?:([^:\r\n]+):\s*(\S+)\s+([^[\r\n]+)(?:\[([^\]]+)\])?[\r\n]?)+$/
+      ),
+      Validators.maxLength(5000),
+    ]);
+    this.triples = formBuilder.control(null, [
+      Validators.pattern(/^(?:(\S+)\s+(.+?)\s+([^\r\n]+)[\r\n]?)+$/),
+      Validators.maxLength(5000),
+    ]);
+    this.metadata = formBuilder.control(null, [
+      Validators.pattern(/^(?:([^=\r\n]+)=([^\r\n]+)[\r\n]?)+$/),
+      Validators.maxLength(5000),
+    ]);
     this.form = formBuilder.group({
       nodes: this.nodes,
       triples: this.triples,
@@ -72,8 +83,8 @@ export class MappingOutputEditorComponent {
       key: m[1],
       value: {
         uid: m[2],
-        label: m[3],
-        tag: m[4],
+        label: m[3].trim(),
+        tag: m[4].trim(),
       },
     };
   }

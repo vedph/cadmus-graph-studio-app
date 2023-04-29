@@ -1,1 +1,23 @@
-<p>mapping-editor works!</p>
+<form (submit)="save()">
+  TODO
+  <div>
+    <button
+      type="button"
+      mat-icon-button
+      color="warn"
+      matTooltip="Close without saving"
+      (click)="cancel()"
+    >
+      <mat-icon>cancel</mat-icon>
+    </button>
+    <button
+      type="submit"
+      [disabled]="form.invalid"
+      mat-icon-button
+      color="primary"
+      matTooltip="Save mapping"
+    >
+      <mat-icon>check_circle</mat-icon>
+    </button>
+  </div>
+</form>
