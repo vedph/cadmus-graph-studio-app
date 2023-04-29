@@ -18,12 +18,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MappingFilterComponent } from './components/mapping-filter/mapping-filter.component';
 import { MappingListComponent } from './components/mapping-list/mapping-list.component';
 import { MappingEditorComponent } from './components/mapping-editor/mapping-editor.component';
+import { MappingOutputEditorComponent } from './components/mapping-output-editor/mapping-output-editor.component';
 
 @NgModule({
   declarations: [
     MappingFilterComponent,
     MappingListComponent,
-    MappingEditorComponent
+    MappingEditorComponent,
+    MappingOutputEditorComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +48,8 @@ import { MappingEditorComponent } from './components/mapping-editor/mapping-edit
   exports: [
     MappingFilterComponent,
     MappingListComponent,
-    MappingEditorComponent
+    MappingEditorComponent,
+    MappingOutputEditorComponent
   ],
 })
 export class CadmusMappingBuilderModule {}
