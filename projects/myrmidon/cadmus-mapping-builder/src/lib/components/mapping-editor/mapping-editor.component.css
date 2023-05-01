@@ -11,3 +11,6 @@
 .form-row * {
   flex: 0 0 auto;
 }
+.nr-input {
+  width: 5em;
+}

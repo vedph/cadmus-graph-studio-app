@@ -14,18 +14,21 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTreeModule } from '@angular/material/tree';
 
 import { MappingFilterComponent } from './components/mapping-filter/mapping-filter.component';
 import { MappingListComponent } from './components/mapping-list/mapping-list.component';
 import { MappingEditorComponent } from './components/mapping-editor/mapping-editor.component';
 import { MappingOutputEditorComponent } from './components/mapping-output-editor/mapping-output-editor.component';
+import { MappingTreeComponent } from './components/mapping-tree/mapping-tree.component';
 
 @NgModule({
   declarations: [
     MappingFilterComponent,
     MappingListComponent,
     MappingEditorComponent,
-    MappingOutputEditorComponent
+    MappingOutputEditorComponent,
+    MappingTreeComponent
   ],
   imports: [
     CommonModule,
@@ -44,12 +47,14 @@ import { MappingOutputEditorComponent } from './components/mapping-output-editor
     MatSelectModule,
     MatTabsModule,
     MatTooltipModule,
+    MatTreeModule,
   ],
   exports: [
     MappingFilterComponent,
     MappingListComponent,
     MappingEditorComponent,
-    MappingOutputEditorComponent
+    MappingOutputEditorComponent,
+    MappingTreeComponent
   ],
 })
 export class CadmusMappingBuilderModule {}

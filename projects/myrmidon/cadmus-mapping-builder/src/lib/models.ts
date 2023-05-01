@@ -37,6 +37,8 @@ export interface NodeMapping {
   sid: string;
   output?: NodeMappingOutput;
   children?: NodeMapping[];
+  // added for viewmodel
+  parent?: NodeMapping;
 }
 
 export interface NodeMappingFilter {
