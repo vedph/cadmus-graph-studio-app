@@ -1,0 +1,10 @@
+<div id="container">
+  <div id="tree">
+    <cadmus-mapping-tree
+      [mapping]="mapping"
+      [selected]="editedMapping"
+      (selectedChange)="onMappingSelected($event)"
+    ></cadmus-mapping-tree>
+  </div>
+  <div id="editor"></div>
+</div>

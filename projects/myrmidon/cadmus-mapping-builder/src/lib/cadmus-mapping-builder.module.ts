@@ -21,6 +21,7 @@ import { MappingListComponent } from './components/mapping-list/mapping-list.com
 import { MappingEditorComponent } from './components/mapping-editor/mapping-editor.component';
 import { MappingOutputEditorComponent } from './components/mapping-output-editor/mapping-output-editor.component';
 import { MappingTreeComponent } from './components/mapping-tree/mapping-tree.component';
+import { MappingTreeEditorComponent } from './components/mapping-tree-editor/mapping-tree-editor.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { MappingTreeComponent } from './components/mapping-tree/mapping-tree.com
     MappingListComponent,
     MappingEditorComponent,
     MappingOutputEditorComponent,
-    MappingTreeComponent
+    MappingTreeComponent,
+    MappingTreeEditorComponent,
   ],
   imports: [
     CommonModule,
@@ -54,7 +56,8 @@ import { MappingTreeComponent } from './components/mapping-tree/mapping-tree.com
     MappingListComponent,
     MappingEditorComponent,
     MappingOutputEditorComponent,
-    MappingTreeComponent
+    MappingTreeComponent,
+    MappingTreeEditorComponent,
   ],
 })
 export class CadmusMappingBuilderModule {}

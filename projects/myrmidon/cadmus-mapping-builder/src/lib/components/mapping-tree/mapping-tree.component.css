@@ -54,3 +54,7 @@ li ul {
 .mat-mdc-icon-button {
   z-index: 100;
 }
+
+.hilite {
+  background-color: #FDFD96;
+}

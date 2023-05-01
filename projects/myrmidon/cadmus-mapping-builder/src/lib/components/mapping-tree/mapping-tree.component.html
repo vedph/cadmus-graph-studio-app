@@ -14,6 +14,14 @@
         >
           {{ node.name }}
         </a>
+        <button
+          type="button"
+          color="warn"
+          mat-icon-button
+          (click)="deleteNode(node)"
+        >
+          <mat-icon>trash</mat-icon>
+        </button>
       </div>
     </li>
   </mat-tree-node>

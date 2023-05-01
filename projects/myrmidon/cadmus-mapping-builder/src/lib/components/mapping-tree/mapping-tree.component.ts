@@ -3,6 +3,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { NodeMapping } from '@myrmidon/cadmus-mapping-builder';
 
+/**
+ * Node mapping tree component. This represents the hierarchy of mappings
+ * of a root mapping, allowing users to select any of the mapping descendants,
+ * or the root mapping itself; add new children to a mapping; and delete a
+ * mapping.
+ */
 @Component({
   selector: 'cadmus-mapping-tree',
   templateUrl: './mapping-tree.component.html',
@@ -12,6 +18,9 @@ export class MappingTreeComponent {
   private _mapping?: NodeMapping;
   private _selected?: NodeMapping;
 
+  /**
+   * The root mapping.
+   */
   @Input()
   public get mapping(): NodeMapping | undefined | null {
     return this._mapping;
@@ -24,6 +33,11 @@ export class MappingTreeComponent {
     this.updateTree(this._mapping);
   }
 
+  /**
+   * The currently selected mapping.
+   * This is set by the user clicking a mapping in the tree.
+   * When this changes, the `selectedChange` event is emitted.
+   **/
   @Input()
   public get selected(): NodeMapping | undefined | null {
     return this._selected;
@@ -35,8 +49,17 @@ export class MappingTreeComponent {
     this._selected = value || undefined;
   }
 
+  /**
+   * Emitted when the selected mapping changes.
+   */
   @Output()
   public selectedChange: EventEmitter<NodeMapping>;
+
+  /**
+   * Emitted when a mapping is to be deleted.
+   */
+  @Output()
+  public mappingDelete: EventEmitter<NodeMapping>;
 
   public treeControl: NestedTreeControl<NodeMapping>;
   public treeDataSource: MatTreeNestedDataSource<NodeMapping>;
@@ -56,6 +79,7 @@ export class MappingTreeComponent {
     this.treeDataSource = new MatTreeNestedDataSource<NodeMapping>();
     // events
     this.selectedChange = new EventEmitter<NodeMapping>();
+    this.mappingDelete = new EventEmitter<NodeMapping>();
   }
 
   private updateTree(root?: NodeMapping | null) {
@@ -70,5 +94,9 @@ export class MappingTreeComponent {
   public onNodeClick(node: NodeMapping): void {
     this._selected = node;
     this.selectedChange.emit(node);
+  }
+
+  public deleteNode(node: NodeMapping): void {
+    this.mappingDelete.emit(node);
   }
 }
