@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MappedNode, NodeMapping, NodeMappingOutput } from '../models';
+import { deepCopy } from '@myrmidon/ng-tools';
 
 export interface SerializedMappedNodeOutput {
   nodes?: { [key: string]: string };
@@ -45,31 +46,45 @@ export interface NodeMappingDocument {
   providedIn: 'root',
 })
 export class MappingJsonService {
+  private _nextId = 1;
+
   /**
    * Visit all the mappings in the specified mapping's hierarchy, calling
    * the specified visitor function for each visited mapping, and setting
-   * the parent of each mapping.
+   * the parent of each mapping if requested.
    *
    * @param mapping The mapping to visit.
-   * @param visitor The function to call for each visited mapping, if any.
+   * @param hydration True to set falsy IDs and parent of each visited mapping.
+   * @param visitor The function to call for each visited mapping, if any;
+   * if this returns false, the visit is interrupted.
    */
   public visitMapping(
     mapping: NodeMapping | null,
+    hydration = true,
     visitor?: (m: NodeMapping) => boolean
   ): void {
+    // handle the received mapping
     if (!mapping) {
       return;
+    }
+    if (hydration && !mapping.id) {
+      mapping.id = this._nextId++;
     }
     if (visitor && !visitor(mapping)) {
       return;
     }
+
+    // handle its children
     if (mapping.children?.length) {
       for (let child of mapping.children) {
-        child.parent = mapping;
+        if (hydration) {
+          child.parentId = mapping.id;
+          child.parent = mapping;
+        }
         if (visitor && !visitor(child)) {
           return;
         }
-        this.visitMapping(child, visitor);
+        this.visitMapping(child, hydration, visitor);
       }
     }
   }
@@ -163,11 +178,7 @@ export class MappingJsonService {
     return result;
   }
 
-  public getMapping(
-    node: SerializedMappedNode,
-    hydrate = true,
-    startId = 1
-  ): NodeMapping {
+  private getMapping(node: SerializedMappedNode): NodeMapping {
     const mapping: NodeMapping = {
       id: node.id || 0,
       parentId: node.parentId,
@@ -202,20 +213,20 @@ export class MappingJsonService {
       ),
     };
 
-    if (hydrate) {
-      // assign IDs and parent IDs and set parent
-      this.visitMapping(mapping, (m) => {
-        if (!m.id) {
-          m.id = startId++;
-        }
-        if (m.children?.length) {
-          m.children.forEach((c) => {
-            c.parent = m;
-          });
-        }
-        return true;
-      });
-    }
+    // if (hydrate) {
+    //   // assign IDs and parent IDs
+    //   this.visitMapping(mapping, true, (m) => {
+    //     if (!m.id) {
+    //       m.id = this._nextId++;
+    //     }
+    //     if (m.children?.length) {
+    //       m.children.forEach((c) => {
+    //         c.parent = m;
+    //       });
+    //     }
+    //     return true;
+    //   });
+    // }
 
     return mapping;
   }
@@ -224,20 +235,10 @@ export class MappingJsonService {
    * Deserialize the specified JSON code to a mapping.
    *
    * @param json The JSON code to deserialize.
-   * @param hydrate True to hydrate the mapping with IDs and parent references.
-   * @param startId The start ID to use when hydrating.
    * @returns Mapping.
    */
-  public deserializeMapping(
-    json: string,
-    hydrate = true,
-    startId = 1
-  ): NodeMapping {
-    return this.getMapping(
-      JSON.parse(json) as SerializedMappedNode,
-      hydrate,
-      startId
-    );
+  private deserializeMapping(json: string): NodeMapping {
+    return this.getMapping(JSON.parse(json) as SerializedMappedNode);
   }
 
   /**
@@ -246,31 +247,47 @@ export class MappingJsonService {
    * @param json The JSON representing a mappings document.
    * @returns Mappings.
    */
-  public readMappingsDocument(json: string): NodeMapping[] {
+  public readMappingsDocument(json: string, resetId = true): NodeMapping[] {
+    if (resetId) {
+      this._nextId = 1;
+    }
     const doc = JSON.parse(json) as NodeMappingDocument;
 
-    const named = doc.namedMappings
-      ? Object.keys(doc.namedMappings).map((key) =>
-          this.getMapping(doc.namedMappings![key], true)
-        )
-      : [];
+    // read named mappings
+    let named: { [key: string]: NodeMapping } = {};
+    if (doc.namedMappings) {
+      Object.keys(doc.namedMappings).forEach((key) => {
+        named[key] = this.getMapping(doc.namedMappings![key]);
+      });
+    }
 
+    // read document mappings
     const mappings = doc.documentMappings.map((m) =>
       this.deserializeMapping(JSON.stringify(m))
     );
 
+    // hydrate mappings and expand named mappings references
     for (let i = 0; i < mappings.length; i++) {
-      this.visitMapping(mappings[i], (mapping) => {
-        const nm = named.find((m) => m.name === mapping.name);
-        if (nm) {
-          if (mapping.parent) {
-            const idx = mapping.parent.children!.indexOf(mapping);
-            mapping.parent.children![idx] = nm;
+      // assign IDs and parents
+      this.visitMapping(mappings[i], true);
+
+      // expand named mappings
+      this.visitMapping(mappings[i], false, (m) => {
+        if (named[m.name]) {
+          // copy named mapping when expanding
+          const mc = deepCopy(named[m.name]);
+          mc.id = m.id;
+          mc.parentId = m.parentId;
+          mc.parent = m.parent;
+
+          if (m.parent) {
+            const idx = m.parent.children!.indexOf(m);
+            m.parent.children![idx] = mc;
           } else {
-            mappings[i] = nm;
+            mappings[i] = mc;
           }
         }
-        return false;
+        return true;
       });
     }
 

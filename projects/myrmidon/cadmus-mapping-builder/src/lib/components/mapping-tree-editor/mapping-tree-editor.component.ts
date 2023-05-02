@@ -67,7 +67,7 @@ export class MappingTreeEditorComponent {
       this._mapping = mapping;
     } else {
       // else replace the descendant mapping in the tree
-      this._jsonService.visitMapping(this._mapping!, (m) => {
+      this._jsonService.visitMapping(this._mapping!, false, (m) => {
         if (m.id === mapping.id) {
           // remove the old mapping from m.parent.children
           const siblings: NodeMapping[] = [];

@@ -36,6 +36,7 @@ import {
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
+import { MappingEditorPageComponent } from './components/mapping-editor-page/mapping-editor-page.component';
 
 // https://ngneat.github.io/elf/docs/dev-tools/
 export function initElfDevTools(actions: Actions) {
@@ -48,7 +49,7 @@ export function initElfDevTools(actions: Actions) {
 }
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
+  declarations: [AppComponent, HomeComponent, MappingEditorPageComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -16,6 +16,9 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 
+import { NgToolsModule } from '@myrmidon/ng-tools';
+import { NgMatToolsModule } from '@myrmidon/ng-mat-tools';
+
 import { MappingFilterComponent } from './components/mapping-filter/mapping-filter.component';
 import { MappingListComponent } from './components/mapping-list/mapping-list.component';
 import { MappingEditorComponent } from './components/mapping-editor/mapping-editor.component';
@@ -50,6 +53,9 @@ import { MappingTreeEditorComponent } from './components/mapping-tree-editor/map
     MatTabsModule,
     MatTooltipModule,
     MatTreeModule,
+    // vendor
+    NgToolsModule,
+    NgMatToolsModule,
   ],
   exports: [
     MappingFilterComponent,

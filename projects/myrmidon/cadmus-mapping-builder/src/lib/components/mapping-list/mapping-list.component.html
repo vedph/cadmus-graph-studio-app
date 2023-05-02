@@ -16,10 +16,20 @@
     <tbody>
       <tr *ngFor="let m of pagination.data">
         <td>
-          <button type="button" mat-icon-button color="primary">
+          <button
+            type="button"
+            mat-icon-button
+            color="primary"
+            (click)="editMapping(m)"
+          >
             <mat-icon>edit</mat-icon>
           </button>
-          <button type="button" mat-icon-button color="warn">
+          <button
+            type="button"
+            mat-icon-button
+            color="warn"
+            (click)="deleteMapping(m)"
+          >
             <mat-icon>trash</mat-icon>
           </button>
         </td>
