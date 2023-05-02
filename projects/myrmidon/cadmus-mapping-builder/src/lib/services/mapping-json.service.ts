@@ -281,7 +281,7 @@ export class MappingJsonService {
           mc.parent = m.parent;
 
           if (m.parent) {
-            const idx = m.parent.children!.indexOf(m);
+            const idx = m.parent.children!.findIndex(c => c.id === m.id);
             m.parent.children![idx] = mc;
           } else {
             mappings[i] = mc;
