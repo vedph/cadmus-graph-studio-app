@@ -175,13 +175,13 @@ export class NodeMappingListRepository {
     }
 
     // load page from server
-    this._store.update(updateRequestStatus('node-mapping-list', 'pending'));
+    this._loading$.next(true);
     this._mappingRepository
       .getMappings(this._store.getValue().filter, pageNumber, pageSize)
       .pipe(take(1))
       .subscribe((page) => {
         this.addPage({ ...this.adaptPage(page), data: page.items });
-        this._store.update(updateRequestStatus('node-mapping-list', 'success'));
+        this._loading$.next(false);
       });
   }
 
