@@ -18,12 +18,11 @@ export class AppComponent {
     @Inject(NODE_MAPPING_SERVICE) mappingService: NodeMappingService,
     assetService: AssetService
   ) {
-    // TODO enable once import/export is implemented
-    // assetService
-    //   .loadText('sample-mappings.json')
-    //   .pipe(take(1))
-    //   .subscribe((json) => {
-    //     mappingService.importMappings(json);
-    //   });
+    assetService
+      .loadText('sample-mappings.json')
+      .pipe(take(1))
+      .subscribe((json) => {
+        mappingService.importMappings(json);
+      });
   }
 }

@@ -1,5 +1,5 @@
 {
-  "NamedMappings": {
+  "namedMappings": {
     "event_note": {
       "name": "event - note",
       "description": "Map the note of an event to EVENT crm:P3_has_note LITERAL.",
@@ -51,7 +51,7 @@
       ]
     }
   },
-  "DocumentMappings": [
+  "documentMappings": [
     {
       "name": "work",
       "sourceType": 2,

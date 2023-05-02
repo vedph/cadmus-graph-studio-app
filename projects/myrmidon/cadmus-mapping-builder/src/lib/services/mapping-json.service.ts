@@ -26,6 +26,11 @@ export interface SerializedMappedNode {
   children?: SerializedMappedNode[];
 }
 
+export interface NodeMappingDocument {
+  namedMappings?: { [key: string]: SerializedMappedNode };
+  documentMappings: SerializedMappedNode[];
+}
+
 /**
  * Custom JSON mapping service. This is used to serialize and deserialize
  * a mapping to/from JSON using a more human-friendly and compact format.
@@ -100,7 +105,7 @@ export class MappingJsonService {
     };
   }
 
-  private adaptMapping(
+  private getSerializedMappedNode(
     node: NodeMapping,
     dropId = false
   ): SerializedMappedNode {
@@ -120,7 +125,9 @@ export class MappingJsonService {
       source: node.source,
       sid: node.sid,
       output: this.adaptMappingOutput(node.output),
-      children: node.children?.map((c) => this.adaptMapping(c, dropId)),
+      children: node.children?.map((c) =>
+        this.getSerializedMappedNode(c, dropId)
+      ),
     };
   }
 
@@ -131,11 +138,11 @@ export class MappingJsonService {
    * @param dropId True to drop ID and parent ID.
    * @returns JSON string.
    */
-  public serialize(mapping: NodeMapping, dropId = false): string {
-    return JSON.stringify(this.adaptMapping(mapping, dropId));
+  public serializeMapping(mapping: NodeMapping, dropId = false): string {
+    return JSON.stringify(this.getSerializedMappedNode(mapping, dropId));
   }
 
-  private adaptSerializedNode(nodes?: {
+  private getMappedNodes(nodes?: {
     [key: string]: string;
   }): { [key: string]: MappedNode } | undefined {
     if (!nodes) {
@@ -156,34 +163,29 @@ export class MappingJsonService {
     return result;
   }
 
-  /**
-   * Deserialize the specified JSON code to a mapping.
-   *
-   * @param json The JSON code to deserialize.
-   * @param hydrate True to hydrate the mapping with IDs and parent references.
-   * @param startId The start ID to use when hydrating.
-   * @returns Mapping.
-   */
-  public deserialize(json: string, hydrate = true, startId = 1): NodeMapping {
-    const obj = JSON.parse(json) as SerializedMappedNode;
+  public getMapping(
+    node: SerializedMappedNode,
+    hydrate = true,
+    startId = 1
+  ): NodeMapping {
     const mapping: NodeMapping = {
-      id: obj.id || 0,
-      parentId: obj.parentId,
-      ordinal: obj.ordinal,
-      name: obj.name,
-      sourceType: obj.sourceType,
-      facetFilter: obj.facetFilter,
-      groupFilter: obj.groupFilter,
-      flagsFilter: obj.flagsFilter,
-      titleFilter: obj.titleFilter,
-      partTypeFilter: obj.partTypeFilter,
-      partRoleFilter: obj.partRoleFilter,
-      description: obj.description,
-      source: obj.source,
-      sid: obj.sid,
+      id: node.id || 0,
+      parentId: node.parentId,
+      ordinal: node.ordinal,
+      name: node.name,
+      sourceType: node.sourceType,
+      facetFilter: node.facetFilter,
+      groupFilter: node.groupFilter,
+      flagsFilter: node.flagsFilter,
+      titleFilter: node.titleFilter,
+      partTypeFilter: node.partTypeFilter,
+      partRoleFilter: node.partRoleFilter,
+      description: node.description,
+      source: node.source,
+      sid: node.sid,
       output: {
-        nodes: this.adaptSerializedNode(obj.output?.nodes),
-        triples: obj.output?.triples?.map((t) => {
+        nodes: this.getMappedNodes(node.output?.nodes),
+        triples: node.output?.triples?.map((t) => {
           const parts = t.split(' ');
           return parts[2].startsWith('"')
             ? {
@@ -193,9 +195,11 @@ export class MappingJsonService {
               }
             : { s: parts[0], p: parts[1], o: parts[2] };
         }),
-        metadata: obj.output?.metadata,
+        metadata: node.output?.metadata,
       },
-      children: obj.children?.map((c) => this.deserialize(JSON.stringify(c))),
+      children: node.children?.map((c) =>
+        this.deserializeMapping(JSON.stringify(c))
+      ),
     };
 
     if (hydrate) {
@@ -214,5 +218,62 @@ export class MappingJsonService {
     }
 
     return mapping;
+  }
+
+  /**
+   * Deserialize the specified JSON code to a mapping.
+   *
+   * @param json The JSON code to deserialize.
+   * @param hydrate True to hydrate the mapping with IDs and parent references.
+   * @param startId The start ID to use when hydrating.
+   * @returns Mapping.
+   */
+  public deserializeMapping(
+    json: string,
+    hydrate = true,
+    startId = 1
+  ): NodeMapping {
+    return this.getMapping(
+      JSON.parse(json) as SerializedMappedNode,
+      hydrate,
+      startId
+    );
+  }
+
+  /**
+   * Read the specified mappings document.
+   *
+   * @param json The JSON representing a mappings document.
+   * @returns Mappings.
+   */
+  public readMappingsDocument(json: string): NodeMapping[] {
+    const doc = JSON.parse(json) as NodeMappingDocument;
+
+    const named = doc.namedMappings
+      ? Object.keys(doc.namedMappings).map((key) =>
+          this.getMapping(doc.namedMappings![key], true)
+        )
+      : [];
+
+    const mappings = doc.documentMappings.map((m) =>
+      this.deserializeMapping(JSON.stringify(m))
+    );
+
+    for (let i = 0; i < mappings.length; i++) {
+      this.visitMapping(mappings[i], (mapping) => {
+        const nm = named.find((m) => m.name === mapping.name);
+        if (nm) {
+          if (mapping.parent) {
+            const idx = mapping.parent.children!.indexOf(mapping);
+            mapping.parent.children![idx] = nm;
+          } else {
+            mappings[i] = nm;
+          }
+        }
+        return false;
+      });
+    }
+
+    return mappings;
   }
 }

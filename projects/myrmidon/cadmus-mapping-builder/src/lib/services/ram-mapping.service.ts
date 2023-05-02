@@ -4,6 +4,10 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { DataPage } from '@myrmidon/ng-tools';
 
 import { NodeMappingService, NodeMappingFilter, NodeMapping } from '../models';
+import {
+  MappingJsonService,
+  SerializedMappedNode,
+} from './mapping-json.service';
 
 /**
  * RAM-based node mappings service.
@@ -14,7 +18,7 @@ import { NodeMappingService, NodeMappingFilter, NodeMapping } from '../models';
 export class RamNodeMappingService implements NodeMappingService {
   private readonly _mappings: BehaviorSubject<NodeMapping[]>;
 
-  constructor() {
+  constructor(private _jsonService: MappingJsonService) {
     this._mappings = new BehaviorSubject<NodeMapping[]>([]);
   }
 
@@ -102,13 +106,20 @@ export class RamNodeMappingService implements NodeMappingService {
   }
 
   public exportMappings(): Observable<string> {
-    // TODO customize JSON
-    return of(JSON.stringify(this._mappings.value));
+    const sb: string[] = [];
+    sb.push('[\n');
+    for (let i = 0; i < this._mappings.value.length; i++) {
+      if (i) {
+        sb.push(',\n');
+      }
+      sb.push(this._jsonService.serializeMapping(this._mappings.value[i]));
+    }
+    sb.push(']');
+    return of(sb.join(''));
   }
 
   public importMappings(json: string): Observable<any> {
-    // TODO customize JSON
-    const mappings = JSON.parse(json) as NodeMapping[];
+    const mappings = this._jsonService.readMappingsDocument(json);
     this._mappings.next(mappings);
     return of(null);
   }
