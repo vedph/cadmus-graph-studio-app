@@ -1,56 +1,65 @@
 <form (submit)="save()">
   <!-- metadata -->
-  <mat-form-field>
-    <mat-label>metadata</mat-label>
-    <input matInput [formControl]="metadata" />
-    <mat-hint>key=value</mat-hint>
-    <mat-error
-      *ngIf="
-        $any(metadata).errors?.pattern && (metadata.dirty || metadata.touched)
-      "
-      >invalid metadata</mat-error
-    >
-    <mat-error
-      *ngIf="
-        $any(metadata).errors?.maxLength && (metadata.dirty || metadata.touched)
-      "
-      >metadata too long</mat-error
-    >
-  </mat-form-field>
+  <div>
+    <mat-form-field class="long-text">
+      <mat-label>metadata</mat-label>
+      <input matInput [formControl]="metadata" />
+      <mat-hint>key=value</mat-hint>
+      <mat-error
+        *ngIf="
+          $any(metadata).errors?.pattern && (metadata.dirty || metadata.touched)
+        "
+        >invalid metadata</mat-error
+      >
+      <mat-error
+        *ngIf="
+          $any(metadata).errors?.maxLength &&
+          (metadata.dirty || metadata.touched)
+        "
+        >metadata too long</mat-error
+      >
+    </mat-form-field>
+  </div>
+  <br>
 
   <!-- nodes -->
-  <mat-form-field>
-    <mat-label>nodes</mat-label>
-    <input matInput [formControl]="nodes" />
-    <mat-hint>key: uid label [tag]</mat-hint>
-    <mat-error
-      *ngIf="$any(nodes).errors?.pattern && (nodes.dirty || nodes.touched)"
-      >invalid nodes</mat-error
-    >
-    <mat-error
-      *ngIf="$any(nodes).errors?.maxLength && (nodes.dirty || nodes.touched)"
-      >nodes too long</mat-error
-    >
-  </mat-form-field>
+  <div>
+    <mat-form-field class="long-text">
+      <mat-label>nodes</mat-label>
+      <input matInput [formControl]="nodes" />
+      <mat-hint>key: uid label [tag]</mat-hint>
+      <mat-error
+        *ngIf="$any(nodes).errors?.pattern && (nodes.dirty || nodes.touched)"
+        >invalid nodes</mat-error
+      >
+      <mat-error
+        *ngIf="$any(nodes).errors?.maxLength && (nodes.dirty || nodes.touched)"
+        >nodes too long</mat-error
+      >
+    </mat-form-field>
+  </div>
+  <br>
 
   <!-- triples -->
-  <mat-form-field>
-    <mat-label>triples</mat-label>
-    <input matInput [formControl]="triples" />
-    <mat-hint>S P O or S P "lit"</mat-hint>
-    <mat-error
-      *ngIf="
-        $any(triples).errors?.pattern && (triples.dirty || triples.touched)
-      "
-      >invalid triples</mat-error
-    >
-    <mat-error
-      *ngIf="
-        $any(triples).errors?.maxLength && (triples.dirty || triples.touched)
-      "
-      >triples too long</mat-error
-    >
-  </mat-form-field>
+  <div>
+    <mat-form-field class="long-text">
+      <mat-label>triples</mat-label>
+      <input matInput [formControl]="triples" />
+      <mat-hint>S P O or S P "lit"</mat-hint>
+      <mat-error
+        *ngIf="
+          $any(triples).errors?.pattern && (triples.dirty || triples.touched)
+        "
+        >invalid triples</mat-error
+      >
+      <mat-error
+        *ngIf="
+          $any(triples).errors?.maxLength && (triples.dirty || triples.touched)
+        "
+        >triples too long</mat-error
+      >
+    </mat-form-field>
+  </div>
 
   <div>
     <button

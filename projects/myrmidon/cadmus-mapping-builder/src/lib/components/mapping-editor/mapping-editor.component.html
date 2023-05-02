@@ -63,7 +63,7 @@
 
         <!-- flagsFilter -->
         <mat-form-field class="nr-input">
-          <mat-label>flagsFilter</mat-label>
+          <mat-label>flags filter</mat-label>
           <input type="number" matInput [formControl]="flagsFilter" min="0" />
         </mat-form-field>
       </div>
@@ -98,7 +98,7 @@
 
       <div>
         <!-- description -->
-        <mat-form-field>
+        <mat-form-field class="long-text">
           <mat-label>description</mat-label>
           <textarea rows="3" matInput [formControl]="description"></textarea>
           <mat-error
@@ -112,10 +112,36 @@
       </div>
     </mat-tab>
 
-    <!-- INPUT -->
-    <mat-tab label="input"></mat-tab>
-    <!-- OUTPUT -->
-    <mat-tab label="output"></mat-tab>
+    <!-- MAPPING -->
+    <mat-tab label="mapping">
+      <!-- source -->
+      <div>
+        <mat-form-field class="long-text">
+          <mat-label>source</mat-label>
+          <textarea matInput rows="2" [formControl]="source"></textarea>
+          <mat-error
+            *ngIf="
+              $any(source).errors?.required && (source.dirty || source.touched)
+            "
+            >source required</mat-error
+          >
+          <mat-error
+            *ngIf="
+              $any(source).errors?.maxLength && (source.dirty || source.touched)
+            "
+            >source too long</mat-error
+          >
+        </mat-form-field>
+      </div>
+      <!-- output -->
+      <fieldset>
+        <legend>output</legend>
+        <cadmus-mapping-output-editor
+          [output]="mapping?.output"
+          (outputChange)="onOutputChange($event)"
+        ></cadmus-mapping-output-editor>
+      </fieldset>
+    </mat-tab>
   </mat-tab-group>
   <div>
     <button

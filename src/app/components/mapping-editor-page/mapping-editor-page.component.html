@@ -1,1 +1,10 @@
-<p>mapping-editor-page works!</p>
+<mat-card>
+  <mat-card-title>Mapping Editor</mat-card-title>
+  <mat-card-content>
+    <cadmus-mapping-tree-editor
+      [mapping]="initialMapping"
+      (mappingChange)="onMappingChange($event)"
+      (editorClose)="close()"
+    ></cadmus-mapping-tree-editor>
+  </mat-card-content>
+</mat-card>

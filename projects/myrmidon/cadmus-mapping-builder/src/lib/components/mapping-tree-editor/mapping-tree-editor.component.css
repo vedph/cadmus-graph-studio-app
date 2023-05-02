@@ -1,0 +1,24 @@
+div#container {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: auto 1fr;
+  grid-template-areas: "tree editor";
+  gap: 8px;
+}
+div#tree {
+  grid-area: tree;
+}
+div#editor {
+  grid-area: editor;
+}
+
+/* lt-md */
+@media only screen and (max-width: 959px) {
+  div#container {
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "tree"
+      "editor";
+  }
+}
