@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NodeMapping } from '../../models';
+import { MappingJsonService } from '../../services/mapping-json.service';
 
 /**
  * The mapping tree editor component. This orchestrates editing a mapping
@@ -26,7 +27,7 @@ export class MappingTreeEditorComponent {
     if (!value) {
       this.editedMapping = undefined;
     } else {
-      this.visitMapping(value);
+      this._jsonService.visitMapping(value);
       this.editedMapping = value;
     }
   }
@@ -45,41 +46,13 @@ export class MappingTreeEditorComponent {
 
   public editedMapping?: NodeMapping;
 
-  constructor() {
+  constructor(private _jsonService: MappingJsonService) {
     this.mappingChange = new EventEmitter<NodeMapping>();
     this.editorClose = new EventEmitter<any>();
   }
 
   public onMappingSelected(mapping: NodeMapping): void {
     this.editedMapping = mapping;
-  }
-
-  /**
-   * Visit all the mappings in the specified mapping's hierarchy, calling
-   * the specified visitor function for each visited mapping, and setting
-   * the parent of each mapping.
-   * @param mapping The mapping to visit.
-   * @param visitor The function to call for each visited mapping, if any.
-   */
-  private visitMapping(
-    mapping: NodeMapping | null,
-    visitor?: (m: NodeMapping) => boolean
-  ): void {
-    if (!mapping) {
-      return;
-    }
-    if (visitor && !visitor(mapping)) {
-      return;
-    }
-    if (mapping.children?.length) {
-      for (let child of mapping.children) {
-        child.parent = mapping;
-        if (visitor && !visitor(child)) {
-          return;
-        }
-        this.visitMapping(child, visitor);
-      }
-    }
   }
 
   public onMappingSave(mapping: NodeMapping): void {
@@ -94,7 +67,7 @@ export class MappingTreeEditorComponent {
       this._mapping = mapping;
     } else {
       // else replace the descendant mapping in the tree
-      this.visitMapping(this._mapping!, (m) => {
+      this._jsonService.visitMapping(this._mapping!, (m) => {
         if (m.id === mapping.id) {
           // remove the old mapping from m.parent.children
           const siblings: NodeMapping[] = [];

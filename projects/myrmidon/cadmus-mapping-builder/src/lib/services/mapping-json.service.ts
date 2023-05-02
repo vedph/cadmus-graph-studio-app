@@ -41,6 +41,35 @@ export interface SerializedMappedNode {
   providedIn: 'root',
 })
 export class MappingJsonService {
+  /**
+   * Visit all the mappings in the specified mapping's hierarchy, calling
+   * the specified visitor function for each visited mapping, and setting
+   * the parent of each mapping.
+   *
+   * @param mapping The mapping to visit.
+   * @param visitor The function to call for each visited mapping, if any.
+   */
+  public visitMapping(
+    mapping: NodeMapping | null,
+    visitor?: (m: NodeMapping) => boolean
+  ): void {
+    if (!mapping) {
+      return;
+    }
+    if (visitor && !visitor(mapping)) {
+      return;
+    }
+    if (mapping.children?.length) {
+      for (let child of mapping.children) {
+        child.parent = mapping;
+        if (visitor && !visitor(child)) {
+          return;
+        }
+        this.visitMapping(child, visitor);
+      }
+    }
+  }
+
   private adaptNodes(nodes?: {
     [key: string]: MappedNode;
   }): { [key: string]: string } | undefined {
@@ -171,20 +200,18 @@ export class MappingJsonService {
     };
 
     if (hydrate) {
-      // assign IDs and parent IDs
-      let id = startId;
-      const assignIds = (node: NodeMapping) => {
-        node.id = id++;
-        node.parentId = node.parentId || 0;
-        if (node.parentId) {
-          const parent = mapping.children?.find((c) => c.id === node.parentId);
-          if (parent) {
-            node.parent = parent;
-          }
+      // assign IDs and parent IDs and set parent
+      this.visitMapping(mapping, (m) => {
+        if (!m.id) {
+          m.id = startId++;
         }
-        node.children?.forEach((c) => assignIds(c));
-      };
-      assignIds(mapping);
+        if (m.children?.length) {
+          m.children.forEach((c) => {
+            c.parent = m;
+          });
+        }
+        return true;
+      });
     }
 
     return mapping;
