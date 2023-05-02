@@ -15,7 +15,7 @@ export class MappingTreeEditorComponent {
   private _mapping?: NodeMapping;
 
   /**
-   * The root mapping to edit.
+   * The root mapping to edit. This also sets the currently edited mapping.
    */
   @Input()
   public get mapping(): NodeMapping | undefined | null {
@@ -31,9 +31,15 @@ export class MappingTreeEditorComponent {
     }
   }
 
+  /**
+   * Emitted when the root mapping with all its descendants changes.
+   */
   @Output()
   public mappingChange: EventEmitter<NodeMapping>;
 
+  /**
+   * Emitted when the user requests to close the editor.
+   */
   @Output()
   public editorClose: EventEmitter<any>;
 
@@ -50,10 +56,10 @@ export class MappingTreeEditorComponent {
 
   /**
    * Visit all the mappings in the specified mapping's hierarchy, calling
-   * the specified visitor function for each visited mapping and setting
+   * the specified visitor function for each visited mapping, and setting
    * the parent of each mapping.
    * @param mapping The mapping to visit.
-   * @param visitor The function to call for each visited mapping.
+   * @param visitor The function to call for each visited mapping, if any.
    */
   private visitMapping(
     mapping: NodeMapping | null,
