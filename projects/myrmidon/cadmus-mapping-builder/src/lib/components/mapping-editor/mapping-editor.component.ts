@@ -5,9 +5,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { NodeMapping } from '@myrmidon/cadmus-mapping-builder';
 
-import { NodeMappingOutput } from '../../models';
+import { NodeMapping, NodeMappingOutput } from '../../models';
 
 /**
  * Single node mapping editor.

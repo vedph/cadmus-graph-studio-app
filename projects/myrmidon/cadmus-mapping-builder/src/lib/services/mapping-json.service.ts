@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MappedNode, NodeMapping } from '../models';
-import { NodeMappingOutput } from '@myrmidon/cadmus-mapping-builder';
+import { MappedNode, NodeMapping, NodeMappingOutput } from '../models';
 
 export interface SerializedMappedNodeOutput {
   nodes?: { [key: string]: string };

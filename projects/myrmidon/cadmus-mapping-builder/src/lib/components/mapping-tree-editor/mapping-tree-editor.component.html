@@ -6,5 +6,11 @@
       (selectedChange)="onMappingSelected($event)"
     ></cadmus-mapping-tree>
   </div>
-  <div id="editor"></div>
+  <div id="editor">
+    <cadmus-mapping-editor
+      [mapping]="editedMapping"
+      (mappingChange)="onMappingSave($event)"
+      (editorClose)="close()"
+    ></cadmus-mapping-editor>
+  </div>
 </div>
