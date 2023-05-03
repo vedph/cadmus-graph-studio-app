@@ -1,0 +1,72 @@
+<form [formGroup]="form" (submit)="run()">
+  <div id="container">
+    <!-- input -->
+    <div id="input">
+      <mat-form-field class="long-text">
+        <mat-label>input</mat-label>
+        <textarea matInput rows="3" [formControl]="input"></textarea>
+        <mat-error
+          *ngIf="$any(input).errors?.required && (input.dirty || input.touched)"
+          >input required</mat-error
+        >
+        <mat-error
+          *ngIf="
+            $any(input).errors?.maxLength && (input.dirty || input.touched)
+          "
+          >input too long</mat-error
+        >
+      </mat-form-field>
+    </div>
+    <!-- output -->
+    <div id="output" *ngIf="graphSet">
+      <!-- nodes -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> nodes </mat-panel-title>
+          <mat-panel-description>
+            {{ graphSet.nodes.length }}
+          </mat-panel-description>
+          <table>
+            <thead>
+              <th>label</th>
+              <th>uri</th>
+              <th>sid</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let n of graphSet.nodes">
+                <td>{{ n.label }}</td>
+                <td class="uri">{{ n.uri }}</td>
+                <td>{{ n.sid }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </mat-expansion-panel-header>
+      </mat-expansion-panel>
+      <!-- triples -->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> triples </mat-panel-title>
+          <mat-panel-description>
+            {{ graphSet.triples.length }}
+          </mat-panel-description>
+          <table>
+            <thead>
+              <th>S</th>
+              <th>P</th>
+              <th>O</th>
+              <th>sid</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let t of graphSet.triples">
+                <td class="uri">{{ t.subjectUri }}</td>
+                <td class="tp">{{ t.predicateUri }}</td>
+                <td class="to">{{ t.objectUri || t.objectLiteral }}</td>
+                <td>{{ t.sid }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </mat-expansion-panel-header>
+      </mat-expansion-panel>
+    </div>
+  </div>
+</form>

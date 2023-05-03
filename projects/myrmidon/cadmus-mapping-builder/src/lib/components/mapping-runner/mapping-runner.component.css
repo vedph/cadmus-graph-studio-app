@@ -1,0 +1,42 @@
+.long-text {
+  width: 100%;
+  max-width: 800px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.uri {
+  color: darkgreen;
+}
+.tp {
+  color: darkred;
+}
+.to {
+  color: royalblue;
+}
+
+div#container {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "input output";
+  gap: 8px;
+}
+div#input {
+  grid-area: input;
+}
+div#output {
+  grid-area: output;
+}
+
+/* lt-md */
+@media only screen and (max-width: 959px) {
+  div#container {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "input"
+      "output";
+  }
+}
