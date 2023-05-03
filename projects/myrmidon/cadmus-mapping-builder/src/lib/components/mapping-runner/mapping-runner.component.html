@@ -2,20 +2,31 @@
   <div id="container">
     <!-- input -->
     <div id="input">
-      <mat-form-field class="long-text">
-        <mat-label>input</mat-label>
-        <textarea matInput rows="3" [formControl]="input"></textarea>
-        <mat-error
-          *ngIf="$any(input).errors?.required && (input.dirty || input.touched)"
-          >input required</mat-error
-        >
-        <mat-error
-          *ngIf="
-            $any(input).errors?.maxLength && (input.dirty || input.touched)
-          "
-          >input too long</mat-error
-        >
-      </mat-form-field>
+      <div>
+        <mat-form-field class="long-text">
+          <mat-label>input</mat-label>
+          <textarea matInput rows="3" [formControl]="input"></textarea>
+          <mat-error
+            *ngIf="
+              $any(input).errors?.required && (input.dirty || input.touched)
+            "
+            >input required</mat-error
+          >
+          <mat-error
+            *ngIf="
+              $any(input).errors?.maxLength && (input.dirty || input.touched)
+            "
+            >input too long</mat-error
+          >
+        </mat-form-field>
+      </div>
+      <fieldset>
+        <legend>presets</legend>
+        <cadmus-cached-text-picker
+          cacheKey="map"
+          (textPick)="onTextPick($event)"
+        ></cadmus-cached-text-picker>
+      </fieldset>
     </div>
     <!-- output -->
     <div id="output" *ngIf="graphSet">

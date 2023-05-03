@@ -20,6 +20,7 @@
         mat-icon-button
         color="primary"
         [disabled]="form.invalid || busy"
+        matTooltip="Run JMES"
       >
         <mat-icon>play_circle</mat-icon>
       </button>
@@ -45,14 +46,15 @@
           >
         </mat-form-field>
       </div>
-      <!-- samples -->
-      <div>
+      <!-- presets -->
+      <fieldset>
+        <legend>presets</legend>
         <cadmus-cached-text-picker
           [text]="input.value"
           (textPick)="onTextPick($event)"
           cacheKey="jmes"
         ></cadmus-cached-text-picker>
-      </div>
+      </fieldset>
     </div>
 
     <!-- output -->

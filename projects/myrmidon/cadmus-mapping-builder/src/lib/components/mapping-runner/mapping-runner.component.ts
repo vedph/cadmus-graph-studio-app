@@ -53,6 +53,12 @@ export class MappingRunnerComponent {
     });
   }
 
+  public onTextPick(text: string): void {
+    this.input.setValue(text);
+    this.input.markAsDirty();
+    this.input.updateValueAndValidity();
+  }
+
   public run(): void {
     if (this.form.invalid || !this._mapping) {
       return;
