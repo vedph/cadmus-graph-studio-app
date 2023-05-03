@@ -1,4 +1,4 @@
-<form [formGroup]="form">
+<form [formGroup]="form" (submit)="transform()">
   <div id="container">
     <!-- jmes -->
     <div id="expr">
@@ -14,6 +14,14 @@
           >JMES too long</mat-error
         >
       </mat-form-field>
+      <button
+        type="submit"
+        mat-icon-button
+        color="primary"
+        [disabled]="form.invalid || busy"
+      >
+        <mat-icon>play_circle</mat-icon>
+      </button>
     </div>
 
     <!-- input -->

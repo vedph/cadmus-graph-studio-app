@@ -15,7 +15,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let m of pagination.data">
-        <td>
+        <td class="fit-width">
           <button
             type="button"
             mat-icon-button
@@ -33,7 +33,7 @@
             <mat-icon>delete</mat-icon>
           </button>
         </td>
-        <td class="fit-width">{{ m.id }}</td>
+        <td>{{ m.id }}</td>
         <td>{{ m.name }}</td>
         <td>{{ m.sourceType | flatLookup:sourceTypes }}</td>
         <td>{{ m.facetFilter }}</td>
