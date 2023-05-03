@@ -4,6 +4,7 @@
 
 export * from './lib/models';
 export * from './lib/services/ram-mapping.service';
+export * from './lib/services/graph-studio-api.service';
 export * from './lib/state/mapping-list.repository';
 
 export * from './lib/components/mapping-filter/mapping-filter.component';

@@ -53,6 +53,44 @@ export interface NodeMappingFilter {
   partRole?: string;
 }
 
+export interface UriNode {
+  id: number;
+  isClass?: boolean;
+  tag?: string;
+  label?: string;
+  sourceType: number;
+  sid?: string;
+  uri?: string;
+}
+
+export interface UriTriple {
+  id: number;
+  subjectId: number;
+  predicateId: number;
+  objectId: number;
+  objectLiteral?: string;
+  objectLiteralIx?: string;
+  literalType?: string;
+  literalLanguage?: string;
+  literalNumber?: number;
+  sid?: string;
+  tag?: string;
+  subjectUri?: string;
+  predicateUri?: string;
+  objectUri?: string;
+  uri?: string;
+}
+
+export interface GraphSet {
+  nodes: UriNode[];
+  triples: UriTriple[];
+}
+
+export interface ErrorWrapper<T> {
+  value?: T;
+  error?: string;
+}
+
 /**
  * Node mapping service.
  */
