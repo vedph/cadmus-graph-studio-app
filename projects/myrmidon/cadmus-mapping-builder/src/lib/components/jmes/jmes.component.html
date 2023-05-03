@@ -38,58 +38,11 @@
       </div>
       <!-- samples -->
       <div>
-        <form [formGroup]="sampleForm" (submit)="addSample()">
-          <!-- selector-->
-          <div>
-            <mat-form-field *ngIf="sampleKeys?.length">
-              <mat-label>sample</mat-label>
-              <mat-select [formControl]="sampleKey">
-                <mat-option *ngFor="let k of sampleKeys" [value]="k">{{
-                  k
-                }}</mat-option>
-              </mat-select>
-              <mat-hint>pick to set input</mat-hint>
-            </mat-form-field>
-            <button
-              type="button"
-              mat-icon-button
-              color="primary"
-              [disabled]="!sampleKey.value"
-              (click)="pickSample()"
-            >
-              <mat-icon>login</mat-icon>
-            </button>
-          </div>
-          <!-- new sample -->
-          <div>
-            <mat-form-field>
-              <mat-label>key</mat-label>
-              <input matInput [formControl]="sampleKey" />
-              <mat-error
-                *ngIf="
-                  $any(sampleKey).errors?.required &&
-                  (sampleKey.dirty || sampleKey.touched)
-                "
-                >key required</mat-error
-              >
-              <mat-error
-                *ngIf="
-                  $any(sampleKey).errors?.maxLength &&
-                  (sampleKey.dirty || sampleKey.touched)
-                "
-                >key too long</mat-error
-              >
-            </mat-form-field>
-            <button
-              type="submit"
-              mat-icon-button
-              color="primary"
-              [disabled]="sampleForm.invalid || !input.value.length"
-            >
-              <mat-icon>add_circle</mat-icon>
-            </button>
-          </div>
-        </form>
+        <cadmus-cached-text-picker
+          [text]="input.value"
+          (textPick)="onTextPick($event)"
+          cacheKey="jmes"
+        ></cadmus-cached-text-picker>
       </div>
     </div>
 

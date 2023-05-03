@@ -15,5 +15,6 @@ export * from './lib/components/mapping-output-editor/mapping-output-editor.comp
 export * from './lib/components/mapping-tree/mapping-tree.component';
 export * from './lib/components/mapping-tree-editor/mapping-tree-editor.component';
 export * from './lib/components/jmes/jmes.component';
+export * from './lib/components/cached-text-picker/cached-text-picker.component';
 
 export * from './lib/cadmus-mapping-builder.module';

@@ -26,7 +26,7 @@ import { GraphStudioApiService } from '../../services/graph-studio-api.service';
   styleUrls: ['./jmes.component.css'],
 })
 export class JmesComponent implements OnInit, OnDestroy {
-  private _subs?: Subscription[];
+  private _sub?: Subscription;
   private _expression: string | undefined;
 
   /**
@@ -96,26 +96,16 @@ export class JmesComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this._subs = [];
-    this._subs.push(
-      this.jmes.valueChanges
-        .pipe(distinctUntilChanged(), debounceTime(300))
-        .subscribe((_) => {
-          this._expression = this.jmes.value;
-          this.expressionChange.emit(this.jmes.value);
-        })
-    );
-    this._subs.push(
-      this.sampleKey.valueChanges
-        .pipe(distinctUntilChanged(), debounceTime(300))
-        .subscribe((_) => {
-          this.pickSample();
-        })
-    );
+    this._sub = this.jmes.valueChanges
+      .pipe(distinctUntilChanged(), debounceTime(300))
+      .subscribe((_) => {
+        this._expression = this.jmes.value;
+        this.expressionChange.emit(this.jmes.value);
+      });
   }
 
   public ngOnDestroy(): void {
-    this._subs?.forEach((s) => s.unsubscribe());
+    this._sub?.unsubscribe();
   }
 
   public transform(): void {
@@ -145,12 +135,8 @@ export class JmesComponent implements OnInit, OnDestroy {
       });
   }
 
-  public pickSample(): void {
-    const key = this.sampleKey.value;
-    if (!key) {
-      return;
-    }
-    this.input.setValue(this._cacheService.get('jmes')[key]);
+  public onTextPick(text: string): void {
+    this.input.setValue(text);
     this.input.updateValueAndValidity();
     this.input.markAsDirty();
   }

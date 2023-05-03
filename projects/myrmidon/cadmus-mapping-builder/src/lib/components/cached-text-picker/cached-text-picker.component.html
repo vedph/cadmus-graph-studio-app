@@ -1,0 +1,57 @@
+<form [formGroup]="form" (submit)="add()">
+  <!-- selector-->
+  <div *ngIf="keys?.length">
+    <mat-form-field>
+      <mat-label>preset</mat-label>
+      <mat-select [formControl]="key">
+        <mat-option *ngFor="let k of keys" [value]="k">{{ k }}</mat-option>
+      </mat-select>
+      <mat-hint>pick to set</mat-hint>
+    </mat-form-field>
+    <button
+      type="button"
+      mat-icon-button
+      color="warn"
+      [disabled]="!key.value"
+      (click)="remove()"
+    >
+      <mat-icon>delete</mat-icon>
+    </button>
+    <button
+      type="button"
+      mat-icon-button
+      color="primary"
+      [disabled]="!key.value"
+      (click)="pick()"
+    >
+      <mat-icon>login</mat-icon>
+    </button>
+  </div>
+  <!-- new -->
+  <div>
+    <mat-form-field>
+      <mat-label>key</mat-label>
+      <input matInput [formControl]="newKey" />
+      <mat-error
+        *ngIf="
+          $any(newKey).errors?.required && (newKey.dirty || newKey.touched)
+        "
+        >key required</mat-error
+      >
+      <mat-error
+        *ngIf="
+          $any(newKey).errors?.maxLength && (newKey.dirty || newKey.touched)
+        "
+        >key too long</mat-error
+      >
+    </mat-form-field>
+    <button
+      type="submit"
+      mat-icon-button
+      color="primary"
+      [disabled]="form.invalid || !text"
+    >
+      <mat-icon>add_circle</mat-icon>
+    </button>
+  </div>
+</form>
