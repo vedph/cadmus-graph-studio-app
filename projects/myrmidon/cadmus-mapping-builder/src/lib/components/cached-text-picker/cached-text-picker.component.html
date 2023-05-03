@@ -1,34 +1,35 @@
 <form [formGroup]="form" (submit)="add()">
   <!-- selector-->
-  <div *ngIf="keys?.length">
-    <mat-form-field>
-      <mat-label>preset</mat-label>
-      <mat-select [formControl]="key">
-        <mat-option *ngFor="let k of keys" [value]="k">{{ k }}</mat-option>
-      </mat-select>
-      <mat-hint>pick to set</mat-hint>
-    </mat-form-field>
-    <button
-      type="button"
-      mat-icon-button
-      color="warn"
-      [disabled]="!key.value"
-      (click)="remove()"
-    >
-      <mat-icon>delete</mat-icon>
-    </button>
-    <button
-      type="button"
-      mat-icon-button
-      color="primary"
-      [disabled]="!key.value"
-      (click)="pick()"
-    >
-      <mat-icon>login</mat-icon>
-    </button>
-  </div>
-  <!-- new -->
-  <div>
+  <div class="form-row">
+    <ng-container *ngIf="keys?.length">
+      <mat-form-field>
+        <mat-label>preset</mat-label>
+        <mat-select [formControl]="key">
+          <mat-option *ngFor="let k of keys" [value]="k">{{ k }}</mat-option>
+        </mat-select>
+        <mat-hint>pick to set</mat-hint>
+      </mat-form-field>
+      <button
+        type="button"
+        mat-icon-button
+        color="warn"
+        [disabled]="!key.value"
+        (click)="remove()"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button
+        type="button"
+        mat-icon-button
+        color="primary"
+        [disabled]="!key.value"
+        (click)="pick()"
+      >
+        <mat-icon>login</mat-icon>
+      </button>
+    </ng-container>
+
+    <!-- new -->
     <mat-form-field>
       <mat-label>key</mat-label>
       <input matInput [formControl]="newKey" />
