@@ -1,14 +1,10 @@
-import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { take } from 'rxjs';
 
 import { DialogService } from '@myrmidon/ng-mat-tools';
 import { deepCopy } from '@myrmidon/ng-tools';
 
-import {
-  NODE_MAPPING_SERVICE,
-  NodeMapping,
-  NodeMappingService,
-} from '../../models';
+import { NodeMapping } from '../../models';
 import { MappingJsonService } from '../../services/mapping-json.service';
 
 /**
@@ -58,8 +54,6 @@ export class MappingTreeEditorComponent {
   public editedMapping?: NodeMapping;
 
   constructor(
-    @Inject(NODE_MAPPING_SERVICE)
-    private _mappingService: NodeMappingService,
     private _jsonService: MappingJsonService,
     private _dialogService: DialogService
   ) {
@@ -86,27 +80,44 @@ export class MappingTreeEditorComponent {
       }
       this._mapping = mapping;
     } else {
-      // else replace the descendant mapping in the tree
-      this._jsonService.visitMappings(this._mapping!, false, (m) => {
-        if (m.id === mapping.id) {
-          // remove the old mapping from m.parent.children
-          const siblings: NodeMapping[] = [];
-          for (let i = 0; i < m.parent!.children!.length; i++) {
-            if (m.parent!.children![i].id === m.id) {
-              siblings.push(mapping);
-              // update parent of all the children
-              for (let child of m.children!) {
-                child.parent = mapping;
-              }
-            } else {
-              siblings.push(m.parent!.children![i]);
+      // else insert/replace the descendant mapping in the tree
+      if (!mapping.id) {
+        // insert as last child
+        this._jsonService.visitMappings(this._mapping!, false, (m) => {
+          if (m.id === mapping.parent!.id) {
+            if (!m.children) {
+              m.children = [];
             }
+            m.children?.push(mapping);
+            mapping.parent = m;
+            return false;
+          } else {
+            return true;
           }
-          m.parent!.children = siblings;
-          return false;
-        }
-        return true;
-      });
+        });
+      } else {
+        // replace
+        this._jsonService.visitMappings(this._mapping!, false, (m) => {
+          if (m.id === mapping.id) {
+            // remove the old mapping from m.parent.children
+            const siblings: NodeMapping[] = [];
+            for (let i = 0; i < m.parent!.children!.length; i++) {
+              if (m.parent!.children![i].id === m.id) {
+                siblings.push(mapping);
+                // update parent of all the children
+                for (let child of m.children!) {
+                  child.parent = mapping;
+                }
+              } else {
+                siblings.push(m.parent!.children![i]);
+              }
+            }
+            m.parent!.children = siblings;
+            return false;
+          }
+          return true;
+        });
+      }
     }
   }
 
@@ -131,7 +142,24 @@ export class MappingTreeEditorComponent {
   }
 
   public onMappingAddChild(mapping: NodeMapping): void {
-    // TODO
+    // calculate the max ID by visiting mapping
+    let maxId = 0;
+    this._jsonService.visitMappings(mapping, false, (m) => {
+      if (m.id && m.id > maxId) {
+        maxId = m.id;
+      }
+      return true;
+    });
+    // edit the new mapping (it will be inserted on save)
+    this.editedMapping = {
+      id: maxId + 1,
+      parentId: mapping.id,
+      parent: mapping,
+      name: 'New mapping',
+      sourceType: 2,
+      source: '',
+      sid: '',
+    };
   }
 
   public close(): void {

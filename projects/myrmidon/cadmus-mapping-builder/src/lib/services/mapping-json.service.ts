@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { MappedNode, NodeMapping, NodeMappingOutput } from '../models';
+
 import { deepCopy } from '@myrmidon/ng-tools';
+
+import { MappedNode, NodeMapping, NodeMappingOutput } from '../models';
 
 export interface SerializedMappedNodeOutput {
   nodes?: { [key: string]: string };

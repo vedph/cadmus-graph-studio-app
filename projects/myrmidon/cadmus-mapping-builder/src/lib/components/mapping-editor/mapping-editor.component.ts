@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 
 import { NodeMapping, NodeMappingOutput } from '../../models';
+import { NgToolsValidators } from '@myrmidon/ng-tools';
 
 /**
  * Single node mapping editor.
@@ -70,7 +71,13 @@ export class MappingEditorComponent {
       nonNullable: true,
     });
     this.sid = formBuilder.control('', {
-      validators: [Validators.required, Validators.maxLength(500)],
+      validators: [
+        NgToolsValidators.conditionalValidator(
+          () => !this.parentId,
+          Validators.required
+        ),
+        Validators.maxLength(500),
+      ],
       nonNullable: true,
     });
     this.output = formBuilder.control(null);

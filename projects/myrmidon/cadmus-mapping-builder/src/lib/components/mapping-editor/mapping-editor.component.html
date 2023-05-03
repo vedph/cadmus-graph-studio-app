@@ -7,6 +7,7 @@
         <mat-form-field>
           <mat-label>source type</mat-label>
           <mat-select [formControl]="sourceType">
+            <mat-option [value]="undefined">n/a</mat-option>
             <mat-option [value]="1">item</mat-option>
             <mat-option [value]="2">part</mat-option>
           </mat-select>
