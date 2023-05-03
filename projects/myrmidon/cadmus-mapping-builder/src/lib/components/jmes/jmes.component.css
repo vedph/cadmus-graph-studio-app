@@ -1,0 +1,33 @@
+.long-text {
+  width: 100%;
+  max-width: 800px;
+}
+div#container {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "expr expr"
+    "input output";
+  gap: 8px;
+}
+div#expr {
+  grid-area: expr;
+}
+div#input {
+  grid-area: input;
+}
+div#output {
+  grid-area: output;
+}
+
+/* lt-md */
+@media only screen and (max-width: 959px) {
+  div#container {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "expr"
+      "input"
+      "output";
+  }
+}

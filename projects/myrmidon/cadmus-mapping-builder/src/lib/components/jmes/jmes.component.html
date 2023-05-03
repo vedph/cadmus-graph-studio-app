@@ -1,0 +1,96 @@
+<form [formGroup]="form">
+  <div id="container">
+    <!-- jmes -->
+    <div id="expr">
+      <mat-form-field>
+        <mat-label>jmes</mat-label>
+        <input matInput [formControl]="jmes" />
+        <mat-error
+          *ngIf="
+            $any(jmes).errors?.required &&
+            (jmes.dirty || jmes.touched)
+          "
+          >JMES required</mat-error
+        >
+        <mat-error
+          *ngIf="
+            $any(jmes).errors?.maxLength &&
+            (jmes.dirty || jmes.touched)
+          "
+          >JMES too long</mat-error
+        >
+      </mat-form-field>
+    </div>
+
+    <!-- input -->
+    <div id="input">
+      <div>
+        <mat-form-field class="long-text">
+          <mat-label>input</mat-label>
+          <textarea rows="3" matInput [formControl]="input"></textarea>
+          <mat-error
+            *ngIf="
+              $any(input).errors?.required && (input.dirty || input.touched)
+            "
+            >input required</mat-error
+          >
+          <mat-error
+            *ngIf="
+              $any(input).errors?.maxLength && (input.dirty || input.touched)
+            "
+            >input too long</mat-error
+          >
+        </mat-form-field>
+      </div>
+      <!-- samples -->
+      <div>
+        <form [formGroup]="sampleForm" (submit)="addSample()">
+          <!-- selector-->
+          <div>
+            <mat-form-field *ngIf="sampleKeys?.length">
+              <mat-label>sample</mat-label>
+              <mat-select [formControl]="sampleKey">
+                <mat-option *ngFor="let k of sampleKeys" [value]="k">{{
+                  k
+                }}</mat-option>
+              </mat-select>
+              <mat-hint>pick to set input</mat-hint>
+            </mat-form-field>
+          </div>
+          <!-- new sample -->
+          <div>
+            <mat-form-field>
+              <mat-label>key</mat-label>
+              <input matInput [formControl]="sampleKey" />
+              <mat-error
+                *ngIf="
+                  $any(sampleKey).errors?.required &&
+                  (sampleKey.dirty || sampleKey.touched)
+                "
+                >key required</mat-error
+              >
+              <mat-error
+                *ngIf="
+                  $any(sampleKey).errors?.maxLength &&
+                  (sampleKey.dirty || sampleKey.touched)
+                "
+                >key too long</mat-error
+              >
+            </mat-form-field>
+            <button type="submit" mat-icon-button color="primary">
+              <mat-icon>add_circle</mat-icon>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- output -->
+    <div id="output">
+      <mat-form-field class="long-text">
+        <mat-label>output</mat-label>
+        <textarea rows="3" matInput [formControl]="output"></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+</form>
