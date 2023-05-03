@@ -156,7 +156,11 @@ export class MappingJsonService {
    * @returns JSON string.
    */
   public serializeMapping(mapping: NodeMapping, dropId = false): string {
-    return JSON.stringify(this.getSerializedMappedNode(mapping, dropId));
+    return JSON.stringify(
+      this.getSerializedMappedNode(mapping, dropId),
+      null,
+      2
+    );
   }
 
   private getMappedNodes(nodes?: {
@@ -211,7 +215,7 @@ export class MappingJsonService {
         metadata: node.output?.metadata,
       },
       children: node.children?.map((c) =>
-        this.deserializeMapping(JSON.stringify(c))
+        this.deserializeMapping(JSON.stringify(c, null, 2))
       ),
     };
 
@@ -265,10 +269,11 @@ export class MappingJsonService {
 
     // read document mappings
     const mappings = doc.documentMappings.map((m) =>
-      this.deserializeMapping(JSON.stringify(m))
+      this.deserializeMapping(JSON.stringify(m, null, 2))
     );
 
     // hydrate mappings and expand named mappings references
+    let expanded = false;
     for (let i = 0; i < mappings.length; i++) {
       // assign IDs and parents
       this.visitMappings(mappings[i], true);
@@ -276,6 +281,7 @@ export class MappingJsonService {
       // expand named mappings
       this.visitMappings(mappings[i], false, (m) => {
         if (named[m.name]) {
+          expanded = true;
           // copy named mapping when expanding
           const mc = deepCopy(named[m.name]);
           mc.id = m.id;
@@ -283,7 +289,7 @@ export class MappingJsonService {
           mc.parent = m.parent;
 
           if (m.parent) {
-            const idx = m.parent.children!.findIndex(c => c.id === m.id);
+            const idx = m.parent.children!.findIndex((c) => c.id === m.id);
             m.parent.children![idx] = mc;
           } else {
             mappings[i] = mc;
@@ -291,8 +297,13 @@ export class MappingJsonService {
         }
         return true;
       });
-    }
 
+      // repeat hydration on expanded mappings to ensure that
+      // also expanded mappings descendants are hydrated
+      if (expanded) {
+        this.visitMappings(mappings[i], true);
+      }
+    }
     return mappings;
   }
 }

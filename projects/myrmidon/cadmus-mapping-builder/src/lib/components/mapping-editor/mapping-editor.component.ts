@@ -6,11 +6,12 @@ import {
   Validators,
 } from '@angular/forms';
 
-import { NodeMapping, NodeMappingOutput } from '../../models';
 import { NgToolsValidators } from '@myrmidon/ng-tools';
 
+import { NodeMapping, NodeMappingOutput } from '../../models';
+
 /**
- * Single node mapping editor.
+ * Single node mapping editor. Note that ID and parent ID are not editable.
  */
 @Component({
   selector: 'cadmus-mapping-editor',
@@ -35,7 +36,6 @@ export class MappingEditorComponent {
   @Output()
   public editorClose: EventEmitter<any>;
 
-  public parentId: FormControl<number | null>;
   public ordinal: FormControl<number | null>;
   public name: FormControl<string>;
   public sourceType: FormControl<number>;
@@ -52,7 +52,6 @@ export class MappingEditorComponent {
   public form: FormGroup;
 
   constructor(formBuilder: FormBuilder) {
-    this.parentId = formBuilder.control(null);
     this.ordinal = formBuilder.control(null);
     this.name = formBuilder.control('', {
       validators: [Validators.required, Validators.maxLength(100)],
@@ -73,7 +72,7 @@ export class MappingEditorComponent {
     this.sid = formBuilder.control('', {
       validators: [
         NgToolsValidators.conditionalValidator(
-          () => !this.parentId,
+          () => !this._mapping?.parentId,
           Validators.required
         ),
         Validators.maxLength(500),
@@ -82,7 +81,6 @@ export class MappingEditorComponent {
     });
     this.output = formBuilder.control(null);
     this.form = formBuilder.group({
-      parentId: this.parentId,
       ordinal: this.ordinal,
       name: this.name,
       sourceType: this.sourceType,
@@ -107,7 +105,6 @@ export class MappingEditorComponent {
       this.form.reset();
       return;
     }
-    this.parentId.setValue(mapping.parentId || 0);
     this.ordinal.setValue(mapping.ordinal || 0);
     this.name.setValue(mapping.name);
     this.sourceType.setValue(mapping.sourceType);
@@ -133,7 +130,7 @@ export class MappingEditorComponent {
   private getMapping(): NodeMapping {
     return {
       id: this._mapping?.id || 0,
-      parentId: this.parentId.value || undefined,
+      parentId: this._mapping?.parentId || undefined,
       ordinal: this.ordinal.value || undefined,
       name: this.name.value,
       sourceType: this.sourceType.value,

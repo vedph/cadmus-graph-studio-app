@@ -4,6 +4,13 @@
       ><img src="./assets/img/logo-black-40.png" alt="Fusisoft"
     /></span>
     <a mat-button routerLink="/home">Home</a>
+
+    <button type="button" mat-button [matMenuTriggerFor]="fileMenu">
+      File
+    </button>
+    <mat-menu #fileMenu>
+      <a mat-menu-item (click)="export()">Export mappings</a>
+    </mat-menu>
   </mat-toolbar>
 </header>
 

@@ -144,24 +144,22 @@
       </fieldset>
     </mat-tab>
   </mat-tab-group>
-  <div>
+  <div class="form-row">
     <button
       type="button"
-      mat-icon-button
+      mat-flat-button
       color="warn"
-      matTooltip="Close without saving"
       (click)="cancel()"
     >
-      <mat-icon>cancel</mat-icon>
+      <mat-icon>cancel</mat-icon> close
     </button>
     <button
       type="submit"
       [disabled]="form.invalid"
-      mat-icon-button
+      mat-flat-button
       color="primary"
-      matTooltip="Save mapping"
     >
-      <mat-icon>check_circle</mat-icon>
+      <mat-icon>check_circle</mat-icon> save
     </button>
   </div>
 </form>
