@@ -16,6 +16,11 @@ import { NodeMapping } from '../../models';
 export class MappingListComponent {
   public pagination$: Observable<PaginationData & { data: NodeMapping[] }>;
   public loading$: Observable<boolean>;
+  public sourceTypes = [
+    { id: 0, label: 'any' },
+    { id: 1, label: 'item' },
+    { id: 2, label: 'part' },
+  ];
 
   @Output()
   public mappingEdit: EventEmitter<NodeMapping>;

@@ -30,12 +30,12 @@
             color="warn"
             (click)="deleteMapping(m)"
           >
-            <mat-icon>trash</mat-icon>
+            <mat-icon>delete</mat-icon>
           </button>
         </td>
         <td class="fit-width">{{ m.id }}</td>
         <td>{{ m.name }}</td>
-        <td>{{ m.sourceType }}</td>
+        <td>{{ m.sourceType | flatLookup:sourceTypes }}</td>
         <td>{{ m.facetFilter }}</td>
         <td>{{ m.partTypeFilter }}</td>
         <td>{{ m.partRoleFilter }}</td>

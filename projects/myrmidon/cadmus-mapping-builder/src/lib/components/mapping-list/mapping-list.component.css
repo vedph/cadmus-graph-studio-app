@@ -11,3 +11,10 @@ th {
   font-weight: normal;
   color: silver;
 }
+th, td {
+  padding: 0 4px;
+  border-right: 1px solid silver;
+}
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
