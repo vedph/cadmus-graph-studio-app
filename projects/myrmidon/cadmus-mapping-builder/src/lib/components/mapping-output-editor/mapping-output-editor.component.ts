@@ -11,7 +11,7 @@ import { MappedTriple } from '../../models';
 
 /**
  * Node mapping output editor. This allows the user to edit the output in text
- * boxes, where each line is an entry; nodes have form "key: uid label [tag]";
+ * boxes, where each line is an entry; nodes have form "key uid label [tag]";
  * triples have form "s p o" or "s p "ol""; metadata have form "key=value".
  */
 @Component({
@@ -45,7 +45,7 @@ export class MappingOutputEditorComponent {
   constructor(formBuilder: FormBuilder) {
     this.nodes = formBuilder.control(null, [
       Validators.pattern(
-        /^(?:([^:\r\n]+):\s*(\S+)\s+([^[\r\n]+)(?:\[([^\]]+)\])?[\r\n]?)+$/
+        /^(?:(\S+)\s*(\S+)\s+([^[\r\n]+)(?:\[([^\]]+)\])?[\r\n]?)+$/
       ),
       Validators.maxLength(5000),
     ]);
@@ -74,8 +74,8 @@ export class MappingOutputEditorComponent {
     if (!text) {
       return null;
     }
-    // parse node from "key: uid label [tag]"
-    const m = text.match(/^([^:]+)\s+(\S+)\s+(.+?)(?:\s+\[(.+?)\])?$/);
+    // parse node from "key uid label [tag]"
+    const m = text.match(/^(\S+)\s+(\S+)\s+(.+?)(?:\s+\[(.+?)\])?$/);
     if (!m) {
       return null;
     }
@@ -105,9 +105,9 @@ export class MappingOutputEditorComponent {
       }, {} as { [key: string]: MappedNode });
   }
 
-  private nodeToString(node: MappedNode | null): string | null {
+  private nodeToString(key: string, node: MappedNode | null): string | null {
     return node
-      ? `${node.uid} ${node.label}${node.tag ? ` [${node.tag}]` : ''}`
+      ? `${key} ${node.uid} ${node.label}${node.tag ? ` [${node.tag}]` : ''}`
       : null;
   }
 
@@ -203,7 +203,7 @@ export class MappingOutputEditorComponent {
     this.nodes.setValue(
       output.nodes
         ? Object.keys(output.nodes)
-            .map((k) => this.nodeToString(output.nodes![k]))
+            .map((k) => this.nodeToString(k, output.nodes![k]))
             .join('\n')
         : null
     );

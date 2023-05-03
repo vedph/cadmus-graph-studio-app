@@ -7,6 +7,9 @@ div#container {
 }
 div#tree {
   grid-area: tree;
+  border: 1px solid silver;
+  border-radius: 6px;
+  padding: 4px;
 }
 div#editor {
   grid-area: editor;

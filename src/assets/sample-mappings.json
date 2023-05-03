@@ -19,6 +19,7 @@
       "sid": "{$id}/chronotope",
       "children": [
         {
+          "name": "event - chronotope - place",
           "source": "place",
           "output": {
             "nodes": {
