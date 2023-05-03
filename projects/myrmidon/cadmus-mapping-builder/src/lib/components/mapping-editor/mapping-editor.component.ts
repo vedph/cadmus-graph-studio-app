@@ -147,6 +147,12 @@ export class MappingEditorComponent {
     };
   }
 
+  public onExpressionChange(expression: string): void {
+    this.source.setValue(expression);
+    this.source.markAsDirty();
+    this.source.updateValueAndValidity();
+  }
+
   public cancel(): void {
     this.editorClose.emit();
   }

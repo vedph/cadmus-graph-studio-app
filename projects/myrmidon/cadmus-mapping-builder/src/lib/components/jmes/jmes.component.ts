@@ -108,8 +108,8 @@ export class JmesComponent implements OnInit, OnDestroy {
     this._subs.push(
       this.sampleKey.valueChanges
         .pipe(distinctUntilChanged(), debounceTime(300))
-        .subscribe((key) => {
-          this.pickSample(key);
+        .subscribe((_) => {
+          this.pickSample();
         })
     );
   }
@@ -145,7 +145,11 @@ export class JmesComponent implements OnInit, OnDestroy {
       });
   }
 
-  public pickSample(key: string): void {
+  public pickSample(): void {
+    const key = this.sampleKey.value;
+    if (!key) {
+      return;
+    }
     this.input.setValue(this._cacheService.get('jmes')[key]);
     this.input.updateValueAndValidity();
     this.input.markAsDirty();
