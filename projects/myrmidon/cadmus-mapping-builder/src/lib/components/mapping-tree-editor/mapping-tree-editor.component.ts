@@ -1,11 +1,22 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { NodeMapping } from '../../models';
+import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import { take } from 'rxjs';
+
+import { DialogService } from '@myrmidon/ng-mat-tools';
+import { deepCopy } from '@myrmidon/ng-tools';
+
+import {
+  NODE_MAPPING_SERVICE,
+  NodeMapping,
+  NodeMappingService,
+} from '../../models';
 import { MappingJsonService } from '../../services/mapping-json.service';
 
 /**
  * The mapping tree editor component. This orchestrates editing a mapping
  * and all its descendants, if any. It composes together a mapping tree
- * component and a mapping editor component.
+ * component and a mapping editor component. Any edit is in-memory, and
+ * is persisted only when the user clicks the Save button for the whole
+ * root mapping.
  */
 @Component({
   selector: 'cadmus-mapping-tree-editor',
@@ -27,7 +38,7 @@ export class MappingTreeEditorComponent {
     if (!value) {
       this.editedMapping = undefined;
     } else {
-      this._jsonService.visitMapping(value);
+      this._jsonService.visitMappings(value);
       this.editedMapping = value;
     }
   }
@@ -46,7 +57,12 @@ export class MappingTreeEditorComponent {
 
   public editedMapping?: NodeMapping;
 
-  constructor(private _jsonService: MappingJsonService) {
+  constructor(
+    @Inject(NODE_MAPPING_SERVICE)
+    private _mappingService: NodeMappingService,
+    private _jsonService: MappingJsonService,
+    private _dialogService: DialogService
+  ) {
     this.mappingChange = new EventEmitter<NodeMapping>();
     this.editorClose = new EventEmitter<any>();
   }
@@ -55,6 +71,10 @@ export class MappingTreeEditorComponent {
     this.editedMapping = mapping;
   }
 
+  /**
+   * Save the specified mapping in its edited tree.
+   * @param mapping The mapping to save.
+   */
   public onMappingSave(mapping: NodeMapping): void {
     this.editedMapping = mapping;
 
@@ -67,7 +87,7 @@ export class MappingTreeEditorComponent {
       this._mapping = mapping;
     } else {
       // else replace the descendant mapping in the tree
-      this._jsonService.visitMapping(this._mapping!, false, (m) => {
+      this._jsonService.visitMappings(this._mapping!, false, (m) => {
         if (m.id === mapping.id) {
           // remove the old mapping from m.parent.children
           const siblings: NodeMapping[] = [];
@@ -88,6 +108,30 @@ export class MappingTreeEditorComponent {
         return true;
       });
     }
+  }
+
+  public onMappingDelete(mapping: NodeMapping): void {
+    this._dialogService
+      .confirm(`Delete branch ${mapping.name}?`, 'Delete')
+      .pipe(take(1))
+      .subscribe((yes) => {
+        if (yes) {
+          // close edited mapping if it is the one being deleted
+          if (this.editedMapping?.id === mapping.id) {
+            this.editedMapping = undefined;
+          }
+          // remove from tree
+          mapping.parent!.children = mapping.parent!.children!.filter(
+            (m) => m.id !== mapping.id
+          );
+          // update the root mapping
+          this.mapping = deepCopy(this._mapping!);
+        }
+      });
+  }
+
+  public onMappingAddChild(mapping: NodeMapping): void {
+    // TODO
   }
 
   public close(): void {

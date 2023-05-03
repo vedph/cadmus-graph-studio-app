@@ -18,9 +18,19 @@
           type="button"
           color="warn"
           mat-icon-button
+          matTooltip="Delete this node with its descendants"
           (click)="deleteNode(node)"
         >
-          <mat-icon>trash</mat-icon>
+          <mat-icon>clear</mat-icon>
+        </button>
+        <button
+          type="button"
+          color="primary"
+          mat-icon-button
+          matTooltip="Add a child node"
+          (click)="addChildNode(node)"
+        >
+          <mat-icon>add_circle</mat-icon>
         </button>
       </div>
     </li>
@@ -39,7 +49,9 @@
           {{ treeControl.isExpanded(node) ? "expand_more" : "chevron_right" }}
         </mat-icon>
       </button>
-      {{ node.name }}
+      <span [class.hilite]="isSelected(node)">
+        {{ node.name }}
+      </span>
     </div>
     <ul class="tree-nested-node">
       <div *ngIf="treeControl.isExpanded(node)">
@@ -62,7 +74,11 @@
             {{ treeControl.isExpanded(node) ? "expand_more" : "chevron_right" }}
           </mat-icon>
         </button>
-        <a mat-button (click)="onNodeClick(node)">
+        <a
+          mat-button
+          (click)="onNodeClick(node)"
+          [class.hilite]="isSelected(node)"
+        >
           {{ node.name }}
         </a>
       </div>

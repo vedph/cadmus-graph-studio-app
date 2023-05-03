@@ -57,6 +57,13 @@ export class MappingTreeComponent {
   public selectedChange: EventEmitter<NodeMapping>;
 
   /**
+   * Emitted when a mapping should be added as child
+   * of the currently selected mapping.
+   */
+  @Output()
+  public mappingAdd: EventEmitter<NodeMapping>;
+
+  /**
    * Emitted when a mapping is to be deleted.
    */
   @Output()
@@ -80,6 +87,7 @@ export class MappingTreeComponent {
     this.treeDataSource = new MatTreeNestedDataSource<NodeMapping>();
     // events
     this.selectedChange = new EventEmitter<NodeMapping>();
+    this.mappingAdd = new EventEmitter<NodeMapping>();
     this.mappingDelete = new EventEmitter<NodeMapping>();
   }
 
@@ -95,6 +103,10 @@ export class MappingTreeComponent {
   public onNodeClick(node: NodeMapping): void {
     this._selected = node;
     this.selectedChange.emit(node);
+  }
+
+  public addChildNode(node: NodeMapping): void {
+    this.mappingAdd.emit(node);
   }
 
   public deleteNode(node: NodeMapping): void {

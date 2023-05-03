@@ -58,7 +58,7 @@ export class MappingJsonService {
    * @param visitor The function to call for each visited mapping, if any;
    * if this returns false, the visit is interrupted.
    */
-  public visitMapping(
+  public visitMappings(
     mapping: NodeMapping | null,
     hydration = true,
     visitor?: (m: NodeMapping) => boolean
@@ -84,7 +84,7 @@ export class MappingJsonService {
         if (visitor && !visitor(child)) {
           return;
         }
-        this.visitMapping(child, hydration, visitor);
+        this.visitMappings(child, hydration, visitor);
       }
     }
   }
@@ -269,10 +269,10 @@ export class MappingJsonService {
     // hydrate mappings and expand named mappings references
     for (let i = 0; i < mappings.length; i++) {
       // assign IDs and parents
-      this.visitMapping(mappings[i], true);
+      this.visitMappings(mappings[i], true);
 
       // expand named mappings
-      this.visitMapping(mappings[i], false, (m) => {
+      this.visitMappings(mappings[i], false, (m) => {
         if (named[m.name]) {
           // copy named mapping when expanding
           const mc = deepCopy(named[m.name]);

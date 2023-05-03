@@ -53,21 +53,54 @@ export interface NodeMappingFilter {
   partRole?: string;
 }
 
+/**
+ * Node mapping service.
+ */
 export interface NodeMappingService {
+  /**
+   * Get the specified page of mappings.
+   * @param filter The mappings filter.
+   * @param pageNumber The page number.
+   * @param pageSize The page size.
+   */
   getMappings(
     filter: NodeMappingFilter,
     pageNumber: number,
     pageSize: number
   ): Observable<DataPage<NodeMapping>>;
 
+  /**
+   * Get the mapping with the specified ID.
+   * @param id The ID of the mapping to get.
+   */
   getMapping(id: number): Observable<NodeMapping | null>;
 
+  /**
+   * Add or update the specified mapping.
+   * @param mapping The mapping to add or update.
+   */
   addMapping(mapping: NodeMapping): Observable<NodeMapping>;
 
+  /**
+   * Delete the mapping with the specified ID.
+   * @param id The ID of the mapping to delete.
+   */
   deleteMapping(id: number): Observable<any>;
 
+  /**
+   * Clear all the mappings.
+   */
+  clear(): Observable<any>;
+
+  /**
+   * Export all the mappings into JSON code.
+   */
   exportMappings(): Observable<string>;
 
+  /**
+   * Load mappings from JSON code.
+   * @param json The JSON code.
+   */
   importMappings(json: string): Observable<any>;
 }
 

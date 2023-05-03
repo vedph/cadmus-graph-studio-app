@@ -1,10 +1,12 @@
 <div id="container">
   <div id="tree">
-    <h2>{{mapping?.name}}</h2>
+    <h2>{{ mapping?.name }}</h2>
     <cadmus-mapping-tree
       [mapping]="mapping"
       [selected]="editedMapping"
       (selectedChange)="onMappingSelected($event)"
+      (mappingAdd)="onMappingAddChild($event)"
+      (mappingDelete)="onMappingDelete($event)"
     ></cadmus-mapping-tree>
   </div>
   <div id="editor">

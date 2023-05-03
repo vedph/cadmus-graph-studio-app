@@ -4,13 +4,10 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { DataPage } from '@myrmidon/ng-tools';
 
 import { NodeMappingService, NodeMappingFilter, NodeMapping } from '../models';
-import {
-  MappingJsonService,
-  SerializedMappedNode,
-} from './mapping-json.service';
+import { MappingJsonService } from './mapping-json.service';
 
 /**
- * RAM-based node mappings service.
+ * RAM-based node mappings service. This edits a RAM-based mappings store.
  */
 @Injectable({
   providedIn: 'root',
@@ -102,6 +99,11 @@ export class RamNodeMappingService implements NodeMappingService {
       mappings.splice(index, 1);
       this._mappings.next(mappings);
     }
+    return of(null);
+  }
+
+  public clear(): Observable<any> {
+    this._mappings.next([]);
     return of(null);
   }
 
