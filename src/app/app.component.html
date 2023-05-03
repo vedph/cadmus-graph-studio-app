@@ -9,7 +9,16 @@
       File
     </button>
     <mat-menu #fileMenu>
-      <a mat-menu-item (click)="export()">Export mappings</a>
+      <a mat-menu-item (click)="clear()">
+        <mat-icon color="warn">delete</mat-icon>
+        Clear mappings</a
+      >
+      <a mat-menu-item (click)="import()">
+        <mat-icon>file_upload</mat-icon>
+        Import mappings</a>
+      <a mat-menu-item (click)="export()">
+        <mat-icon color="primary">file_download</mat-icon>
+        Export mappings</a>
     </mat-menu>
   </mat-toolbar>
 </header>
