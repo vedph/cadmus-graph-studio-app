@@ -8,6 +8,7 @@
       <div>
         <mat-label>input</mat-label>
         <ngx-monaco-editor
+          style="min-height: 600px"
           [options]="editorOptions"
           [formControl]="input"
         ></ngx-monaco-editor>
@@ -25,10 +26,19 @@
       <fieldset>
         <legend>presets</legend>
         <cadmus-cached-text-picker
+          [text]="input.value"
           cacheKey="map"
           (textPick)="onTextPick($event)"
         ></cadmus-cached-text-picker>
       </fieldset>
+
+      <div>
+        <button type="submit" color="primary" mat-flat-button>
+          <mat-icon>play_circle</mat-icon>
+          run
+        </button>
+      </div>
+      <br>
     </div>
     <!-- output -->
     <div id="output" *ngIf="graphSet">

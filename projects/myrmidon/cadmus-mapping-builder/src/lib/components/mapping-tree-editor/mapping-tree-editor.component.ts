@@ -30,6 +30,9 @@ export class MappingTreeEditorComponent {
     return this._mapping;
   }
   public set mapping(value: NodeMapping | undefined | null) {
+    if (this._mapping === value) {
+      return;
+    }
     this._mapping = value || undefined;
     if (!value) {
       this.editedMapping = undefined;
@@ -123,7 +126,7 @@ export class MappingTreeEditorComponent {
 
   public onMappingDelete(mapping: NodeMapping): void {
     this._dialogService
-      .confirm(`Delete branch ${mapping.name}?`, 'Delete')
+      .confirm(`Delete mapping ${mapping.name}?`, 'Delete')
       .pipe(take(1))
       .subscribe((yes) => {
         if (yes) {

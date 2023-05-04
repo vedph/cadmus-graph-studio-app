@@ -1,7 +1,6 @@
 <mat-tree
   [dataSource]="treeDataSource"
   [treeControl]="treeControl"
-  class="th-tree"
 >
   <!-- leaf node -->
   <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
@@ -18,7 +17,7 @@
           type="button"
           color="warn"
           mat-icon-button
-          matTooltip="Delete this node with its descendants"
+          matTooltip="Delete this mapping"
           (click)="deleteNode(node)"
         >
           <mat-icon>clear</mat-icon>
@@ -27,7 +26,7 @@
           type="button"
           color="primary"
           mat-icon-button
-          matTooltip="Add a child node"
+          matTooltip="Add a child mapping"
           (click)="addChildNode(node)"
         >
           <mat-icon>add_circle</mat-icon>

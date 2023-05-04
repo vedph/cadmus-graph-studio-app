@@ -1,7 +1,4 @@
 import { Component, Input } from '@angular/core';
-
-import { GraphSet, NodeMapping } from '../../models';
-import { GraphStudioApiService } from '../../services/graph-studio-api.service';
 import {
   FormBuilder,
   FormControl,
@@ -9,6 +6,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { take } from 'rxjs';
+
+import { GraphSet, NodeMapping } from '../../models';
+import { GraphStudioApiService } from '../../services/graph-studio-api.service';
 
 /**
  * Node mapping runner component. This allows you to run a mapping
@@ -30,6 +30,9 @@ export class MappingRunnerComponent {
     return this._mapping;
   }
   public set mapping(value: NodeMapping | undefined | null) {
+    if (this._mapping === value) {
+      return;
+    }
     this._mapping = value || undefined;
     this.graphSet = undefined;
   }
