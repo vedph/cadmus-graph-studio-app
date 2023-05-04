@@ -21,7 +21,7 @@ export class GraphStudioApiService {
     source: string,
     mappings: NodeMapping[]
   ): Observable<ErrorWrapper<GraphSet>> {
-    const url = this._env.get('apiUrl') + '/mappings/run';
+    const url = this._env.get('apiUrl') + 'mappings/run';
     // TODO: eventually add other parameters (see API)
     return this._http
       .post<ErrorWrapper<GraphSet>>(url, {
@@ -35,7 +35,7 @@ export class GraphStudioApiService {
     json: string,
     expression: string
   ): Observable<ErrorWrapper<string>> {
-    const url = this._env.get('apiUrl') + '/jmes/transform';
+    const url = this._env.get('apiUrl') + 'jmes/transform';
     return this._http
       .post<ErrorWrapper<string>>(url, {
         json: json,
