@@ -37,6 +37,13 @@ export class MappingRunnerComponent {
   public input: FormControl<string>;
   public form: FormGroup;
 
+  public editorOptions = {
+    theme: 'vs-light',
+    language: 'markdown',
+    wordWrap: 'on',
+    // https://github.com/atularen/ngx-monaco-editor/issues/19
+    automaticLayout: true,
+  };
   public error?: string;
   public graphSet?: GraphSet;
 
