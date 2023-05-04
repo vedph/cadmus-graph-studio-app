@@ -13,4 +13,8 @@ export class HomeComponent {
   public onEditMapping(mapping: NodeMapping): void {
     this._router.navigate(['mappings', mapping.id]);
   }
+
+  public addMapping(): void {
+    this._router.navigate(['mappings', 0]);
+  }
 }

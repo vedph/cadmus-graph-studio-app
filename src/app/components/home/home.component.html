@@ -15,7 +15,12 @@
           (mappingEdit)="onEditMapping($event)"
         ></cadmus-mapping-list>
         <div class="bar">
-          <button type="button" color="primary" mat-flat-button>
+          <button
+            type="button"
+            color="primary"
+            mat-flat-button
+            (click)="addMapping()"
+          >
             <mat-icon>add</mat-icon> mapping
           </button>
         </div>

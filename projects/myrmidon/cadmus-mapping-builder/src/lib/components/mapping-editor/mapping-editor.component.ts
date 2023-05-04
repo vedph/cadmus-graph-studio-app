@@ -70,13 +70,7 @@ export class MappingEditorComponent {
       nonNullable: true,
     });
     this.sid = formBuilder.control('', {
-      validators: [
-        NgToolsValidators.conditionalValidator(
-          () => !this._mapping?.parentId,
-          Validators.required
-        ),
-        Validators.maxLength(500),
-      ],
+      validators: Validators.maxLength(500),
       nonNullable: true,
     });
     this.output = formBuilder.control(null);
