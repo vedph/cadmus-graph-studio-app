@@ -1,5 +1,8 @@
 <form [formGroup]="form" (submit)="run()">
   <div id="container">
+    <div>
+      <mat-progress-bar *ngIf="busy" mode="indeterminate"></mat-progress-bar>
+    </div>
     <!-- input -->
     <div id="input">
       <div>

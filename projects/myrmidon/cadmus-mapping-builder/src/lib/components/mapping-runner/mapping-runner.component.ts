@@ -44,6 +44,7 @@ export class MappingRunnerComponent {
     // https://github.com/atularen/ngx-monaco-editor/issues/19
     automaticLayout: true,
   };
+  public busy?: boolean;
   public error?: string;
   public graphSet?: GraphSet;
 
@@ -67,19 +68,26 @@ export class MappingRunnerComponent {
   }
 
   public run(): void {
-    if (this.form.invalid || !this._mapping) {
+    if (this.busy || this.form.invalid || !this._mapping) {
       return;
     }
+    this.busy = true;
     this.error = undefined;
     this._apiService
       .runMappings(this.input.value, [this._mapping])
       .pipe(take(1))
-      .subscribe((w) => {
-        if (w.error) {
-          this.error = w.error;
-        } else {
-          this.graphSet = w.value;
-        }
+      .subscribe({
+        next: (w) => {
+          if (w.error) {
+            this.error = w.error;
+          } else {
+            this.graphSet = w.value;
+          }
+        },
+        error: (error) => {
+          this.busy = false;
+          this.error = error;
+        },
       });
   }
 }

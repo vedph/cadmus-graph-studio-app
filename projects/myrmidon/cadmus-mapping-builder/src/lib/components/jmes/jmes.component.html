@@ -24,6 +24,9 @@
       >
         <mat-icon>play_circle</mat-icon>
       </button>
+      <div>
+        <mat-progress-bar *ngIf="busy" mode="indeterminate"></mat-progress-bar>
+      </div>
     </div>
 
     <!-- input -->
