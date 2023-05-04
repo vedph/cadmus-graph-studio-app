@@ -29,22 +29,21 @@
     <!-- input -->
     <div id="input">
       <div>
-        <mat-form-field class="long-text">
-          <mat-label>input</mat-label>
-          <textarea rows="3" matInput [formControl]="input"></textarea>
-          <mat-error
-            *ngIf="
-              $any(input).errors?.required && (input.dirty || input.touched)
-            "
-            >input required</mat-error
-          >
-          <mat-error
-            *ngIf="
-              $any(input).errors?.maxLength && (input.dirty || input.touched)
-            "
-            >input too long</mat-error
-          >
-        </mat-form-field>
+        <mat-label>input</mat-label>
+        <ngx-monaco-editor
+          [options]="editorOptions"
+          [formControl]="input"
+        ></ngx-monaco-editor>
+        <mat-error
+          *ngIf="$any(input).errors?.required && (input.dirty || input.touched)"
+          >input required</mat-error
+        >
+        <mat-error
+          *ngIf="
+            $any(input).errors?.maxLength && (input.dirty || input.touched)
+          "
+          >input too long</mat-error
+        >
       </div>
       <!-- presets -->
       <fieldset>
@@ -59,10 +58,11 @@
 
     <!-- output -->
     <div id="output">
-      <mat-form-field class="long-text">
-        <mat-label>output</mat-label>
-        <textarea rows="3" matInput [formControl]="output"></textarea>
-      </mat-form-field>
+      <mat-label>output</mat-label>
+      <ngx-monaco-editor
+        [options]="editorOptions"
+        [formControl]="output"
+      ></ngx-monaco-editor>
     </div>
   </div>
 </form>

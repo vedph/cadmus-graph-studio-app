@@ -30,6 +30,8 @@
     "@ngneat/elf-entities": "^4.4.4",
     "@ngneat/elf-pagination": "^1.1.0",
     "@ngneat/elf-requests": "^1.7.0",
+    "monaco-editor": "^0.34.1",
+    "ngx-monaco-editor-v2": "^15.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"

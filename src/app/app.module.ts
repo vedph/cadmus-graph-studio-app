@@ -25,6 +25,9 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
+// monaco
+import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
+
 // lib
 import {
   CadmusMappingBuilderModule,
@@ -38,6 +41,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { MappingEditorPageComponent } from './components/mapping-editor-page/mapping-editor-page.component';
 import { CachedTextPickerComponent } from './cached-text-picker/cached-text-picker.component';
+import { EnvServiceProvider } from '@myrmidon/ng-tools';
 
 // https://ngneat.github.io/elf/docs/dev-tools/
 export function initElfDevTools(actions: Actions) {
@@ -50,7 +54,12 @@ export function initElfDevTools(actions: Actions) {
 }
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, MappingEditorPageComponent, CachedTextPickerComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    MappingEditorPageComponent,
+    CachedTextPickerComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -74,10 +83,14 @@ export function initElfDevTools(actions: Actions) {
     MatTabsModule,
     MatTooltipModule,
     MatToolbarModule,
-    // libs
+    // vendor
+    MonacoEditorModule.forRoot(),
+    // locals
     CadmusMappingBuilderModule,
   ],
   providers: [
+    // environment service
+    EnvServiceProvider,
     // ELF dev tools
     {
       provide: APP_INITIALIZER,

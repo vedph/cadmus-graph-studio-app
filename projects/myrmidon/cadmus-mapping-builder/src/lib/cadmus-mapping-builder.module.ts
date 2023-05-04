@@ -16,6 +16,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 
+import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 import { NgToolsModule } from '@myrmidon/ng-tools';
 import { NgMatToolsModule } from '@myrmidon/ng-mat-tools';
 
@@ -60,6 +61,7 @@ import { MappingRunnerComponent } from './components/mapping-runner/mapping-runn
     MatTooltipModule,
     MatTreeModule,
     // vendor
+    MonacoEditorModule,
     NgToolsModule,
     NgMatToolsModule,
   ],
