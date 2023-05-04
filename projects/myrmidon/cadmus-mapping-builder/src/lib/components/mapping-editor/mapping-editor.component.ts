@@ -6,8 +6,6 @@ import {
   Validators,
 } from '@angular/forms';
 
-import { NgToolsValidators } from '@myrmidon/ng-tools';
-
 import { NodeMapping, NodeMappingOutput } from '../../models';
 
 /**
