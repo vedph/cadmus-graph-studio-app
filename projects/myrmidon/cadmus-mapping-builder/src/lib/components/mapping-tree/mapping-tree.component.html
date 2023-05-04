@@ -49,9 +49,13 @@
           {{ treeControl.isExpanded(node) ? "expand_more" : "chevron_right" }}
         </mat-icon>
       </button>
-      <span [class.hilite]="isSelected(node)">
+      <a
+        mat-button
+        (click)="onNodeClick(node)"
+        [class.hilite]="isSelected(node)"
+      >
         {{ node.name }}
-      </span>
+      </a>
     </div>
     <ul class="tree-nested-node">
       <div *ngIf="treeControl.isExpanded(node)">
