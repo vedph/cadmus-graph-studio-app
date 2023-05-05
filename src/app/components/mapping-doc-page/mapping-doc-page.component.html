@@ -1,0 +1,12 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Mappings Document</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <ngx-monaco-editor
+      style="min-height: 800px"
+      [options]="editorOptions"
+      [formControl]="json"
+    ></ngx-monaco-editor>
+  </mat-card-content>
+</mat-card>

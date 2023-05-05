@@ -42,6 +42,7 @@ import { HomeComponent } from './components/home/home.component';
 import { MappingEditorPageComponent } from './components/mapping-editor-page/mapping-editor-page.component';
 import { CachedTextPickerComponent } from './cached-text-picker/cached-text-picker.component';
 import { EnvServiceProvider } from '@myrmidon/ng-tools';
+import { MappingDocPageComponent } from './components/mapping-doc-page/mapping-doc-page.component';
 
 // https://ngneat.github.io/elf/docs/dev-tools/
 export function initElfDevTools(actions: Actions) {
@@ -59,6 +60,7 @@ export function initElfDevTools(actions: Actions) {
     HomeComponent,
     MappingEditorPageComponent,
     CachedTextPickerComponent,
+    MappingDocPageComponent,
   ],
   imports: [
     BrowserModule,

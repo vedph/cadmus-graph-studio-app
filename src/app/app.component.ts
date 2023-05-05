@@ -9,6 +9,7 @@ import {
 
 import { AssetService } from './services/asset.service';
 import { DialogService } from '@myrmidon/ng-mat-tools';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -17,10 +18,11 @@ import { DialogService } from '@myrmidon/ng-mat-tools';
 })
 export class AppComponent {
   constructor(
+    private _router: Router,
+    private _dialogService: DialogService,
     @Inject(NODE_MAPPING_SERVICE) private _mappingService: NodeMappingService,
     assetService: AssetService,
     private _repositoryService: NodeMappingListRepository,
-    private _dialogService: DialogService
   ) {
     assetService
       .loadText('sample-mappings.json')
@@ -78,5 +80,9 @@ export class AppComponent {
       };
       reader.readAsText(file);
     };
+  }
+
+  public view(): void {
+    this._router.navigate(['/mappings-doc']);
   }
 }
