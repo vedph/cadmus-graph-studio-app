@@ -1,9 +1,10 @@
 <form (submit)="save()">
   <!-- metadata -->
-  <div>
+  <fieldset>
+    <legend>metadata</legend>
     <mat-form-field class="long-text">
       <mat-label>metadata</mat-label>
-      <input matInput [formControl]="metadata" />
+      <textarea rows="3" matInput [formControl]="metadata"></textarea>
       <mat-hint>key=value</mat-hint>
       <mat-error
         *ngIf="
@@ -19,14 +20,14 @@
         >metadata too long</mat-error
       >
     </mat-form-field>
-  </div>
-  <br>
+  </fieldset>
 
   <!-- nodes -->
-  <div>
+  <fieldset>
+    <legend>nodes</legend>
     <mat-form-field class="long-text">
       <mat-label>nodes</mat-label>
-      <input matInput [formControl]="nodes" />
+      <textarea rows="3" matInput [formControl]="nodes"></textarea>
       <mat-hint>key uid label [tag]</mat-hint>
       <mat-error
         *ngIf="$any(nodes).errors?.pattern && (nodes.dirty || nodes.touched)"
@@ -37,14 +38,14 @@
         >nodes too long</mat-error
       >
     </mat-form-field>
-  </div>
-  <br>
+  </fieldset>
 
   <!-- triples -->
-  <div>
+  <fieldset>
+    <legend>triples</legend>
     <mat-form-field class="long-text">
       <mat-label>triples</mat-label>
-      <input matInput [formControl]="triples" />
+      <textarea rows="3" matInput [formControl]="triples"></textarea>
       <mat-hint>S P O or S P "lit"</mat-hint>
       <mat-error
         *ngIf="
@@ -59,7 +60,7 @@
         >triples too long</mat-error
       >
     </mat-form-field>
-  </div>
+  </fieldset>
 
   <div>
     <button
