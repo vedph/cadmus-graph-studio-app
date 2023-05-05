@@ -19,22 +19,20 @@ import { RamCacheService } from '../../services/ram-cache.service';
   styleUrls: ['./cached-text-picker.component.css'],
 })
 export class CachedTextPickerComponent implements OnInit {
-  private _cacheKey: string | undefined;
+  private _keyPrefix: string | undefined;
 
   /**
-   * The cache key to use for this picker. This is the key of the
-   * object with the texts to be picked. The object is stored in the
-   * RAM cache, and has a string key for each text.
+   * The cache key prefix to use for this picker.
    */
   @Input()
-  public get cacheKey(): string | undefined | null {
-    return this._cacheKey;
+  public get keyPrefix(): string | undefined | null {
+    return this._keyPrefix;
   }
-  public set cacheKey(value: string | undefined | null) {
-    if (this._cacheKey === value) {
+  public set keyPrefix(value: string | undefined | null) {
+    if (this._keyPrefix === value) {
       return;
     }
-    this._cacheKey = value || undefined;
+    this._keyPrefix = value || undefined;
     this.loadKeys();
   }
 
@@ -77,51 +75,45 @@ export class CachedTextPickerComponent implements OnInit {
   }
 
   private loadKeys(): void {
-    if (!this._cacheKey) {
-      this.keys = [];
-    } else {
-      this.keys = Object.keys(
-        this._cacheService.get(this._cacheKey) || {}
-      ).sort();
-    }
+    this.keys = this._cacheService.getKeys(this._keyPrefix).sort();
   }
 
   public ngOnInit(): void {
     this.loadKeys();
   }
 
+  private buildPrefixedKey(key: string): string {
+    return this._keyPrefix && key.startsWith(this._keyPrefix)
+      ? key
+      : `${this._keyPrefix}${key}`;
+  }
+
   public pick(): void {
-    if (!this.key.value || !this._cacheKey) {
+    if (!this.key.value) {
       return;
     }
-    const text = this._cacheService.get(this._cacheKey)?.[this.key.value];
+    const text = this._cacheService.get(
+      this.buildPrefixedKey(this.key.value)
+    ) as string;
     if (text) {
       this.textPick.emit(text);
     }
   }
 
   public add(): void {
-    if (this.form.invalid || !this.text || !this._cacheKey) {
+    if (this.form.invalid || !this.text || !this._keyPrefix) {
       return;
     }
-    this._cacheService.add(
-      this._cacheKey,
-      Object.assign(this._cacheService.get(this._cacheKey) || {}, {
-        [this.newKey.value]: this.text,
-      })
-    );
+    this._cacheService.add(`${this._keyPrefix}${this.newKey.value}`, this.text);
     this.keys = [...this.keys, this.newKey.value].sort();
   }
 
   public remove(): void {
-    if (!this.key.value || !this._cacheKey) {
+    if (!this.key.value) {
       return;
     }
-    const obj = this._cacheService.get(this._cacheKey);
-    if (obj) {
-      obj[this.key.value] = undefined;
-    }
-    this._cacheService.add(this._cacheKey, obj);
-    this.keys = this.keys.filter((k) => k !== this.key.value);
+    const key = this.buildPrefixedKey(this.key.value);
+    this._cacheService.remove(key);
+    this.keys = this.keys.filter((k) => k !== key);
   }
 }

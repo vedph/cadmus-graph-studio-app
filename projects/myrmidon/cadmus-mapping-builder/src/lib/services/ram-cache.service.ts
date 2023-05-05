@@ -26,7 +26,9 @@ export class RamCacheService {
     this._cache = {};
   }
 
-  public getKeys(): string[] {
-    return Object.keys(this._cache);
+  public getKeys(prefix?: string): string[] {
+    return prefix
+      ? Object.keys(this._cache).filter((k) => k.startsWith(prefix))
+      : Object.keys(this._cache);
   }
 }

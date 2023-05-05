@@ -27,13 +27,15 @@ legend {
 .error {
   color: red;
 }
+.monaco {
+  min-height: 800px;
+}
 
 div#container {
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 1fr 1fr;
-  grid-template-areas:
-    "input output";
+  grid-template-areas: "input output";
   gap: 8px;
 }
 div#input {

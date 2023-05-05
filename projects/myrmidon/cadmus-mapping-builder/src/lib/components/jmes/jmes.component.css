@@ -9,7 +9,10 @@ fieldset {
   margin: 8px 0;
 }
 legend {
-  color: silver;
+  color: #888;
+  border: 1px solid silver;
+  border-radius: 6px;
+  padding: 4px;
 }
 #container {
   display: grid;

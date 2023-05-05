@@ -5,6 +5,7 @@ import {
   NODE_MAPPING_SERVICE,
   NodeMappingListRepository,
   NodeMappingService,
+  RamCacheService,
 } from 'projects/myrmidon/cadmus-mapping-builder/src/public-api';
 
 import { AssetService } from './services/asset.service';
@@ -20,10 +21,12 @@ export class AppComponent {
   constructor(
     private _router: Router,
     private _dialogService: DialogService,
+    private _repositoryService: NodeMappingListRepository,
     @Inject(NODE_MAPPING_SERVICE) private _mappingService: NodeMappingService,
     assetService: AssetService,
-    private _repositoryService: NodeMappingListRepository,
+    cacheService: RamCacheService
   ) {
+    // load sample mappings
     assetService
       .loadText('sample-mappings.json')
       .pipe(take(1))
@@ -31,6 +34,16 @@ export class AppComponent {
         _mappingService.importMappings(json);
         _repositoryService.clearCache();
         _repositoryService.loadPage(1);
+      });
+    // load presets
+    assetService
+      .loadObject('sample-presets')
+      .pipe(take(1))
+      .subscribe((data: any) => {
+        // for each property of data (jmes/map)
+        for (let key in data) {
+          cacheService.add(key, JSON.stringify(data[key], null, 2));
+        }
       });
   }
 

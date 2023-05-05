@@ -1,0 +1,61 @@
+{
+  "jms_work_events": {
+    "events": [
+      {
+        "eid": "alpha-send",
+        "type": "text.send",
+        "chronotope": {
+          "place": {
+            "value": "Arezzo"
+          },
+          "date": {
+            "a": {
+              "value": 1234,
+              "month": 5
+            }
+          }
+        },
+        "relatedEntities": [
+          {
+            "relation": "text:send:recipient",
+            "id": "itn:persons/arezzo_bishop"
+          },
+          {
+            "relation": "text:send:carrier",
+            "id": "itn:persons/marco_barbadori"
+          }
+        ]
+      }
+    ]
+  },
+  "map_work_events": {
+    "events": [
+      {
+        "eid": "alpha-send",
+        "type": "text.send",
+        "chronotope": {
+          "place": {
+            "value": "Arezzo"
+          },
+          "date": {
+            "a": {
+              "value": 1234,
+              "month": 5
+            }
+          }
+        },
+        "relatedEntities": [
+          {
+            "relation": "text:send:recipient",
+            "id": "itn:persons/arezzo_bishop"
+          },
+          {
+            "relation": "text:send:carrier",
+            "id": "itn:persons/marco_barbadori"
+          }
+        ],
+        "note": "The author sent his alpha work to the bishop of Arezzo in May, 1234 via Marco Barbadori."
+      }
+    ]
+  }
+}

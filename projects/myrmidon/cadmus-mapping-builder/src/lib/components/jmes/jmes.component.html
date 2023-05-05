@@ -29,7 +29,7 @@
   </div>
 
   <fieldset id="container">
-    <legend>test</legend>
+    <legend>JMES test</legend>
     <!-- input -->
     <div id="input">
       <div>
@@ -55,7 +55,7 @@
         <cadmus-cached-text-picker
           [text]="input.value"
           (textPick)="onTextPick($event)"
-          cacheKey="jmes"
+          keyPrefix="jms_"
         ></cadmus-cached-text-picker>
       </fieldset>
     </div>

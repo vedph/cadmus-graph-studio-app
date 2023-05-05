@@ -8,7 +8,7 @@
       <div>
         <mat-label>input</mat-label>
         <ngx-monaco-editor
-          style="min-height: 600px"
+          class="monaco"
           [options]="editorOptions"
           [formControl]="input"
         ></ngx-monaco-editor>
@@ -27,7 +27,7 @@
         <legend>presets</legend>
         <cadmus-cached-text-picker
           [text]="input.value"
-          cacheKey="map"
+          keyPrefix="map_"
           (textPick)="onTextPick($event)"
         ></cadmus-cached-text-picker>
       </fieldset>
