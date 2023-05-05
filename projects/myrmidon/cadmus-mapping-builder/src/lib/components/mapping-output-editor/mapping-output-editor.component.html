@@ -27,7 +27,7 @@
     <legend>nodes</legend>
     <mat-form-field class="long-text">
       <mat-label>nodes</mat-label>
-      <textarea rows="3" matInput [formControl]="nodes"></textarea>
+      <textarea rows="5" matInput [formControl]="nodes"></textarea>
       <mat-hint>key uid label [tag]</mat-hint>
       <mat-error
         *ngIf="$any(nodes).errors?.pattern && (nodes.dirty || nodes.touched)"
@@ -45,7 +45,7 @@
     <legend>triples</legend>
     <mat-form-field class="long-text">
       <mat-label>triples</mat-label>
-      <textarea rows="3" matInput [formControl]="triples"></textarea>
+      <textarea rows="5" matInput [formControl]="triples"></textarea>
       <mat-hint>S P O or S P "lit"</mat-hint>
       <mat-error
         *ngIf="

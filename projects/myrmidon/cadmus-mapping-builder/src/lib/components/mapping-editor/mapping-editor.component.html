@@ -2,6 +2,9 @@
   <mat-tab-group>
     <!-- METADATA -->
     <mat-tab label="metadata">
+      <ng-template mat-tab-label>
+        <mat-icon class="tab-icon">list</mat-icon> metadata
+      </ng-template>
       <div class="form-row">
         <!-- name -->
         <mat-form-field>
@@ -129,6 +132,9 @@
 
     <!-- INPUT -->
     <mat-tab label="input">
+      <ng-template mat-tab-label>
+        <mat-icon class="tab-icon">login</mat-icon> input
+      </ng-template>
       <cadmus-jmes
         [expression]="source.value"
         (expressionChange)="onExpressionChange($event)"
@@ -137,6 +143,9 @@
 
     <!-- OUTPUT -->
     <mat-tab label="output">
+      <ng-template mat-tab-label>
+        <mat-icon class="tab-icon">logout</mat-icon> output
+      </ng-template>
       <cadmus-mapping-output-editor
         [output]="mapping?.output"
         (outputChange)="onOutputChange($event)"
@@ -145,11 +154,17 @@
 
     <!-- TEST -->
     <mat-tab label="test">
+      <ng-template mat-tab-label>
+        <mat-icon class="tab-icon">science</mat-icon> test
+      </ng-template>
       <cadmus-mapping-runner [mapping]="mapping"></cadmus-mapping-runner>
     </mat-tab>
 
     <!-- HELP -->
     <mat-tab label="help">
+      <ng-template mat-tab-label>
+        <mat-icon class="tab-icon">info</mat-icon> help
+      </ng-template>
       <h2>Quick Help</h2>
       <p>
         See the
@@ -171,7 +186,12 @@
           >
           expression defining input data.
         </li>
-        <li><strong>SID</strong>: for root mappings only. The SID identifies the source of mapped data; when updating an item or a part, all the nodes/triples <em>starting with</em> the item or part's GUID are included in the graph update.</li>
+        <li>
+          <strong>SID</strong>: for root mappings only. The SID identifies the
+          source of mapped data; when updating an item or a part, all the
+          nodes/triples <em>starting with</em> the item or part's GUID are
+          included in the graph update.
+        </li>
         <li><strong>facet filter</strong></li>
         <li><strong>group filter</strong></li>
         <li>
@@ -222,7 +242,19 @@
         <li><code>&lcub;$...&rcub;</code>: metadata key.</li>
         <li>
           <code>&lcub;!...&rcub;</code>: macro. Currently the only macro is
-          <code>_hdate(separator)</code>.
+          <code>_hdate(json & property)</code>, which handles a Cadmus
+          historical date and returns either its sort value, or its
+          human-friendly, machine-parsable text value. Arguments:
+          <ol>
+            <li>
+              <code>json</code>: the JSON code representing the Cadmus
+              historical date.
+            </li>
+            <li>
+              <code>property</code>: either <code>value</code> or
+              <code>text</code>
+            </li>
+          </ol>
         </li>
       </ul>
     </mat-tab>

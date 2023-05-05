@@ -1,3 +1,6 @@
+.tab-icon {
+  margin-right: 8px;
+}
 .long-text {
   width: 100%;
   max-width: 800px;
@@ -25,4 +28,7 @@ legend {
   border: 1px solid silver;
   border-radius: 6px;
   padding: 4px;
+}
+h3 {
+  border-bottom: 1px solid silver;
 }
