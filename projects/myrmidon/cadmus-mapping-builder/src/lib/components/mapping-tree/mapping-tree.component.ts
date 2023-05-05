@@ -94,6 +94,9 @@ export class MappingTreeComponent {
   private updateTree(root?: NodeMapping | null) {
     this.selected = undefined;
     this.treeDataSource.data = root ? [root] : [];
+    // required hack: https://github.com/angular/components/issues/12469
+    this.treeControl.dataNodes = this.treeDataSource.data;
+    this.treeControl.expandAll();
   }
 
   public isSelected(node: NodeMapping): boolean {

@@ -73,7 +73,8 @@ export class MappingTreeEditorComponent {
    * @param mapping The mapping to save.
    */
   public onMappingSave(mapping: NodeMapping): void {
-    this.editedMapping = mapping;
+    const children = this.editedMapping?.children;
+    this.editedMapping = Object.assign(mapping, { children: children });
 
     // if editing the root, just replace it and relink
     // its children to the new root
