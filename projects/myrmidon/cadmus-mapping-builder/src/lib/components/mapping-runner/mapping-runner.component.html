@@ -45,7 +45,7 @@
     <!-- output -->
     <div id="output" *ngIf="graphSet">
       <!-- nodes -->
-      <mat-expansion-panel>
+      <mat-expansion-panel [expanded]="graphSet.nodes.length">
         <mat-expansion-panel-header>
           <mat-panel-title> nodes </mat-panel-title>
           <mat-panel-description>
@@ -68,7 +68,7 @@
         </table>
       </mat-expansion-panel>
       <!-- triples -->
-      <mat-expansion-panel>
+      <mat-expansion-panel [expanded]="graphSet.triples.length">
         <mat-expansion-panel-header>
           <mat-panel-title> triples </mat-panel-title>
           <mat-panel-description>

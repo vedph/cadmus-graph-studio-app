@@ -6,6 +6,11 @@ table {
   width: 100%;
   border-collapse: collapse;
 }
+th {
+  font-weight: normal;
+  text-align: left;
+  color: #bbb;
+}
 .uri {
   color: darkgreen;
 }
