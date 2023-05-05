@@ -74,7 +74,7 @@ export class MappingOutputEditorComponent {
     if (!text) {
       return null;
     }
-    // parse node from "key uid [label [tag]]"
+    // parse node from "key uid label [tag]" (key uid required)
     const m = text.match(/^(\S+)\s+(\S+)\s*(.+?)(?:\s+\[(.+?)\])?$/);
     if (!m) {
       return null;

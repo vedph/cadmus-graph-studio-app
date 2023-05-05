@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { deepCopy } from '@myrmidon/ng-tools';
 
 import { MappedNode, NodeMapping, NodeMappingOutput } from '../models';
+import { MappedTriple } from '@myrmidon/cadmus-mapping-builder';
 
 export interface SerializedMappedNodeOutput {
   nodes?: { [key: string]: string };
@@ -91,6 +92,13 @@ export class MappingJsonService {
     }
   }
 
+  /**
+   * Adapt the received nodes to an object ready to be serialized into JSON
+   * with a more compact format.
+   * @param nodes The nodes to adapt.
+   * @returns Adapted node, a dictionary where each key is the node's key,
+   * and each value is a string with format "uid label [tag]".
+   */
   private adaptNodes(nodes?: {
     [key: string]: MappedNode;
   }): { [key: string]: string } | undefined {
@@ -101,23 +109,37 @@ export class MappingJsonService {
     for (let key in nodes) {
       let node = nodes[key];
       result[key] = node.tag
-        ? `${key} ${node.uid} ${node.label} [${node.tag}]`
-        : `${key} ${node.uid} ${node.label}`;
+        ? `${node.uid} ${node.label} [${node.tag}]`
+        : `${node.uid} ${node.label}`;
     }
     return result;
+  }
+
+  /**
+   * Adapt the received triples to an array ready to be serialized into JSON
+   * with a more compact format.
+   * @param triples The triples to adapt.
+   * @returns Adapted triples, an array of strings with format "s p o" or
+   * "s p "literal"".
+   */
+  private adaptTriples(triples?: MappedTriple[]): string[] | undefined {
+    if (!triples) {
+      return undefined;
+    }
+    return triples?.map((t) => {
+      return t.o ? `${t.s} ${t.p} ${t.o}` : `${t.s} ${t.p} "${t.ol}"`;
+    });
   }
 
   private adaptMappingOutput(
     output: NodeMappingOutput | undefined | null
   ): SerializedMappedNodeOutput | undefined {
     return {
-      // nodes = { key: "uid label [tag]" }
+      // nodes: { key: "uid label [tag]" }
       nodes: this.adaptNodes(output?.nodes),
-      // triples = [ "s p o", "s p "ol"" ]
-      triples: output?.triples?.map((t) => {
-        return t.o ? `${t.s} ${t.p} ${t.o}` : `${t.s} ${t.p} "${t.ol}"`;
-      }),
-      // metadata = { key: "value" }
+      // triples: [ "s p o", "s p "ol"" ]
+      triples: this.adaptTriples(output?.triples),
+      // metadata: { key: "value" }
       metadata: output?.metadata,
     };
   }
@@ -184,6 +206,22 @@ export class MappingJsonService {
     return result;
   }
 
+  private getMappedTriples(triples?: string[]): MappedTriple[] | undefined {
+    if (!triples) {
+      return undefined;
+    }
+    return triples.map((t) => {
+      const parts = t.split(' ');
+      return parts[2].startsWith('"')
+        ? {
+            s: parts[0],
+            p: parts[1],
+            ol: parts[2].substring(1, parts[2].length - 1),
+          }
+        : { s: parts[0], p: parts[1], o: parts[2] };
+    });
+  }
+
   private getMapping(node: SerializedMappedNode): NodeMapping {
     const mapping: NodeMapping = {
       id: node.id || 0,
@@ -202,37 +240,13 @@ export class MappingJsonService {
       sid: node.sid,
       output: {
         nodes: this.getMappedNodes(node.output?.nodes),
-        triples: node.output?.triples?.map((t) => {
-          const parts = t.split(' ');
-          return parts[2].startsWith('"')
-            ? {
-                s: parts[0],
-                p: parts[1],
-                ol: parts[2].substring(1, parts[2].length - 1),
-              }
-            : { s: parts[0], p: parts[1], o: parts[2] };
-        }),
+        triples: this.getMappedTriples(node.output?.triples),
         metadata: node.output?.metadata,
       },
       children: node.children?.map((c) =>
         this.deserializeMapping(JSON.stringify(c, null, 2))
       ),
     };
-
-    // if (hydrate) {
-    //   // assign IDs and parent IDs
-    //   this.visitMapping(mapping, true, (m) => {
-    //     if (!m.id) {
-    //       m.id = this._nextId++;
-    //     }
-    //     if (m.children?.length) {
-    //       m.children.forEach((c) => {
-    //         c.parent = m;
-    //       });
-    //     }
-    //     return true;
-    //   });
-    // }
 
     return mapping;
   }
