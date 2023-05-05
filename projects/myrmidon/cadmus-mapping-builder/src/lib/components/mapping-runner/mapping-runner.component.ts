@@ -6,10 +6,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { take } from 'rxjs';
-import { NgxEditorModel } from 'ngx-monaco-editor-v2';
 
 import { GraphSet, NodeMapping } from '../../models';
-import { GraphStudioApiService } from '../../services/graph-studio-api.service';
+import {
+  GraphStudioApiService,
+  NodeMappingMetadata,
+} from '../../services/graph-studio-api.service';
 
 /**
  * Node mapping runner component. This allows you to run a mapping
@@ -41,6 +43,16 @@ export class MappingRunnerComponent {
   public input: FormControl<string>;
   public form: FormGroup;
 
+  public itemId: FormControl<string | null>;
+  public partId: FormControl<string | null>;
+  public facetId: FormControl<string | null>;
+  public itemUri: FormControl<string | null>;
+  public itemLabel: FormControl<string | null>;
+  public itemEid: FormControl<string | null>;
+  public groupId: FormControl<string | null>;
+  public flags: FormControl<number>;
+  public metaForm: FormGroup;
+
   public editorOptions = {
     theme: 'vs-light',
     language: 'markdown',
@@ -48,10 +60,10 @@ export class MappingRunnerComponent {
     // https://github.com/atularen/ngx-monaco-editor/issues/19
     automaticLayout: true,
   };
-  public editorModel: NgxEditorModel = {
-    value: '',
-    language: 'json',
-  };
+  // public editorModel: NgxEditorModel = {
+  //   value: '',
+  //   language: 'json',
+  // };
 
   public busy?: boolean;
   public error?: string;
@@ -61,12 +73,34 @@ export class MappingRunnerComponent {
     formBuilder: FormBuilder,
     private _apiService: GraphStudioApiService
   ) {
+    // runner form
     this.input = formBuilder.control('', {
       validators: [Validators.required, Validators.maxLength(5000)],
       nonNullable: true,
     });
     this.form = formBuilder.group({
       input: this.input,
+    });
+    // metadata form
+    const guidPattern =
+      '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$';
+    this.itemId = formBuilder.control(null, Validators.pattern(guidPattern));
+    this.partId = formBuilder.control(null, Validators.pattern(guidPattern));
+    this.facetId = formBuilder.control(null, Validators.maxLength(50));
+    this.itemUri = formBuilder.control(null, Validators.maxLength(500));
+    this.itemLabel = formBuilder.control(null, Validators.maxLength(500));
+    this.itemEid = formBuilder.control(null, Validators.maxLength(100));
+    this.groupId = formBuilder.control(null, Validators.maxLength(100));
+    this.flags = formBuilder.control(0, { nonNullable: true });
+    this.metaForm = formBuilder.group({
+      itemId: this.itemId,
+      partId: this.partId,
+      facetId: this.facetId,
+      itemUri: this.itemUri,
+      itemLabel: this.itemLabel,
+      itemEid: this.itemEid,
+      groupId: this.groupId,
+      flags: this.flags,
     });
   }
 
@@ -76,6 +110,19 @@ export class MappingRunnerComponent {
     this.input.updateValueAndValidity();
   }
 
+  private getMetadata(): NodeMappingMetadata {
+    return {
+      itemId: this.itemId.value || undefined,
+      partId: this.partId.value || undefined,
+      facetId: this.facetId.value || undefined,
+      itemUri: this.itemUri.value || undefined,
+      itemLabel: this.itemLabel.value || undefined,
+      itemEid: this.itemEid.value || undefined,
+      groupId: this.groupId.value || undefined,
+      flags: this.flags.value || undefined,
+    };
+  }
+
   public run(): void {
     if (this.busy || this.form.invalid || !this._mapping) {
       return;
@@ -83,7 +130,7 @@ export class MappingRunnerComponent {
     this.busy = true;
     this.error = undefined;
     this._apiService
-      .runMappings(this.input.value, [this._mapping])
+      .runMappings(this.input.value, [this._mapping], this.getMetadata())
       .pipe(take(1))
       .subscribe({
         next: (w) => {

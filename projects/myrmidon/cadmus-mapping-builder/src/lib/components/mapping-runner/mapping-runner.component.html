@@ -94,4 +94,126 @@
       </mat-expansion-panel>
     </div>
   </div>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>metadata</mat-panel-title>
+    </mat-expansion-panel-header>
+    <fieldset>
+      <legend>metadata</legend>
+      <form [formGroup]="metaForm">
+        <!-- itemId -->
+        <div>
+          <mat-form-field>
+            <mat-label>item ID</mat-label>
+            <input matInput [formControl]="itemId" />
+            <mat-error
+              *ngIf="
+                $any(itemId).errors?.pattern && (itemId.dirty || itemId.touched)
+              "
+              >invalid GUID</mat-error
+            >
+          </mat-form-field>
+        </div>
+        <!-- partId -->
+        <div>
+          <mat-form-field>
+            <mat-label>part ID</mat-label>
+            <input matInput [formControl]="partId" />
+            <mat-error
+              *ngIf="
+                $any(partId).errors?.pattern && (partId.dirty || partId.touched)
+              "
+              >invalid GUID</mat-error
+            >
+          </mat-form-field>
+        </div>
+        <!-- facetId -->
+        <div>
+          <mat-form-field>
+            <mat-label>facet ID</mat-label>
+            <input matInput [formControl]="facetId" />
+            <mat-error
+              *ngIf="
+                $any(facetId).errors?.maxLength &&
+                (facetId.dirty || facetId.touched)
+              "
+              >facet ID too long</mat-error
+            >
+          </mat-form-field>
+        </div>
+        <!-- itemUri -->
+        <div>
+          <mat-form-field>
+            <mat-label>itemUri</mat-label>
+            <input matInput [formControl]="itemUri" />
+            <mat-error
+              *ngIf="
+                $any(itemUri).errors?.maxLength &&
+                (itemUri.dirty || itemUri.touched)
+              "
+              >itemUri too long</mat-error
+            >
+          </mat-form-field>
+        </div>
+        <!-- itemLabel -->
+        <div>
+          <mat-form-field>
+            <mat-label>item label</mat-label>
+            <input matInput [formControl]="itemLabel" />
+            <mat-error
+              *ngIf="
+                $any(itemLabel).errors?.maxLength &&
+                (itemLabel.dirty || itemLabel.touched)
+              "
+              >itemLabel too long</mat-error
+            >
+          </mat-form-field>
+        </div>
+        <!-- itemEid -->
+        <div>
+          <mat-form-field>
+            <mat-label>item EID</mat-label>
+            <input matInput [formControl]="itemEid" />
+            <mat-error
+              *ngIf="
+                $any(itemEid).errors?.maxLength &&
+                (itemEid.dirty || itemEid.touched)
+              "
+              >item EID too long</mat-error
+            >
+          </mat-form-field>
+        </div>
+        <!-- groupId -->
+        <div>
+          <mat-form-field>
+            <mat-label>group ID</mat-label>
+            <input matInput [formControl]="groupId" />
+            <mat-error
+              *ngIf="
+                $any(groupId).errors?.maxLength &&
+                (groupId.dirty || groupId.touched)
+              "
+              >group ID too long</mat-error
+            >
+          </mat-form-field>
+        </div>
+        <!-- flags -->
+        <div>
+          <mat-form-field class="nr">
+            <mat-label>flags</mat-label>
+            <input type="number" matInput [formControl]="flags" />
+          </mat-form-field>
+        </div>
+      </form>
+      <button
+        type="button"
+        color="warn"
+        mat-flat-button
+        (click)="metaForm.reset()"
+      >
+        reset
+      </button>
+    </fieldset>
+  </mat-expansion-panel>
 </form>

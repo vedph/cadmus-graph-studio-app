@@ -39,6 +39,9 @@ legend {
 .monaco {
   min-height: 800px;
 }
+.nr {
+  width: 7em;
+}
 
 div#container {
   display: grid;

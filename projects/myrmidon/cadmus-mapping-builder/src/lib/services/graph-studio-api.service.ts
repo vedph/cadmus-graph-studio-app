@@ -13,6 +13,17 @@ import {
 import { GraphSet, NodeMapping } from '../models';
 import { MappingJsonService } from './mapping-json.service';
 
+export interface NodeMappingMetadata {
+  itemId?: string;
+  partId?: string;
+  facetId?: string;
+  itemUri?: string;
+  itemLabel?: string;
+  itemEid?: string;
+  groupId?: string;
+  flags?: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -26,11 +37,10 @@ export class GraphStudioApiService {
 
   public runMappings(
     source: string,
-    mappings: NodeMapping[]
+    mappings: NodeMapping[],
+    metadata?: NodeMappingMetadata
   ): Observable<ErrorWrapper<GraphSet>> {
     const url = this._env.get('apiUrl') + 'mappings/run';
-    // TODO: eventually add other parameters (see API)
-
     // remove references, make a copy and restore them
     for (let i = 0; i < mappings.length; i++) {
       this._mappingJsonService.visitMappings(mappings[i], false, (m) => {
@@ -38,16 +48,16 @@ export class GraphStudioApiService {
         return true;
       });
     }
-    const prepared = deepCopy(mappings);
+    const txMappings = deepCopy(mappings);
     for (let i = 0; i < mappings.length; i++) {
       this._mappingJsonService.visitMappings(mappings[i], true);
     }
 
     return this._http
-      .post<ErrorWrapper<GraphSet>>(url, {
-        source: source,
-        mappings: prepared,
-      })
+      .post<ErrorWrapper<GraphSet>>(
+        url,
+        Object.assign(metadata || {}, { source: source, mappings: txMappings })
+      )
       .pipe(catchError(this._error.handleError));
   }
 
