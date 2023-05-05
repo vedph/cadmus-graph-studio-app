@@ -24,6 +24,9 @@ fieldset {
 legend {
   color: silver;
 }
+.error {
+  color: red;
+}
 
 div#container {
   display: grid;

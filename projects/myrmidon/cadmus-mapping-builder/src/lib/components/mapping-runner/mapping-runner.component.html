@@ -39,6 +39,7 @@
         </button>
       </div>
       <br />
+      <p *ngIf="error" class="error">{{ error }}</p>
     </div>
     <!-- output -->
     <div id="output" *ngIf="graphSet">

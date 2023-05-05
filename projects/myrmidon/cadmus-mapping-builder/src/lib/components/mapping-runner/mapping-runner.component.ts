@@ -81,6 +81,7 @@ export class MappingRunnerComponent {
       .pipe(take(1))
       .subscribe({
         next: (w) => {
+          this.busy = false;
           if (w.error) {
             this.error = w.error;
           } else {
