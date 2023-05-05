@@ -1,34 +1,35 @@
 <form [formGroup]="form" (submit)="transform()">
-  <div id="container">
-    <!-- jmes -->
-    <div id="expr">
-      <mat-form-field class="long-text">
-        <mat-label>jmes</mat-label>
-        <input matInput [formControl]="jmes" />
-        <mat-error
-          *ngIf="$any(jmes).errors?.required && (jmes.dirty || jmes.touched)"
-          >JMES required</mat-error
-        >
-        <mat-error
-          *ngIf="$any(jmes).errors?.maxLength && (jmes.dirty || jmes.touched)"
-          >JMES too long</mat-error
-        >
-        <mat-error *ngIf="error">{{ error }}</mat-error>
-      </mat-form-field>
-      <button
-        type="submit"
-        mat-icon-button
-        color="primary"
-        [disabled]="form.invalid || busy"
-        matTooltip="Run JMES"
+  <!-- jmes -->
+  <div>
+    <mat-form-field class="long-text">
+      <mat-label>jmes</mat-label>
+      <input matInput [formControl]="jmes" />
+      <mat-error
+        *ngIf="$any(jmes).errors?.required && (jmes.dirty || jmes.touched)"
+        >JMES required</mat-error
       >
-        <mat-icon>play_circle</mat-icon>
-      </button>
-      <div>
-        <mat-progress-bar *ngIf="busy" mode="indeterminate"></mat-progress-bar>
-      </div>
+      <mat-error
+        *ngIf="$any(jmes).errors?.maxLength && (jmes.dirty || jmes.touched)"
+        >JMES too long</mat-error
+      >
+      <mat-error *ngIf="error">{{ error }}</mat-error>
+    </mat-form-field>
+    <button
+      type="submit"
+      mat-icon-button
+      color="primary"
+      [disabled]="form.invalid || busy"
+      matTooltip="Run JMES"
+    >
+      <mat-icon>play_circle</mat-icon>
+    </button>
+    <div>
+      <mat-progress-bar *ngIf="busy" mode="indeterminate"></mat-progress-bar>
     </div>
+  </div>
 
+  <fieldset id="container">
+    <legend>test</legend>
     <!-- input -->
     <div id="input">
       <div>
@@ -67,5 +68,5 @@
         [formControl]="output"
       ></ngx-monaco-editor>
     </div>
-  </div>
+  </fieldset>
 </form>
