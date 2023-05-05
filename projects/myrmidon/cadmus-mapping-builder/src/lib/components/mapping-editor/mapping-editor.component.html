@@ -39,6 +39,10 @@
           <mat-label>SID</mat-label>
           <input matInput [formControl]="sid" />
           <mat-error
+            *ngIf="$any(sid).errors?.required && (sid.dirty || sid.touched)"
+            >SID required</mat-error
+          >
+          <mat-error
             *ngIf="$any(sid).errors?.maxLength && (sid.dirty || sid.touched)"
             >SID too long</mat-error
           >
@@ -167,7 +171,7 @@
           >
           expression defining input data.
         </li>
-        <li><strong>SID</strong>: for root mappings only.</li>
+        <li><strong>SID</strong>: for root mappings only. The SID identifies the source of mapped data; when updating an item or a part, all the nodes/triples <em>starting with</em> the item or part's GUID are included in the graph update.</li>
         <li><strong>facet filter</strong></li>
         <li><strong>group filter</strong></li>
         <li>

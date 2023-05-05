@@ -1,7 +1,7 @@
 {
   "namedMappings": {
     "event_note": {
-      "name": "event - note",
+      "name": "event/note",
       "description": "Map the note of an event to EVENT crm:P3_has_note LITERAL.",
       "source": "note",
       "sid": "{$id}/note",
@@ -13,13 +13,13 @@
       }
     },
     "event_chronotope": {
-      "name": "event - chronotope",
+      "name": "event/chronotope",
       "description": "Map the place/date of an event to triples which create a place node for the place and link it to the event via a triple using crm:P7_took_place_at for places; and to triples using crm:P4_has_time_span which in turn has a new timespan node has object.",
       "source": "chronotope",
       "sid": "{$id}/chronotope",
       "children": [
         {
-          "name": "event - chronotope - place",
+          "name": "event/chronotope/place",
           "source": "place",
           "output": {
             "nodes": {
@@ -32,7 +32,7 @@
           }
         },
         {
-          "name": "event - chronotope - date",
+          "name": "event/chronotope/date",
           "source": "date",
           "output": {
             "metadata": {
@@ -58,8 +58,9 @@
       "sourceType": 2,
       "facetFilter": "work",
       "partTypeFilter": "it.vedph.metadata",
-      "description": "Map work to node via its EID from MetadataPart",
+      "description": "Map a work item to a node via the item's EID extracted from its MetadataPart.",
       "source": "metadata[?name='eid']",
+      "sid": "{$part-id}/{@value}",
       "output": {
         "nodes": {
           "work": "itn:works/{$item-id}/{@value}"
@@ -74,6 +75,7 @@
       "partTypeFilter": "it.vedph.historical-events",
       "description": "Map text sent event",
       "source": "events[?type=='text.send']",
+      "sid": "{$part-id}/{@eid}",
       "output": {
         "metadata": {
           "id": "{$part-id}/{@eid}"
@@ -102,7 +104,7 @@
       },
       "children": [
         {
-          "name": "birth event - eid",
+          "name": "birth event/eid",
           "source": "eid",
           "sid": "{$id}",
           "output": {
@@ -122,7 +124,7 @@
           "name": "event_chronotope"
         },
         {
-          "name": "birth event - related - mother",
+          "name": "birth event/related/mother",
           "sid": "{$id}/related",
           "source": "relatedEntities[?relation=='mother']",
           "output": {
@@ -133,7 +135,7 @@
           }
         },
         {
-          "name": "birth event - related - father",
+          "name": "birth event/related/father",
           "sid": "{$id}/related",
           "source": "relatedEntities[?relation=='father']",
           "output": {
@@ -159,7 +161,7 @@
       },
       "children": [
         {
-          "name": "death event - eid",
+          "name": "death event/eid",
           "source": "eid",
           "sid": "{$id}",
           "output": {

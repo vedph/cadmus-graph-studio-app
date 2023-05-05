@@ -11,6 +11,7 @@
         <th>part</th>
         <th>role</th>
         <th>source</th>
+        <th>SID</th>
       </tr>
     </thead>
     <tbody>
@@ -35,11 +36,12 @@
         </td>
         <td>{{ m.id }}</td>
         <td>{{ m.name }}</td>
-        <td>{{ m.sourceType | flatLookup:sourceTypes }}</td>
+        <td>{{ m.sourceType | flatLookup : sourceTypes }}</td>
         <td>{{ m.facetFilter }}</td>
         <td>{{ m.partTypeFilter }}</td>
         <td>{{ m.partRoleFilter }}</td>
         <td>{{ m.source }}</td>
+        <td>{{ m.sid }}</td>
       </tr>
     </tbody>
   </table>

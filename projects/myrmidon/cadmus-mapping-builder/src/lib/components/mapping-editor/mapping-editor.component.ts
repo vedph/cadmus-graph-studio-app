@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 
 import { NodeMapping, NodeMappingOutput } from '../../models';
+import { NgToolsValidators } from '@myrmidon/ng-tools';
 
 /**
  * Single node mapping editor. Note that ID and parent ID are not editable.
@@ -68,7 +69,13 @@ export class MappingEditorComponent {
       nonNullable: true,
     });
     this.sid = formBuilder.control('', {
-      validators: Validators.maxLength(500),
+      validators: [
+        NgToolsValidators.conditionalValidator(
+          () => !this._mapping?.parent,
+          Validators.required
+        ),
+        Validators.maxLength(500),
+      ],
       nonNullable: true,
     });
     this.output = formBuilder.control(null);
