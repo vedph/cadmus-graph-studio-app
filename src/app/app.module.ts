@@ -40,7 +40,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { MappingEditorPageComponent } from './components/mapping-editor-page/mapping-editor-page.component';
-import { CachedTextPickerComponent } from './cached-text-picker/cached-text-picker.component';
 import { EnvServiceProvider } from '@myrmidon/ng-tools';
 import { MappingDocPageComponent } from './components/mapping-doc-page/mapping-doc-page.component';
 
@@ -59,7 +58,6 @@ export function initElfDevTools(actions: Actions) {
     AppComponent,
     HomeComponent,
     MappingEditorPageComponent,
-    CachedTextPickerComponent,
     MappingDocPageComponent,
   ],
   imports: [

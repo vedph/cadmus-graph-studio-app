@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { take } from 'rxjs';
+import { NgxEditorModel } from 'ngx-monaco-editor-v2';
 
 import { GraphSet, NodeMapping } from '../../models';
 import { GraphStudioApiService } from '../../services/graph-studio-api.service';
@@ -47,6 +48,11 @@ export class MappingRunnerComponent {
     // https://github.com/atularen/ngx-monaco-editor/issues/19
     automaticLayout: true,
   };
+  public editorModel: NgxEditorModel = {
+    value: '',
+    language: 'json',
+  };
+
   public busy?: boolean;
   public error?: string;
   public graphSet?: GraphSet;

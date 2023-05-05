@@ -40,6 +40,9 @@ div#container {
 }
 div#input {
   grid-area: input;
+  border-right: 1px solid silver;
+  margin-right: 8px;
+  padding: 0 8px;
 }
 div#output {
   grid-area: output;
