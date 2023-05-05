@@ -56,7 +56,7 @@
       "facetFilter": "work",
       "partTypeFilter": "it.vedph.metadata",
       "description": "Map a work item to a node via the item's EID extracted from its MetadataPart.",
-      "source": "metadata[?name='eid']",
+      "source": "metadata[?name=='eid']",
       "sid": "{$part-id}/{@value}",
       "output": {
         "nodes": {

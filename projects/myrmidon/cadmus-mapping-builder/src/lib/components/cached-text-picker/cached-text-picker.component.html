@@ -12,22 +12,22 @@
       <button
         type="button"
         mat-icon-button
-        color="warn"
-        [disabled]="!key.value"
-        (click)="remove()"
-        matTooltip="Delete this preset"
-      >
-        <mat-icon>delete</mat-icon>
-      </button>
-      <button
-        type="button"
-        mat-icon-button
         color="primary"
         [disabled]="!key.value"
         (click)="pick()"
         matTooltip="Pick this preset"
       >
         <mat-icon>login</mat-icon>
+      </button>
+      <button
+        type="button"
+        mat-icon-button
+        color="warn"
+        [disabled]="!key.value"
+        (click)="remove()"
+        matTooltip="Delete this preset"
+      >
+        <mat-icon>delete</mat-icon>
       </button>
     </ng-container>
 
