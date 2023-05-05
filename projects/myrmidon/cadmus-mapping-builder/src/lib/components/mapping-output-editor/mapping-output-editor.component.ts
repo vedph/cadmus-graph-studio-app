@@ -74,8 +74,8 @@ export class MappingOutputEditorComponent {
     if (!text) {
       return null;
     }
-    // parse node from "key uid label [tag]"
-    const m = text.match(/^(\S+)\s+(\S+)\s+(.+?)(?:\s+\[(.+?)\])?$/);
+    // parse node from "key uid [label [tag]]"
+    const m = text.match(/^(\S+)\s+(\S+)\s*(.+?)(?:\s+\[(.+?)\])?$/);
     if (!m) {
       return null;
     }
@@ -83,7 +83,7 @@ export class MappingOutputEditorComponent {
       key: m[1],
       value: {
         uid: m[2],
-        label: m[3].trim(),
+        label: m[3] || m[1],
         tag: m[4].trim(),
       },
     };
@@ -107,7 +107,7 @@ export class MappingOutputEditorComponent {
 
   private nodeToString(key: string, node: MappedNode | null): string | null {
     return node
-      ? `${key} ${node.uid} ${node.label}${node.tag ? ` [${node.tag}]` : ''}`
+      ? `${key} ${node.uid} ${node.label || key}${node.tag ? ` [${node.tag}]` : ''}`
       : null;
   }
 

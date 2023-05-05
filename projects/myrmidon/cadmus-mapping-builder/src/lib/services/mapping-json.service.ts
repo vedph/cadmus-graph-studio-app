@@ -101,8 +101,8 @@ export class MappingJsonService {
     for (let key in nodes) {
       let node = nodes[key];
       result[key] = node.tag
-        ? `${node.uid} ${node.label} [${node.tag}]`
-        : `${node.uid} ${node.label}`;
+        ? `${key} ${node.uid} ${node.label} [${node.tag}]`
+        : `${key} ${node.uid} ${node.label}`;
     }
     return result;
   }

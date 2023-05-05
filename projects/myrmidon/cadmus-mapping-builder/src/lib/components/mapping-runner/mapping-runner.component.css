@@ -22,7 +22,11 @@ fieldset {
   margin: 8px 0;
 }
 legend {
-  color: silver;
+  color: white;
+  background-color: #bbb;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  padding: 4px;
 }
 .error {
   color: red;

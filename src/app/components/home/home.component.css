@@ -7,7 +7,11 @@ fieldset {
   padding: 8px;
 }
 legend {
-  color: silver;
+  color: white;
+  background-color: #bbb;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  padding: 4px;
 }
 div#container {
   display: grid;
