@@ -48,6 +48,7 @@ export class MappingRunnerComponent {
   public partTypeId: FormControl<string | null>;
   public roleId: FormControl<string | null>;
   public facetId: FormControl<string | null>;
+  public itemTitle: FormControl<string | null>;
   public itemUri: FormControl<string | null>;
   public itemLabel: FormControl<string | null>;
   public itemEid: FormControl<string | null>;
@@ -91,6 +92,7 @@ export class MappingRunnerComponent {
     this.partTypeId = formBuilder.control(null, Validators.maxLength(50));
     this.roleId = formBuilder.control(null, Validators.maxLength(50));
     this.facetId = formBuilder.control(null, Validators.maxLength(50));
+    this.itemTitle = formBuilder.control(null, Validators.maxLength(500));
     this.itemUri = formBuilder.control(null, Validators.maxLength(500));
     this.itemLabel = formBuilder.control(null, Validators.maxLength(500));
     this.itemEid = formBuilder.control(null, Validators.maxLength(100));
@@ -102,6 +104,7 @@ export class MappingRunnerComponent {
       partTypeId: this.partTypeId,
       roleId: this.roleId,
       facetId: this.facetId,
+      itemTitle: this.itemTitle,
       itemUri: this.itemUri,
       itemLabel: this.itemLabel,
       itemEid: this.itemEid,
@@ -123,6 +126,7 @@ export class MappingRunnerComponent {
       partTypeId: this.partTypeId.value || undefined,
       roleId: this.roleId.value || undefined,
       facetId: this.facetId.value || undefined,
+      itemTitle: this.itemTitle.value || undefined,
       itemUri: this.itemUri.value || undefined,
       itemLabel: this.itemLabel.value || undefined,
       itemEid: this.itemEid.value || undefined,

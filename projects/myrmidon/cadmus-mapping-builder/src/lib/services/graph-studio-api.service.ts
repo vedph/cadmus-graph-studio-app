@@ -19,6 +19,7 @@ export interface NodeMappingMetadata {
   partTypeId?: string;
   roleId?: string;
   facetId?: string;
+  itemTitle?: string;
   itemUri?: string;
   itemLabel?: string;
   itemEid?: string;

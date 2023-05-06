@@ -165,16 +165,28 @@
         </div>
 
         <div class="form-row">
+          <!-- itemTitle -->
+          <mat-form-field>
+            <mat-label>item title</mat-label>
+            <input matInput [formControl]="itemTitle" />
+            <mat-error
+              *ngIf="
+                $any(itemTitle).errors?.maxLength &&
+                (itemTitle.dirty || itemTitle.touched)
+              "
+              >item title too long</mat-error
+            >
+          </mat-form-field>
           <!-- itemUri -->
           <mat-form-field>
-            <mat-label>itemUri</mat-label>
+            <mat-label>item URI</mat-label>
             <input matInput [formControl]="itemUri" />
             <mat-error
               *ngIf="
                 $any(itemUri).errors?.maxLength &&
                 (itemUri.dirty || itemUri.touched)
               "
-              >itemUri too long</mat-error
+              >item URI too long</mat-error
             >
           </mat-form-field>
           <!-- itemLabel -->
@@ -186,7 +198,7 @@
                 $any(itemLabel).errors?.maxLength &&
                 (itemLabel.dirty || itemLabel.touched)
               "
-              >itemLabel too long</mat-error
+              >item label too long</mat-error
             >
           </mat-form-field>
           <!-- itemEid -->
