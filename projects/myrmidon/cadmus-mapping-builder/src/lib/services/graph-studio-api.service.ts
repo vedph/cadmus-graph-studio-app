@@ -16,6 +16,7 @@ import { MappingJsonService } from './mapping-json.service';
 export interface NodeMappingMetadata {
   itemId?: string;
   partId?: string;
+  roleId?: string;
   facetId?: string;
   itemUri?: string;
   itemLabel?: string;
