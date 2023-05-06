@@ -45,6 +45,7 @@ export class MappingRunnerComponent {
 
   public itemId: FormControl<string | null>;
   public partId: FormControl<string | null>;
+  public partTypeId: FormControl<string | null>;
   public roleId: FormControl<string | null>;
   public facetId: FormControl<string | null>;
   public itemUri: FormControl<string | null>;
@@ -87,6 +88,7 @@ export class MappingRunnerComponent {
       '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$';
     this.itemId = formBuilder.control(null, Validators.pattern(guidPattern));
     this.partId = formBuilder.control(null, Validators.pattern(guidPattern));
+    this.partTypeId = formBuilder.control(null, Validators.maxLength(50));
     this.roleId = formBuilder.control(null, Validators.maxLength(50));
     this.facetId = formBuilder.control(null, Validators.maxLength(50));
     this.itemUri = formBuilder.control(null, Validators.maxLength(500));
@@ -97,6 +99,7 @@ export class MappingRunnerComponent {
     this.metaForm = formBuilder.group({
       itemId: this.itemId,
       partId: this.partId,
+      partTypeId: this.partTypeId,
       roleId: this.roleId,
       facetId: this.facetId,
       itemUri: this.itemUri,
@@ -117,6 +120,7 @@ export class MappingRunnerComponent {
     return {
       itemId: this.itemId.value || undefined,
       partId: this.partId.value || undefined,
+      partTypeId: this.partTypeId.value || undefined,
       roleId: this.roleId.value || undefined,
       facetId: this.facetId.value || undefined,
       itemUri: this.itemUri.value || undefined,

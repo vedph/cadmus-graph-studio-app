@@ -126,6 +126,18 @@
               >invalid GUID</mat-error
             >
           </mat-form-field>
+          <!-- partTypeId -->
+          <mat-form-field>
+            <mat-label>part type ID</mat-label>
+            <input matInput [formControl]="partTypeId" />
+            <mat-error
+              *ngIf="
+                $any(partTypeId).errors?.maxLength &&
+                (partTypeId.dirty || partTypeId.touched)
+              "
+              >part type ID too long</mat-error
+            >
+          </mat-form-field>
           <!-- roleId -->
           <mat-form-field>
             <mat-label>part role ID</mat-label>
