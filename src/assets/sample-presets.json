@@ -31,10 +31,12 @@
   "map_metadata": {
     "metadata": [
       {
-        "eid": "alpha"
+        "name": "eid",
+        "value": "alpha"
       },
       {
-        "copyright": "(C) some guy 2023"
+        "name": "copyright",
+        "value": "(C) some guy 2023"
       }
     ]
   },
