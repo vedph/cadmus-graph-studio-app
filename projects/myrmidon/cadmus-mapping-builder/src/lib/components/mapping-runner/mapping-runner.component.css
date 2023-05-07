@@ -5,14 +5,17 @@
 table {
   width: 100%;
   border-collapse: collapse;
+  border: 1px solid silver;
 }
 tr {
+  border-top: 1px solid silver;
   border-bottom: 1px solid silver;
 }
 th {
   font-weight: normal;
   text-align: left;
-  color: #bbb;
+  color: white;
+  background-color: #bbb;
 }
 th,td {
   border-right: 1px solid silver;
