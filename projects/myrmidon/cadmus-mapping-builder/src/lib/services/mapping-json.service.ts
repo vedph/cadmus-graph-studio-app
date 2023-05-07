@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { deepCopy } from '@myrmidon/ng-tools';
 
-import { MappedNode, NodeMapping, NodeMappingOutput } from '../models';
-import { MappedTriple } from '@myrmidon/cadmus-mapping-builder';
+import { MappedNode, MappedTriple, NodeMapping, NodeMappingOutput } from '../models';
 
 export interface SerializedMappedNodeOutput {
   nodes?: { [key: string]: string };

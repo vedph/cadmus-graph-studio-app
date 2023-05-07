@@ -6,8 +6,9 @@ import {
   Validators,
 } from '@angular/forms';
 
-import { NodeMapping, NodeMappingOutput } from '../../models';
 import { NgToolsValidators } from '@myrmidon/ng-tools';
+
+import { NodeMapping, NodeMappingOutput } from '../../models';
 
 /**
  * Single node mapping editor. Note that ID and parent ID are not editable.

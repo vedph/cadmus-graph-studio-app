@@ -1,0 +1,24 @@
+version: "3.7"
+
+services:
+  cadmus-graph-studio-api:
+    image: vedph2020/cadmus-graph-studio-api:latest
+    container_name: cadmus-graph-studio-api
+    ports:
+      - 5257:80
+    networks:
+      - cadmus-graph-studio-network
+
+  cadmus-graph-studio-app:
+    image: vedph2020/cadmus-graph-studio-app:latest
+    container_name: cadmus-graph-studio-app
+    ports:
+      - 4200:80
+    depends_on:
+      - cadmus-graph-studio-api
+    networks:
+      - cadmus-graph-studio-network
+
+networks:
+  cadmus-graph-studio-network:
+    driver: bridge
