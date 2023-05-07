@@ -10,7 +10,7 @@ This is a minimalist editor for helping users build their graph mapping rules.
 🐋 Docker:
 
 1. `npm run build-lib`;
-2. update [env.js](./src/env.js) version number;
+2. update [env.js](./src/env.js) version number and version numbers in [docker compose](docker-compose.yml);
 3. `ng build`;
 4. build image like (change version number accordingly):
 
