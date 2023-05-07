@@ -99,7 +99,7 @@
           "source": "relatedEntities[?relation=='text:send:sender']",
           "output": {
             "nodes": {
-              "sender": "itn:persons/{@id}"
+              "sender": "{@id}"
             },
             "triples": ["{?event} crm:P14_carried_out_by {?sender}"]
           }
@@ -109,7 +109,7 @@
           "source": "relatedEntities[?relation=='text:send:recipient']",
           "output": {
             "nodes": {
-              "recipient": "itn:persons/{@id}"
+              "recipient": "{@id}"
             },
             "triples": ["{?event} crm:P11_has_participant {?recipient}"]
           }
@@ -119,7 +119,7 @@
           "source": "relatedEntities[?relation=='text:send:carrier']",
           "output": {
             "nodes": {
-              "carrier": "itn:persons/{@id}"
+              "carrier": "{@id}"
             },
             "triples": ["{?event} crm:P11_has_participant {?carrier}"]
           }
