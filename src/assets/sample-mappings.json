@@ -72,7 +72,7 @@
       "partTypeFilter": "it.vedph.historical-events",
       "description": "Map text sent event",
       "source": "events[?type=='text.send']",
-      "sid": "{$part-id}/{@eid}",
+      "sid": "{$part-id}/{@[0].eid}",
       "output": {
         "metadata": {
           "id": "{$part-id}/{@eid}",

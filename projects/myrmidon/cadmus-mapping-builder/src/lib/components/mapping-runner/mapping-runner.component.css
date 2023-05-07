@@ -21,7 +21,7 @@ th,td {
   border-right: 1px solid silver;
   padding: 0 4px;
 }
-.uri {
+.uri, .to {
   color: darkgreen;
   background: #d4f1d4;
 }
@@ -29,7 +29,7 @@ th,td {
   color: darkred;
   background: #f1dcd4;
 }
-.to {
+.tol {
   color: royalblue;
   background: #d4e8f1;
 }

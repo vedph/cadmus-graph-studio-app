@@ -86,7 +86,9 @@
             <tr *ngFor="let t of graphSet.triples">
               <td class="uri">{{ t.subjectUri }}</td>
               <td class="tp">{{ t.predicateUri }}</td>
-              <td class="to">{{ t.objectUri || t.objectLiteral }}</td>
+              <td [ngClass]="{ tol: t.objectLiteral, to: t.objectUri }">
+                {{ t.objectUri || t.objectLiteral }}
+              </td>
               <td>{{ t.sid }}</td>
             </tr>
           </tbody>

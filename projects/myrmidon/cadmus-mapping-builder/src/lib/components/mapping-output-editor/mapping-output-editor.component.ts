@@ -84,7 +84,7 @@ export class MappingOutputEditorComponent {
       value: {
         uid: m[2],
         label: m[3] || m[1],
-        tag: m[4].trim(),
+        tag: m[4]?.trim(),
       },
     };
   }
