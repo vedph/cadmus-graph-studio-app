@@ -6,19 +6,29 @@ table {
   width: 100%;
   border-collapse: collapse;
 }
+tr {
+  border-bottom: 1px solid silver;
+}
 th {
   font-weight: normal;
   text-align: left;
   color: #bbb;
 }
+th,td {
+  border-right: 1px solid silver;
+  padding: 0 4px;
+}
 .uri {
   color: darkgreen;
+  background: #d4f1d4;
 }
 .tp {
   color: darkred;
+  background: #f1dcd4;
 }
 .to {
   color: royalblue;
+  background: #d4e8f1;
 }
 fieldset {
   border: 1px solid silver;
