@@ -17,3 +17,11 @@ This is a minimalist editor for helping users build their graph mapping rules.
 ```bash
 docker build . -t vedph2020/cadmus-graph-studio-app:0.0.1 -t vedph2020/cadmus-graph-studio-app:latest
 ```
+
+## History
+
+- 2023-05-08: upgraded to Angular 16.
+
+### 0.0.1
+
+- 2023-05-07: initial release.
