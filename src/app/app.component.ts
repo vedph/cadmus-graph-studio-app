@@ -63,4 +63,20 @@ export class AppComponent {
   public view(): void {
     this._router.navigate(['/mappings-doc']);
   }
+
+  public async export() {
+    this._mappingService
+      .exportMappings()
+      .pipe(take(1))
+      .subscribe((json) => {
+        // save to file
+        const blob = new Blob([json], { type: 'application/json' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'mappings.json';
+        a.click();
+        window.URL.revokeObjectURL(url);
+      });
+  }
 }

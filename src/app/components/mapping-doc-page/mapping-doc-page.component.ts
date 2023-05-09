@@ -3,6 +3,7 @@ import { take } from 'rxjs';
 
 import {
   NODE_MAPPING_SERVICE,
+  NodeMappingListRepository,
   NodeMappingService,
 } from 'projects/myrmidon/cadmus-mapping-builder/src/public-api';
 import {
@@ -13,7 +14,7 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 function jsonValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
@@ -45,7 +46,8 @@ export class MappingDocPageComponent {
 
   constructor(
     formBuilder: FormBuilder,
-    private _router: Router,
+    private _snackbar: MatSnackBar,
+    private _repository: NodeMappingListRepository,
     @Inject(NODE_MAPPING_SERVICE) private _mappingService: NodeMappingService
   ) {
     this.json = formBuilder.control('', {
@@ -71,8 +73,12 @@ export class MappingDocPageComponent {
     this._mappingService
       .importMappings(this.json.value)
       .pipe(take(1))
-      .subscribe((_) => {
-        this._router.navigate(['/']);
+      .subscribe((mappings) => {
+        this._repository.clearCache();
+        this._repository.loadPage(1);
+        this._snackbar.open('Mappings imported: ' + mappings.length, 'OK', {
+          duration: 3000,
+        });
       });
   }
 }

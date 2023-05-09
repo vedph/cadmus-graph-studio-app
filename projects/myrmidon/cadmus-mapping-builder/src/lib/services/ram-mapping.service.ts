@@ -109,20 +109,21 @@ export class RamNodeMappingService implements NodeMappingService {
 
   public exportMappings(): Observable<string> {
     const sb: string[] = [];
-    sb.push('[\n');
+    sb.push('{"documentMappings":[\n');
     for (let i = 0; i < this._mappings.value.length; i++) {
       if (i) {
         sb.push(',\n');
       }
       sb.push(this._jsonService.serializeMapping(this._mappings.value[i]));
     }
-    sb.push(']');
-    return of(sb.join(''));
+    sb.push(']}');
+    const json = sb.join('');
+    return of(JSON.stringify(JSON.parse(json), null, 2));
   }
 
-  public importMappings(json: string): Observable<any> {
+  public importMappings(json: string): Observable<NodeMapping[]> {
     const mappings = this._jsonService.readMappingsDocument(json);
     this._mappings.next(mappings);
-    return of(null);
+    return of(mappings);
   }
 }

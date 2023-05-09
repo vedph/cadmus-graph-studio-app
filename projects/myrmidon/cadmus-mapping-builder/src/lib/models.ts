@@ -139,7 +139,7 @@ export interface NodeMappingService {
    * Load mappings from JSON code.
    * @param json The JSON code.
    */
-  importMappings(json: string): Observable<any>;
+  importMappings(json: string): Observable<NodeMapping[]>;
 }
 
 /**

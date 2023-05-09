@@ -2,7 +2,12 @@ import { Injectable } from '@angular/core';
 
 import { deepCopy } from '@myrmidon/ng-tools';
 
-import { MappedNode, MappedTriple, NodeMapping, NodeMappingOutput } from '../models';
+import {
+  MappedNode,
+  MappedTriple,
+  NodeMapping,
+  NodeMappingOutput,
+} from '../models';
 
 export interface SerializedMappedNodeOutput {
   nodes?: { [key: string]: string };
@@ -221,7 +226,7 @@ export class MappingJsonService {
         ? {
             s: parts[0],
             p: parts[1],
-            ol: parts[2]
+            ol: parts[2],
           }
         : { s: parts[0], p: parts[1], o: parts[2] };
     });
@@ -277,6 +282,9 @@ export class MappingJsonService {
       this._nextId = 1;
     }
     const doc = JSON.parse(json) as NodeMappingDocument;
+    if (!doc?.documentMappings?.length) {
+      return [];
+    }
 
     // read named mappings
     let named: { [key: string]: NodeMapping } = {};

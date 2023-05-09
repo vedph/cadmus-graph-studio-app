@@ -21,6 +21,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -80,6 +81,7 @@ export function initElfDevTools(actions: Actions) {
     MatPaginatorModule,
     MatProgressBarModule,
     MatSelectModule,
+    MatSnackBarModule,
     MatTabsModule,
     MatTooltipModule,
     MatToolbarModule,
