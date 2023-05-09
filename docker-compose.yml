@@ -10,7 +10,7 @@ services:
       - cadmus-graph-studio-network
 
   cadmus-graph-studio-app:
-    image: vedph2020/cadmus-graph-studio-app:0.0.2
+    image: vedph2020/cadmus-graph-studio-app:0.0.3
     container_name: cadmus-graph-studio-app
     ports:
       - 4200:80
