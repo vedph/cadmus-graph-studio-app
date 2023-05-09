@@ -20,6 +20,10 @@ docker build . -t vedph2020/cadmus-graph-studio-app:0.0.1 -t vedph2020/cadmus-gr
 
 ## History
 
+- 2023-05-09:
+  - fixes to triples serialization for object literals.
+  - improved sample presets.
+  - more details in object literal output.
 - 2023-05-08: upgraded to Angular 16.
 
 ### 0.0.1
