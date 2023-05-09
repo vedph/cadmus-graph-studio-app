@@ -67,7 +67,7 @@ legend {
 div#container {
   display: grid;
   grid-template-rows: 1fr;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1.5fr;
   grid-template-areas: "input output";
   gap: 8px;
 }

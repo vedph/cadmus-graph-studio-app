@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   cadmus-graph-studio-api:
-    image: vedph2020/cadmus-graph-studio-api:0.0.1
+    image: vedph2020/cadmus-graph-studio-api:0.0.2
     container_name: cadmus-graph-studio-api
     ports:
       - 5257:80
@@ -10,7 +10,7 @@ services:
       - cadmus-graph-studio-network
 
   cadmus-graph-studio-app:
-    image: vedph2020/cadmus-graph-studio-app:0.0.1
+    image: vedph2020/cadmus-graph-studio-app:0.0.2
     container_name: cadmus-graph-studio-app
     ports:
       - 4200:80
