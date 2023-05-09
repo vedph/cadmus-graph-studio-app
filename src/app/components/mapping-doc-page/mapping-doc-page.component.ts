@@ -5,7 +5,26 @@ import {
   NODE_MAPPING_SERVICE,
   NodeMappingService,
 } from 'projects/myrmidon/cadmus-mapping-builder/src/public-api';
-import { FormBuilder, FormControl } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
+import { Router } from '@angular/router';
+
+function jsonValidator(): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    try {
+      JSON.parse(control.value);
+      return null;
+    } catch (error) {
+      return { invalidJson: true };
+    }
+  };
+}
 
 @Component({
   selector: 'app-mapping-doc-page',
@@ -22,21 +41,38 @@ export class MappingDocPageComponent {
   };
 
   public json: FormControl<string>;
+  public form: FormGroup;
 
   constructor(
     formBuilder: FormBuilder,
+    private _router: Router,
     @Inject(NODE_MAPPING_SERVICE) private _mappingService: NodeMappingService
   ) {
-    this.json = formBuilder.control('', { nonNullable: true });
-    this.load();
+    this.json = formBuilder.control('', {
+      validators: [Validators.required, jsonValidator()],
+      nonNullable: true,
+    });
+    this.form = formBuilder.group({
+      json: this.json,
+    });
+    this.exportToDocument();
   }
 
-  private load() {
+  public exportToDocument() {
     this._mappingService
       .exportMappings()
       .pipe(take(1))
       .subscribe((json) => {
         this.json.setValue(json);
+      });
+  }
+
+  public importFromDocument() {
+    this._mappingService
+      .importMappings(this.json.value)
+      .pipe(take(1))
+      .subscribe((_) => {
+        this._router.navigate(['/']);
       });
   }
 }

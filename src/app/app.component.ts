@@ -60,41 +60,6 @@ export class AppComponent {
       });
   }
 
-  public async export() {
-    this._mappingService
-      .exportMappings()
-      .pipe(take(1))
-      .subscribe((json) => {
-        // save to file
-        const blob = new Blob([json], { type: 'application/json' });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'mappings.json';
-        a.click();
-        window.URL.revokeObjectURL(url);
-      });
-  }
-
-  public import() {
-    // load string from file
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'application/json';
-    input.onchange = () => {
-      const file = input.files?.item(0);
-      if (!file) {
-        return;
-      }
-      const reader = new FileReader();
-      reader.onload = () => {
-        const json = reader.result as string;
-        this._mappingService.importMappings(json);
-      };
-      reader.readAsText(file);
-    };
-  }
-
   public view(): void {
     this._router.navigate(['/mappings-doc']);
   }
