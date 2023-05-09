@@ -42,7 +42,7 @@ export interface NodeMappingDocument {
  * - output.nodes becomes an object where each node is a property with
  * key=its key and value="uid label [tag]";
  * - output.triples becomes an array of strings with format "s p o" or
- * "s p "ol"".
+ * "s p "ol"" or "s p "ol"@lang" or "s p "ol"^^type".
  */
 @Injectable({
   providedIn: 'root',
@@ -119,14 +119,20 @@ export class MappingJsonService {
    * with a more compact format.
    * @param triples The triples to adapt.
    * @returns Adapted triples, an array of strings with format "s p o" or
-   * "s p "literal"".
+   * "s p "ol"" or "s p "ol"@lang" or "s p "ol"^^type".
    */
   private adaptTriples(triples?: MappedTriple[]): string[] | undefined {
     if (!triples) {
       return undefined;
     }
     return triples?.map((t) => {
-      return t.o ? `${t.s} ${t.p} ${t.o}` : `${t.s} ${t.p} "${t.ol}"`;
+      let o: string;
+      if (t.o) {
+        o = t.o;
+      } else {
+        o = t.ol?.startsWith('"') ? t.ol : `"${t.ol}"`;
+      }
+      return `${t.s} ${t.p} ${o}`;
     });
   }
 
@@ -215,7 +221,7 @@ export class MappingJsonService {
         ? {
             s: parts[0],
             p: parts[1],
-            ol: parts[2].substring(1, parts[2].length - 1),
+            ol: parts[2]
           }
         : { s: parts[0], p: parts[1], o: parts[2] };
     });

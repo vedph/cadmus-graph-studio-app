@@ -81,7 +81,7 @@ export class JmesComponent implements OnInit, OnDestroy {
       nonNullable: true,
     });
     this.input = formBuilder.control('', {
-      validators: Validators.maxLength(5000),
+      validators: [Validators.required, Validators.maxLength(5000)],
       nonNullable: true,
     });
     this.output = formBuilder.control(null);
@@ -117,7 +117,7 @@ export class JmesComponent implements OnInit, OnDestroy {
   }
 
   public transform(): void {
-    if (this.busy) {
+    if (this.busy || this.form.invalid) {
       return;
     }
     this.busy = true;

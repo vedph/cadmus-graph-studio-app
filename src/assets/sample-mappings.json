@@ -79,7 +79,7 @@
           "work": "itn:works/{$item-id}/{$item-eid}"
         },
         "nodes": {
-          "event": "itn:events/{$id}"
+          "event": "itn:events/{$id} itn:events/{@eid}"
         },
         "triples": [
           "{?event} a crm:E7_Activity",

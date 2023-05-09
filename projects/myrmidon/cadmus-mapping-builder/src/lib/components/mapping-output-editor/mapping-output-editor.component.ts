@@ -107,16 +107,18 @@ export class MappingOutputEditorComponent {
 
   private nodeToString(key: string, node: MappedNode | null): string | null {
     return node
-      ? `${key} ${node.uid} ${node.label || key}${node.tag ? ` [${node.tag}]` : ''}`
+      ? `${key} ${node.uid} ${node.label || key}${
+          node.tag ? ` [${node.tag}]` : ''
+        }`
       : null;
   }
 
   private parseTriple(text: string | null | undefined): MappedTriple | null {
-    // parse triple from "s p o" or "s p "ol""
+    // parse triple from "s p o" or "s p "ol"" or "s p "ol"@lang" or "s p "ol"^^type"
     if (!text) {
       return null;
     }
-    const m = text.match(/^(\S+)\s+(.+?)\s+(.+)$/);
+    const m = text.match(/^(\S+)\s+(\S+)\s+(.+)$/);
     if (!m) {
       return null;
     }
@@ -124,7 +126,7 @@ export class MappingOutputEditorComponent {
       ? {
           s: m[1],
           p: m[2],
-          ol: m[3].substring(1, m[3].length - 1),
+          ol: m[3],
         }
       : {
           s: m[1],
@@ -144,11 +146,19 @@ export class MappingOutputEditorComponent {
   }
 
   private tripleToString(triple: MappedTriple | null): string | null {
-    return triple
-      ? triple.ol
-        ? `${triple.s} ${triple.p} "${triple.ol}"`
-        : `${triple.s} ${triple.p} ${triple.o}`
-      : null;
+    if (!triple) {
+      return null;
+    }
+    let o: string;
+    if (triple.o) {
+      o = triple.o;
+    } else {
+      o = triple.ol || '';
+      if (!o.startsWith('"')) {
+        o = `"${o}"`;
+      }
+    }
+    return `${triple.s} ${triple.p} ${o}`;
   }
 
   private parseMetadatum(

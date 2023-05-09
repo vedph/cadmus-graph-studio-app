@@ -88,6 +88,11 @@
               <td class="tp">{{ t.predicateUri }}</td>
               <td [ngClass]="{ tol: t.objectLiteral, to: t.objectUri }">
                 {{ t.objectUri || t.objectLiteral }}
+                <ul *ngIf="t.literalType || t.literalLanguage || t.literalNumber">
+                  <li *ngIf="t.literalType">type: {{t.literalType}}</li>
+                  <li *ngIf="t.literalLanguage">language: {{t.literalLanguage}}</li>
+                  <li *ngIf="t.literalNumber">numeric: {{t.literalNumber}}</li>
+                </ul>
               </td>
               <td>{{ t.sid }}</td>
             </tr>

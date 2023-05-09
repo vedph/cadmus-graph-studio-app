@@ -1,4 +1,16 @@
 {
+  "jms_metadata": {
+    "metadata": [
+      {
+        "name": "eid",
+        "value": "alpha"
+      },
+      {
+        "name": "copyright",
+        "value": "(C) some guy 2023"
+      }
+    ]
+  },
   "jms_work_events": {
     "events": [
       {
@@ -24,7 +36,8 @@
             "relation": "text:send:carrier",
             "id": "itn:persons/marco_barbadori"
           }
-        ]
+        ],
+        "note": "The author sent his alpha work to the bishop of Arezzo in May, 1234 via Marco Barbadori."
       }
     ]
   },
