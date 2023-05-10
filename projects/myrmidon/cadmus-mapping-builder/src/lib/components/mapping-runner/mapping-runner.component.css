@@ -21,6 +21,9 @@ th,td {
   border-right: 1px solid silver;
   padding: 0 4px;
 }
+td ul {
+  margin-block: 0;
+}
 .uri, .to {
   color: darkgreen;
   background: #d4f1d4;
