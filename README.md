@@ -15,10 +15,12 @@ This is a minimalist editor for helping users build their graph mapping rules.
 4. build image like (change version number accordingly):
 
 ```bash
-docker build . -t vedph2020/cadmus-graph-studio-app:0.0.3 -t vedph2020/cadmus-graph-studio-app:latest
+docker build . -t vedph2020/cadmus-graph-studio-app:0.0.4 -t vedph2020/cadmus-graph-studio-app:latest
 ```
 
 ## History
+
+### 0.0.4
 
 - 2023-05-10: fixes to node parsing for labels.
 
