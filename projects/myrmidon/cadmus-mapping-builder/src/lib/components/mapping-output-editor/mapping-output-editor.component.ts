@@ -107,7 +107,7 @@ export class MappingOutputEditorComponent {
 
   private nodeToString(key: string, node: MappedNode | null): string | null {
     return node
-      ? `${key} ${node.uid} ${node.label || key}${
+      ? `${key} ${node.uid} ${node.label || key || ''}${
           node.tag ? ` [${node.tag}]` : ''
         }`
       : null;
