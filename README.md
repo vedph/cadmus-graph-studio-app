@@ -20,6 +20,8 @@ docker build . -t vedph2020/cadmus-graph-studio-app:0.0.4 -t vedph2020/cadmus-gr
 
 ## History
 
+- 2023-05-11: updated Angular and packages.
+
 ### 0.0.4
 
 - 2023-05-10: fixes to node parsing for labels.
