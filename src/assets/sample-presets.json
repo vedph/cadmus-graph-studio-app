@@ -80,6 +80,103 @@
           }
         ],
         "note": "The author sent his alpha work to the bishop of Arezzo in May, 1234 via Marco Barbadori."
+      },
+      {
+        "eid": "alpha-transcription",
+        "type": "text.transcription",
+        "chronotope": {
+          "place": {
+            "value": "Domodossola"
+          },
+          "date": {
+            "a": {
+              "value": 1410
+            }
+          }
+        },
+        "relatedEntities": [
+          {
+            "relation": "text:transcription:transcriber",
+            "id": "itn:persons/niccolino_braschi"
+          },
+          {
+            "relation": "text:transcription:copy",
+            "id": "itn:manuscripts/bml_plut_41_15"
+          }
+        ],
+        "note": "Braschi copies Secretum in BML Plut 41.15."
+      },
+      {
+        "eid": "beta-reception",
+        "type": "text.reception",
+        "chronotope": {
+          "place": {
+            "value": "Parma"
+          },
+          "date": {
+            "a": {
+              "value": 1355,
+              "month": 10
+            }
+          }
+        },
+        "relatedEntities": [
+          {
+            "relation": "text:reception:recipient",
+            "id": "itn:persons/niccolino_braschi"
+          },
+          {
+            "relation": "text:reception:sender",
+            "id": "itn:persons/francesco_petrarca"
+          },
+          {
+            "relation": "text:reception:carrier",
+            "id": "itn:persons/marco_barbadori"
+          }
+        ],
+        "note": "Braschi receives Beta from Petrarca via Barbadori."
+      },
+      {
+        "eid": "gamma-collection",
+        "type": "text.collection",
+        "chronotope": {
+          "place": {
+            "value": "Arquà"
+          },
+          "date": {
+            "a": {
+              "value": 1374
+            }
+          }
+        },
+        "relatedEntities": [
+          {
+            "relation": "text:collection:collector",
+            "id": "itn:works/rvf"
+          }
+        ],
+        "note": "The text is collected in Rvf."
+      },
+      {
+        "eid": "gamma-version",
+        "type": "text.version",
+        "chronotope": {
+          "place": {
+            "value": ""
+          },
+          "date": {
+            "a": {
+              "value": 1350
+            }
+          }
+        },
+        "relatedEntities": [
+          {
+            "relation": "text:version:previous",
+            "id": "itn:works/fam_i_1_gamma"
+          }
+        ],
+        "note": "Fam I 1 gamma is the previous version of Fam I 1 ."
       }
     ]
   }
