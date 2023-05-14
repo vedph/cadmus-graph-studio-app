@@ -11,6 +11,7 @@ import {
 import { AssetService } from './services/asset.service';
 import { DialogService } from '@myrmidon/ng-mat-tools';
 import { Router } from '@angular/router';
+import { EnvService } from '@myrmidon/ng-tools';
 
 @Component({
   selector: 'app-root',
@@ -18,14 +19,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  public version: string;
+
   constructor(
     private _router: Router,
     private _dialogService: DialogService,
     private _repositoryService: NodeMappingListRepository,
     @Inject(NODE_MAPPING_SERVICE) private _mappingService: NodeMappingService,
     assetService: AssetService,
-    cacheService: RamCacheService
+    cacheService: RamCacheService,
+    envService: EnvService
   ) {
+    this.version = envService.get('version') ?? '0.0.1';
     // load sample mappings
     assetService
       .loadText('sample-mappings.json')
