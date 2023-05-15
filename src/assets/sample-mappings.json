@@ -1,5 +1,14 @@
 {
   "namedMappings": {
+    "event_description": {
+      "name": "event/description",
+      "description": "Map the description of an event to EVENT crm:P3_has_note LITERAL.",
+      "source": "description",
+      "sid": "{$id}/description",
+      "output": {
+        "triples": ["{?event} crm:P3_has_note \"{$.}\""]
+      }
+    },
     "event_note": {
       "name": "event/note",
       "description": "Map the note of an event to EVENT crm:P3_has_note LITERAL.",
@@ -9,14 +18,14 @@
         "triples": ["{?event} crm:P3_has_note \"{$.}\""]
       }
     },
-    "event_chronotope": {
-      "name": "event/chronotope",
-      "description": "Map the place/date of an event to triples which create a place node for the place and link it to the event via a triple using crm:P7_took_place_at for places; and to triples using crm:P4_has_time_span which in turn has a new timespan node has object.",
-      "source": "chronotope",
+    "event_chronotopes": {
+      "name": "event/chronotopes",
+      "description": "For each chronotope, map the place/date of an event to triples which create a place node for the place and link it to the event via a triple using crm:P7_took_place_at for places; and to triples using crm:P4_has_time_span which in turn has a new timespan node has object.",
+      "source": "chronotopes",
       "sid": "{$id}/chronotope",
       "children": [
         {
-          "name": "event/chronotope/place",
+          "name": "event/chronotopes/place",
           "source": "place",
           "output": {
             "nodes": {
@@ -29,7 +38,7 @@
           }
         },
         {
-          "name": "event/chronotope/date",
+          "name": "event/chronotopes/date",
           "source": "date",
           "output": {
             "metadata": {
@@ -40,7 +49,7 @@
               "timespan": "itn:timespans/ts"
             },
             "triples": [
-              "{?event} crm:P4_has_time_span {?timespan}",
+              "{?event} crm:P4_has_time-span {?timespan}",
               "{?timespan} crm:P82_at_some_time_within \"{$date_value}\"^^xs:float",
               "{?timespan} crm:P87_is_identified_by \"{$date_text}\"@en"
             ]
@@ -89,10 +98,13 @@
       },
       "children": [
         {
+          "name": "event_description"
+        },
+        {
           "name": "event_note"
         },
         {
-          "name": "event_chronotope"
+          "name": "event_chronotopes"
         },
         {
           "name": "text sent event/related/carried_out_by",
@@ -150,10 +162,13 @@
       },
       "children": [
         {
+          "name": "event_description"
+        },
+        {
           "name": "event_note"
         },
         {
-          "name": "event_chronotope"
+          "name": "event_chronotopes"
         },
         {
           "name": "text reception event/related/carried_out_by",
@@ -211,10 +226,13 @@
       },
       "children": [
         {
+          "name": "event_description"
+        },
+        {
           "name": "event_note"
         },
         {
-          "name": "event_chronotope"
+          "name": "event_chronotopes"
         },
         {
           "name": "text transcription event/related/carried_out_by",
@@ -262,10 +280,13 @@
       },
       "children": [
         {
+          "name": "event_description"
+        },
+        {
           "name": "event_note"
         },
         {
-          "name": "event_chronotope"
+          "name": "event_chronotopes"
         },
         {
           "name": "text collection event/related/has_component",
@@ -303,10 +324,13 @@
       },
       "children": [
         {
+          "name": "event_description"
+        },
+        {
           "name": "event_note"
         },
         {
-          "name": "event_chronotope"
+          "name": "event_chronotopes"
         },
         {
           "name": "text collection event/related/refers_to",

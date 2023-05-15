@@ -135,6 +135,12 @@ export class MappingRunnerComponent {
     };
   }
 
+  public prettifyInput(): void {
+    this.input.setValue(
+      JSON.stringify(JSON.parse(this.input.value || '{}'), null, 2)
+    );
+  }
+
   public run(): void {
     if (this.busy || this.form.invalid || !this._mapping) {
       return;
