@@ -15,7 +15,7 @@ This is a minimalist editor for helping users build their graph mapping rules.
 4. build image like (change version number accordingly):
 
 ```bash
-docker build . -t vedph2020/cadmus-graph-studio-app:0.0.6 -t vedph2020/cadmus-graph-studio-app:latest
+docker build . -t vedph2020/cadmus-graph-studio-app:0.0.7 -t vedph2020/cadmus-graph-studio-app:latest
 ```
 
 For production:
@@ -30,10 +30,16 @@ window.__env.apiUrl = "https://cadmus-graph-studio-api.fusi-soft.com/api/";
 (3) build prod image:
 
 ```bash
-docker build . -t vedph2020/cadmus-graph-studio-app:0.0.6-prod
+docker build . -t vedph2020/cadmus-graph-studio-app:0.0.7-prod
 ```
 
 ## History
+
+### 0.0.7
+
+- 2023-05-23:
+  - updated sample data and mappings for the new model of event related ID (using [asserted composite ID](https://github.com/vedph/cadmus-bricks-shell/blob/master/projects/myrmidon/cadmus-refs-asserted-ids/README.md#asserted-composite-id)).
+  - updated Angular and packages.
 
 ### 0.0.6
 
