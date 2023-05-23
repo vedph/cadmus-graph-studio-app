@@ -32,11 +32,21 @@
         "relatedEntities": [
           {
             "relation": "text:send:recipient",
-            "id": "itn:persons/arezzo_bishop"
+            "id": {
+              "target": {
+                "gid": "itn:persons/arezzo_bishop",
+                "label": "arezzo_bishop"
+              }
+            }
           },
           {
             "relation": "text:send:carrier",
-            "id": "itn:persons/marco_barbadori"
+            "id": {
+              "target": {
+                "gid": "itn:persons/marco_barbadori",
+                "label": "marco_barbadori"
+              }
+            }
           }
         ],
         "description": "The author sent his alpha work to the bishop of Arezzo in May, 1234 via Marco Barbadori.",
@@ -77,11 +87,21 @@
         "relatedEntities": [
           {
             "relation": "text:send:recipient",
-            "id": "itn:persons/arezzo_bishop"
+            "id": {
+              "target": {
+                "gid": "itn:persons/arezzo_bishop",
+                "label": "arezzo_bishop"
+              }
+            }
           },
           {
             "relation": "text:send:carrier",
-            "id": "itn:persons/marco_barbadori"
+            "id": {
+              "target": {
+                "gid": "itn:persons/marco_barbadori",
+                "label": "marco_barbadori"
+              }
+            }
           }
         ],
         "description": "The author sent his alpha work to the bishop of Arezzo in May, 1234 via Marco Barbadori.",
@@ -105,11 +125,21 @@
         "relatedEntities": [
           {
             "relation": "text:transcription:transcriber",
-            "id": "itn:persons/niccolino_braschi"
+            "id": {
+              "target": {
+                "gid": "itn:persons/niccolino_braschi",
+                "label": "niccolino_braschi"
+              }
+            }
           },
           {
             "relation": "text:transcription:copy",
-            "id": "itn:manuscripts/bml_plut_41_15"
+            "id": {
+              "target": {
+                "gid": "itn:manuscripts/bml_plut_41_15",
+                "label": "bml_plut_41_15"
+              }
+            }
           }
         ],
         "description": "Braschi copies Secretum in BML Plut 41.15."
@@ -133,15 +163,30 @@
         "relatedEntities": [
           {
             "relation": "text:reception:recipient",
-            "id": "itn:persons/niccolino_braschi"
+            "id": {
+              "target": {
+                "gid": "itn:persons/niccolino_braschi",
+                "label": "niccolino_braschi"
+              }
+            }
           },
           {
             "relation": "text:reception:sender",
-            "id": "itn:persons/francesco_petrarca"
+            "id": {
+              "target": {
+                "gid": "itn:persons/francesco_petrarca",
+                "label": "francesco_petrarca"
+              }
+            }
           },
           {
             "relation": "text:reception:carrier",
-            "id": "itn:persons/marco_barbadori"
+            "id": {
+              "target": {
+                "gid": "itn:persons/marco_barbadori",
+                "label": "marco_barbadori"
+              }
+            }
           }
         ],
         "description": "Braschi receives Beta from Petrarca via Barbadori."
@@ -164,7 +209,12 @@
         "relatedEntities": [
           {
             "relation": "text:collection:collector",
-            "id": "itn:works/rvf"
+            "id": {
+              "target": {
+                "gid": "itn:works/rvf",
+                "label": "rvf"
+              }
+            }
           }
         ],
         "description": "The text is collected in Rvf."
@@ -185,7 +235,12 @@
         "relatedEntities": [
           {
             "relation": "text:version:previous",
-            "id": "itn:works/fam_i_1_gamma"
+            "id": {
+              "target": {
+                "gid": "itn:works/fam_i_1",
+                "label": "fam_i_1"
+              }
+            }
           }
         ],
         "description": "Fam I 1 gamma is the previous version of Fam I 1 ."
