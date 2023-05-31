@@ -52,6 +52,7 @@ export class MappingRunnerComponent {
   public itemUri: FormControl<string | null>;
   public itemLabel: FormControl<string | null>;
   public itemEid: FormControl<string | null>;
+  public metadataPid: FormControl<string | null>;
   public groupId: FormControl<string | null>;
   public flags: FormControl<number>;
   public metaForm: FormGroup;
@@ -87,15 +88,22 @@ export class MappingRunnerComponent {
     // metadata form
     const guidPattern =
       '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$';
-    this.itemId = formBuilder.control(null, Validators.pattern(guidPattern));
-    this.partId = formBuilder.control(null, Validators.pattern(guidPattern));
+    this.itemId = formBuilder.control(
+      '12345678-1234-1234-123456789abc',
+      Validators.pattern(guidPattern)
+    );
+    this.partId = formBuilder.control(
+      '87654321-4321-4321-cba9876543210',
+      Validators.pattern(guidPattern)
+    );
     this.partTypeId = formBuilder.control(null, Validators.maxLength(50));
     this.roleId = formBuilder.control(null, Validators.maxLength(50));
     this.facetId = formBuilder.control(null, Validators.maxLength(50));
-    this.itemTitle = formBuilder.control(null, Validators.maxLength(500));
+    this.itemTitle = formBuilder.control('Alpha item', Validators.maxLength(500));
     this.itemUri = formBuilder.control(null, Validators.maxLength(500));
     this.itemLabel = formBuilder.control(null, Validators.maxLength(500));
-    this.itemEid = formBuilder.control('ITEM_EID', Validators.maxLength(100));
+    this.itemEid = formBuilder.control('alpha', Validators.maxLength(100));
+    this.metadataPid = formBuilder.control(null, Validators.maxLength(100));
     this.groupId = formBuilder.control(null, Validators.maxLength(100));
     this.flags = formBuilder.control(0, { nonNullable: true });
     this.metaForm = formBuilder.group({
@@ -108,6 +116,7 @@ export class MappingRunnerComponent {
       itemUri: this.itemUri,
       itemLabel: this.itemLabel,
       itemEid: this.itemEid,
+      metadataPid: this.metadataPid,
       groupId: this.groupId,
       flags: this.flags,
     });
@@ -130,6 +139,7 @@ export class MappingRunnerComponent {
       itemUri: this.itemUri.value || undefined,
       itemLabel: this.itemLabel.value || undefined,
       itemEid: this.itemEid.value || undefined,
+      metadataPid: this.metadataPid.value || undefined,
       groupId: this.groupId.value || undefined,
       flags: this.flags.value || undefined,
     };

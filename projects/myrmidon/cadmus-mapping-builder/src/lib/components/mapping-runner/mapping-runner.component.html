@@ -106,7 +106,7 @@
                     language: {{ t.literalLanguage }}
                   </li>
                   <li *ngIf="t.literalNumber">
-                    numeric: {{ t.literalNumber }}
+                    numeric: {{ t.literalNumber | number: '1.0-2' }}
                   </li>
                 </ul>
               </td>
@@ -234,6 +234,18 @@
                 (itemEid.dirty || itemEid.touched)
               "
               >item EID too long</mat-error
+            >
+          </mat-form-field>
+          <!-- metadataPid -->
+          <mat-form-field>
+            <mat-label>metadata part ID</mat-label>
+            <input matInput [formControl]="metadataPid" />
+            <mat-error
+              *ngIf="
+                $any(metadataPid).errors?.maxLength &&
+                (metadataPid.dirty || metadataPid.touched)
+              "
+              >metadata PID too long</mat-error
             >
           </mat-form-field>
         </div>

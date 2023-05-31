@@ -23,6 +23,7 @@ export interface NodeMappingMetadata {
   itemUri?: string;
   itemLabel?: string;
   itemEid?: string;
+  metadataPid?: string;
   groupId?: string;
   flags?: number;
 }
