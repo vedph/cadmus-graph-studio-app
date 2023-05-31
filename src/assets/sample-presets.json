@@ -249,7 +249,7 @@
             "relation": "text:version:previous",
             "id": {
               "target": {
-                "gid": "itn:works/fam_i_1",
+                "gid": "http://petrarch-familiares.org/resources/fam_i_1",
                 "label": "fam_i_1"
               }
             }
