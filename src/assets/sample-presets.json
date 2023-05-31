@@ -34,8 +34,14 @@
             "relation": "text:send:recipient",
             "id": {
               "target": {
-                "gid": "itn:persons/arezzo_bishop",
-                "label": "arezzo_bishop"
+                "gid": "P3e04b8d1-7b55-4de7-b2b8-3097017c7c82/arezzo_bishop",
+                "label": "arezzo_bishop",
+                "itemId": "ba16e688-ccd1-4c83-9666-2b0cb9bfda8e",
+                "partId": "3e04b8d1-7b55-4de7-b2b8-3097017c7c82",
+                "partTypeId": "it.vedph.metadata",
+                "roleId": "txt",
+                "name": "eid",
+                "value": "arezzo_bishop"
               }
             }
           },
@@ -43,13 +49,13 @@
             "relation": "text:send:carrier",
             "id": {
               "target": {
-                "gid": "itn:persons/marco_barbadori",
-                "label": "marco_barbadori"
+                "gid": "dbr:Giovanni_Boccaccio",
+                "label": "Boccaccio"
               }
             }
           }
         ],
-        "description": "The author sent his alpha work to the bishop of Arezzo in May, 1234 via Marco Barbadori.",
+        "description": "The author sent his alpha work to the bishop of Arezzo in May, 1370 via Boccaccio.",
         "note": "Editorial note about the alpha send event."
       }
     ]
@@ -89,8 +95,14 @@
             "relation": "text:send:recipient",
             "id": {
               "target": {
-                "gid": "itn:persons/arezzo_bishop",
-                "label": "arezzo_bishop"
+                "gid": "P3e04b8d1-7b55-4de7-b2b8-3097017c7c82/arezzo_bishop",
+                "label": "arezzo_bishop",
+                "itemId": "ba16e688-ccd1-4c83-9666-2b0cb9bfda8e",
+                "partId": "3e04b8d1-7b55-4de7-b2b8-3097017c7c82",
+                "partTypeId": "it.vedph.metadata",
+                "roleId": "txt",
+                "name": "eid",
+                "value": "arezzo_bishop"
               }
             }
           },
@@ -98,13 +110,13 @@
             "relation": "text:send:carrier",
             "id": {
               "target": {
-                "gid": "itn:persons/marco_barbadori",
-                "label": "marco_barbadori"
+                "gid": "dbr:Giovanni_Boccaccio",
+                "label": "Boccaccio"
               }
             }
           }
         ],
-        "description": "The author sent his alpha work to the bishop of Arezzo in May, 1234 via Marco Barbadori.",
+        "description": "The author sent his alpha work to the bishop of Arezzo in May, 1370 via Boccaccio.",
         "note": "Editorial note about the alpha send event."
       },
       {
