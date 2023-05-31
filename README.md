@@ -35,6 +35,7 @@ docker build . -t vedph2020/cadmus-graph-studio-app:0.0.7-prod
 
 ## History
 
+- 2023-05-31: more mappings.
 - 2023-05-27:
   - updated Angular.
   - fixed `E90` in sample `work` mapping.
