@@ -110,8 +110,17 @@
             "relation": "text:send:carrier",
             "id": {
               "target": {
-                "gid": "dbr:Giovanni_Boccaccio",
+                "gid": "@dbr:Giovanni_Boccaccio",
                 "label": "Boccaccio"
+              }
+            }
+          },
+          {
+            "relation": "text:send:sender",
+            "id": {
+              "target": {
+                "gid": "petrarca",
+                "label": "Petrarca"
               }
             }
           }
