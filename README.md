@@ -35,6 +35,7 @@ docker build . -t vedph2020/cadmus-graph-studio-app:0.0.9-prod
 
 ## History
 
+- 2023-06-30: updated Angular and packages.
 - 2023-06-14: updated Angular.
 
 ### 0.0.9
