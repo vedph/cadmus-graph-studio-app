@@ -56,6 +56,59 @@
           }
         }
       ]
+    },
+    "event_assertion": {
+      "name": "event/assertion",
+      "description": "Map the assertion of an event to EVENT itn:has_probability RANK^^xsd:float.",
+      "source": "assertion",
+      "sid": "{$id}/assertion",
+      "output": {
+        "nodes": {
+          "assertion": "itn/assertions/as"
+        },
+        "triples": [
+          "{?event} itn:has_probability \"{@rank}\"^^xsd:float",
+          "{?assertion} a crm:E13_attribute_assignment",
+          "{?assertion} crm:P140_assigned_attribute_to {?event}",
+          "{?assertion} crm:P141_assigned itn:has_probability",
+          "{?assertion} crm:P177_assigned_property_of_type crm:E55_type"
+        ]
+      },
+      "children": [
+        {
+          "name": "event/assertion/references",
+          "source": "references",
+          "sid": "{$id}/reference",
+          "children": [
+            {
+              "name": "event/references/citation",
+              "source": "citation",
+              "output": {
+                "nodes": {
+                  "citation": "itn:citations/cit"
+                },
+                "triples": [
+                  "{?citation} a crm:E31_Document",
+                  "{?citation} rdfs:label \"{@.}\"",
+                  "{?assertion} crm:P70i_is_documented_in {?citation}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "event_period": {
+      "name": "event/tag",
+      "description": "Map the tag of an event to EVENT P9i_forms_part_of GROUP.",
+      "source": "tag",
+      "sid": "{$id}/tag",
+      "output": {
+        "nodes": {
+          "period": "itn:periods/{$part-id}/{@value}"
+        },
+        "triples": ["{?event} P9i_forms_part_of {?period}"]
+      }
     }
   },
   "documentMappings": [
@@ -105,6 +158,12 @@
         },
         {
           "name": "event_chronotopes"
+        },
+        {
+          "name": "event_assertion"
+        },
+        {
+          "name": "event_period"
         },
         {
           "name": "text sent event/related/carried_out_by (external global)",
@@ -211,6 +270,12 @@
           "name": "event_chronotopes"
         },
         {
+          "name": "event_assertion"
+        },
+        {
+          "name": "event_period"
+        },
+        {
           "name": "text reception event/related/carried_out_by",
           "source": "relatedEntities[?relation=='text:reception:recipient' && !id.target.name]",
           "output": {
@@ -305,6 +370,12 @@
           "name": "event_chronotopes"
         },
         {
+          "name": "event_assertion"
+        },
+        {
+          "name": "event_period"
+        },
+        {
           "name": "text transcription event/related/carried_out_by",
           "source": "relatedEntities[?relation=='text:transcription:transcriber' && !id.target.name]",
           "output": {
@@ -379,6 +450,12 @@
           "name": "event_chronotopes"
         },
         {
+          "name": "event_assertion"
+        },
+        {
+          "name": "event_period"
+        },
+        {
           "name": "text collection event/related/has_component",
           "source": "relatedEntities[?relation=='text:collection:collector' && !id.target.name]",
           "output": {
@@ -431,6 +508,12 @@
         },
         {
           "name": "event_chronotopes"
+        },
+        {
+          "name": "event_assertion"
+        },
+        {
+          "name": "event_period"
         },
         {
           "name": "text collection event/related/refers_to",
