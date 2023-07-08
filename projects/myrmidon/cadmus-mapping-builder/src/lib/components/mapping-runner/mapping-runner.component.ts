@@ -103,7 +103,7 @@ export class MappingRunnerComponent {
     this.itemUri = formBuilder.control(null, Validators.maxLength(500));
     this.itemLabel = formBuilder.control(null, Validators.maxLength(500));
     this.itemEid = formBuilder.control('alpha', Validators.maxLength(100));
-    this.metadataPid = formBuilder.control(null, Validators.maxLength(100));
+    this.metadataPid = formBuilder.control('MPID', Validators.maxLength(100));
     this.groupId = formBuilder.control(null, Validators.maxLength(100));
     this.flags = formBuilder.control(0, { nonNullable: true });
     this.metaForm = formBuilder.group({

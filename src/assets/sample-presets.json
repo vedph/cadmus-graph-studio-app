@@ -280,5 +280,17 @@
         "description": "Fam I 1 gamma is the previous version of Fam I 1 ."
       }
     ]
+  },
+  "map_person_works": {
+    "works": [
+      {
+        "eid": "alpha",
+        "title": "Alpha Work"
+      },
+      {
+        "eid": "beta",
+        "title": "Beta Work"
+      }
+    ]
   }
 }

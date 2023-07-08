@@ -238,7 +238,11 @@
       <h3>Templates</h3>
       <ul>
         <li><code>&lcub;@...&rcub;</code>: JMES expression.</li>
-        <li><code>&lcub;?...&rcub;</code>: node key.</li>
+        <li>
+          <code>&lcub;?...&rcub;</code>: node key (may be suffixed by
+          <code>:uri</code> (default), <code>:label</code>, <code>:sid</code>,
+          <code>:src-type</code>).
+        </li>
         <li><code>&lcub;$...&rcub;</code>: metadata key.</li>
         <li>
           <code>&lcub;!...&rcub;</code>: macro. Currently the only macro is
