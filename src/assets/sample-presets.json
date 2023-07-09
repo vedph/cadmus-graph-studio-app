@@ -136,7 +136,7 @@
             },
             {
               "type": "ms",
-              "citation": "Vat.lat.123"
+              "citation": "Vat.Lat.123"
             }
           ]
         }
@@ -289,7 +289,20 @@
       },
       {
         "eid": "beta",
-        "title": "Beta Work"
+        "title": "Beta Work",
+        "assertion": {
+          "rank": 2,
+          "references": [
+            {
+              "type": "biblio",
+              "citation": "Rossi 1963"
+            },
+            {
+              "type": "ms",
+              "citation": "Vat.Lat.123"
+            }
+          ]
+        }
       }
     ]
   }
