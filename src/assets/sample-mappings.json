@@ -170,7 +170,7 @@
           "source": "relatedEntities[?relation=='text:send:sender' && !id.target.name && starts_with(id.target.gid, '@')]",
           "output": {
             "nodes": {
-              "sender": "{@slice(id.target.gid, 1)}"
+              "sender": "{!_substring({@id.target.gid} & 1)}"
             },
             "triples": ["{?event} crm:P14_carried_out_by {?sender}"]
           }
@@ -629,7 +629,7 @@
           "source": "authorIds[?!target.name && starts_with(target.gid, '@')]",
           "output": {
             "nodes": {
-              "author": "{@slice(target.gid, 1)}"
+              "author": "{!_substring({@target.gid} & 1)}"
             },
             "triples": ["{?creation} crm:P14_carried_out_by {?author}"]
           }
@@ -678,7 +678,7 @@
               "source": "authorIds[?!target.name && starts_with(target.gid, '@')]",
               "output": {
                 "nodes": {
-                  "author": "{@slice(target.gid, 1)}"
+                  "author": "{!_substring({@target.gid} & 1)}"
                 },
                 "triples": ["{?creation} crm:P14_carried_out_by {?author}"]
               }
@@ -745,9 +745,9 @@
       "sid": "{$part-id}",
       "output": {
         "nodes": {
-          "source_work": "itn:works/{$metadata-pid}/{$item-eid}",
+          "source_work": "itn:works/{$metadata-pid}/{$item-eid} itn:works/{$item-eid}",
           "target_text": "itn:cited-texts/cit## itn:cited-texts/cit",
-          "target_work": "{@slice(targetId.target.gid, 1)}"
+          "target_work": "{$target_gid} {$target_gid}"
         },
         "triples": [
           "{?target_text} a crm:E33_Linguistic_Object",
@@ -755,7 +755,8 @@
           "{?target_text} crm:P3_has_note \"{@targetCitation}\""
         ],
         "metadata": {
-          "target_cit": "{@targetCitation}"
+          "target_cit": "{@targetCitation}",
+          "target_gid": "{!_substring({@targetId.target.gid} & 1)}"
         }
       },
       "children": [
