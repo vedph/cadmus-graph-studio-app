@@ -5,6 +5,7 @@
     </div>
     <!-- input -->
     <div id="input">
+      <!-- monaco -->
       <div>
         <mat-label>input</mat-label>
         <!-- TODO : add [model]="editorModel" to enable syntax hilite -->
@@ -24,7 +25,8 @@
           >input too long</mat-error
         >
       </div>
-      <div>
+      <!-- toolbar -->
+      <div class="form-row">
         <button
           type="button"
           mat-flat-button
@@ -33,7 +35,12 @@
         >
           <mat-icon>sort</mat-icon> prettify
         </button>
+        <button type="submit" color="primary" mat-flat-button>
+          <mat-icon>play_circle</mat-icon>
+          run
+        </button>
       </div>
+      <div *ngIf="error" class="error">{{ error }}</div>
       <fieldset>
         <legend>presets</legend>
         <cadmus-cached-text-picker
@@ -42,16 +49,8 @@
           (textPick)="onTextPick($event)"
         ></cadmus-cached-text-picker>
       </fieldset>
-
-      <div>
-        <button type="submit" color="primary" mat-flat-button>
-          <mat-icon>play_circle</mat-icon>
-          run
-        </button>
-      </div>
-      <br />
-      <p *ngIf="error" class="error">{{ error }}</p>
     </div>
+
     <!-- output -->
     <div id="output" *ngIf="graphSet">
       <!-- nodes -->
@@ -106,7 +105,7 @@
                     language: {{ t.literalLanguage }}
                   </li>
                   <li *ngIf="t.literalNumber">
-                    numeric: {{ t.literalNumber | number: '1.0-2' }}
+                    numeric: {{ t.literalNumber | number : "1.0-2" }}
                   </li>
                 </ul>
               </td>

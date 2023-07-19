@@ -1,7 +1,7 @@
 div#container {
   display: grid;
   grid-template-rows: 1fr;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: minmax(auto, 33.33%) 1fr;
   grid-template-areas: "tree editor";
   gap: 8px;
 }
