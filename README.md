@@ -15,13 +15,13 @@ This is a minimalist editor for helping users build their graph mapping rules.
 4. build image like (change version number accordingly):
 
 ```bash
-docker build . -t vedph2020/cadmus-graph-studio-app:0.0.9 -t vedph2020/cadmus-graph-studio-app:latest
+docker build . -t vedph2020/cadmus-graph-studio-app:0.0.10 -t vedph2020/cadmus-graph-studio-app:latest
 ```
 
 For production:
 
 (1) build as above for 1-3.
-(2) in `dist/cadmus/graph-studio/env.js` replace the host address (and eventually version number by appending `-prod`) as follows:
+(2) in `dist/cadmus-graph-studio/env.js` replace the host address (and eventually version number by appending `-prod`) as follows:
 
 ```js
 window.__env.apiUrl = "https://cadmus-graph-studio-api.fusi-soft.com/api/";
@@ -30,10 +30,12 @@ window.__env.apiUrl = "https://cadmus-graph-studio-api.fusi-soft.com/api/";
 (3) build prod image:
 
 ```bash
-docker build . -t vedph2020/cadmus-graph-studio-app:0.0.9-prod
+docker build . -t vedph2020/cadmus-graph-studio-app:0.0.10-prod
 ```
 
 ## History
+
+### 0.0.10
 
 - 2023-07-19:
   - updated mappings.
