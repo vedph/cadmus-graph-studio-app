@@ -72,6 +72,53 @@
       }
     ]
   },
+  "map_work_chronotopes": {
+    "chronotopes": [
+      {
+        "place": {
+          "value": "Arezzo"
+        },
+        "date": {
+          "a": {
+            "value": 1234,
+            "month": 5
+          }
+        },
+        "assertion": {
+          "rank": 1,
+          "references": [
+            {
+              "type": "biblio",
+              "citation": "Rossi 1963"
+            },
+            {
+              "type": "ms",
+              "citation": "Vat.Lat.123"
+            }
+          ]
+        }
+      },
+      {
+        "place": {
+          "value": "Roma"
+        },
+        "date": {
+          "a": {
+            "value": 1262
+          }
+        },
+        "assertion": {
+          "rank": 2,
+          "references": [
+            {
+              "type": "biblio",
+              "citation": "Verdi 1941"
+            }
+          ]
+        }
+      }
+    ]
+  },
   "map_work_events": {
     "events": [
       {
