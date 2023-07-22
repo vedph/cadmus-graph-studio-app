@@ -11,7 +11,7 @@ import { MappedTriple } from '../../models';
 
 /**
  * Node mapping output editor. This allows the user to edit the output in text
- * boxes, where each line is an entry; nodes have form "key uid label [tag]";
+ * boxes, where each line is an entry; nodes have form "key uid [label|tag]";
  * triples have form "s p o" or "s p "ol""; metadata have form "key=value".
  */
 @Component({
@@ -74,16 +74,16 @@ export class MappingOutputEditorComponent {
     if (!text) {
       return null;
     }
-    // parse node from "key uid label [tag]" (key uid required)
-    const m = text.match(/^(\S+)\s+(\S+)(?:\s*([^[]+))?(?:\s+\[(.+?)\])?$/);
+    // parse node from "key uid [label|tag]" (key uid required)
+    const m = text.match(/^(\S+)\s+((?:(?!\[[^\[\]]+\]$).)*)(?:\[([^\]\|]+)?(?:\|([^\]]+))?\])?/);
     if (!m) {
       return null;
     }
     return {
       key: m[1],
       value: {
-        uid: m[2],
-        label: (m[3] || m[1])?.trim(),
+        uid: m[2].trim(),
+        label: m[3]?.trim(),
         tag: m[4]?.trim(),
       },
     };
@@ -106,11 +106,25 @@ export class MappingOutputEditorComponent {
   }
 
   private nodeToString(key: string, node: MappedNode | null): string | null {
-    return node
-      ? `${key} ${node.uid} ${node.label || key || ''}${
-          node.tag ? ` [${node.tag}]` : ''
-        }`
-      : null;
+    if (!node) {
+      return null;
+    }
+    const sb: string[] = [];
+    sb.push(key);
+    sb.push(' ');
+    sb.push(node.uid);
+    if (node.label || node.tag) {
+      sb.push(' [');
+      if (node.label) {
+        sb.push(node.label);
+      }
+      if (node.tag) {
+        sb.push('|');
+        sb.push(node.tag);
+      }
+      sb.push(']');
+    }
+    return sb.join('');
   }
 
   private parseTriple(text: string | null | undefined): MappedTriple | null {

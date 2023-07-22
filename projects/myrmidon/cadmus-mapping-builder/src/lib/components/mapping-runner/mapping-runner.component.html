@@ -5,26 +5,6 @@
     </div>
     <!-- input -->
     <div id="input">
-      <!-- monaco -->
-      <div>
-        <mat-label>input</mat-label>
-        <!-- TODO : add [model]="editorModel" to enable syntax hilite -->
-        <ngx-monaco-editor
-          class="monaco"
-          [options]="editorOptions"
-          [formControl]="input"
-        ></ngx-monaco-editor>
-        <mat-error
-          *ngIf="$any(input).errors?.required && (input.dirty || input.touched)"
-          >input required</mat-error
-        >
-        <mat-error
-          *ngIf="
-            $any(input).errors?.maxLength && (input.dirty || input.touched)
-          "
-          >input too long</mat-error
-        >
-      </div>
       <!-- toolbar -->
       <div class="form-row">
         <button
@@ -49,6 +29,26 @@
           (textPick)="onTextPick($event)"
         ></cadmus-cached-text-picker>
       </fieldset>
+      <!-- monaco -->
+      <div>
+        <mat-label>input</mat-label>
+        <ngx-monaco-editor
+          class="monaco"
+          [options]="editorOptions"
+          [formControl]="input"
+          (onInit)="onEditorInit($event)"
+        ></ngx-monaco-editor>
+        <mat-error
+          *ngIf="$any(input).errors?.required && (input.dirty || input.touched)"
+          >input required</mat-error
+        >
+        <mat-error
+          *ngIf="
+            $any(input).errors?.maxLength && (input.dirty || input.touched)
+          "
+          >input too long</mat-error
+        >
+      </div>
     </div>
 
     <!-- output -->

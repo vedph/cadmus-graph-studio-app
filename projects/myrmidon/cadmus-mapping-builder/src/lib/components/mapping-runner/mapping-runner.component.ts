@@ -24,6 +24,7 @@ import {
 })
 export class MappingRunnerComponent {
   private _mapping: NodeMapping | undefined;
+  private _editor: any;
 
   /**
    * The mapping to run.
@@ -86,20 +87,23 @@ export class MappingRunnerComponent {
       input: this.input,
     });
     // metadata form
-    const guidPattern =
-      '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$';
+    // const guidPattern =
+    //   '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$';
     this.itemId = formBuilder.control(
-      '12345678-1234-1234-123456789abc',
-      Validators.pattern(guidPattern)
+      'IID'
+      // Validators.pattern(guidPattern)
     );
     this.partId = formBuilder.control(
-      '87654321-4321-4321-cba9876543210',
-      Validators.pattern(guidPattern)
+      'PID'
+      // Validators.pattern(guidPattern)
     );
     this.partTypeId = formBuilder.control(null, Validators.maxLength(50));
     this.roleId = formBuilder.control(null, Validators.maxLength(50));
     this.facetId = formBuilder.control(null, Validators.maxLength(50));
-    this.itemTitle = formBuilder.control('Alpha item', Validators.maxLength(500));
+    this.itemTitle = formBuilder.control(
+      'Alpha item',
+      Validators.maxLength(500)
+    );
     this.itemUri = formBuilder.control(null, Validators.maxLength(500));
     this.itemLabel = formBuilder.control(null, Validators.maxLength(500));
     this.itemEid = formBuilder.control('alpha', Validators.maxLength(100));
@@ -120,6 +124,13 @@ export class MappingRunnerComponent {
       groupId: this.groupId,
       flags: this.flags,
     });
+  }
+
+  public onEditorInit(editor: any): void {
+    this._editor = editor;
+    window.onresize = () => {
+      editor.layout();
+    };
   }
 
   public onTextPick(text: string): void {

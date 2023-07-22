@@ -45,7 +45,7 @@ export interface NodeMappingDocument {
  * This format differs from the NodeMapping model in those aspects:
  * - the ID and parent ID are optionally excluded;
  * - output.nodes becomes an object where each node is a property with
- * key=its key and value="uid label [tag]";
+ * key=its key and value="uid [label|tag]";
  * - output.triples becomes an array of strings with format "s p o" or
  * "s p "ol"" or "s p "ol"@lang" or "s p "ol"^^type".
  */
@@ -101,7 +101,7 @@ export class MappingJsonService {
    * with a more compact format.
    * @param nodes The nodes to adapt.
    * @returns Adapted node, a dictionary where each key is the node's key,
-   * and each value is a string with format "uid label [tag]".
+   * and each value is a string with format "uid [label|tag]".
    */
   private adaptNodes(nodes?: {
     [key: string]: MappedNode;
@@ -112,9 +112,13 @@ export class MappingJsonService {
     const result: { [key: string]: string } = {};
     for (let key in nodes) {
       let node = nodes[key];
-      result[key] = node.tag
-        ? `${node.uid} ${node.label} [${node.tag}]`
-        : `${node.uid} ${node.label}`;
+      if (node.label || node.tag) {
+        result[key] = node.tag
+          ? `${node.uid} [${node.label}|${node.tag}]`
+          : `${node.uid} [${node.label}]`;
+      } else {
+        result[key] = node.uid;
+      }
     }
     return result;
   }
@@ -145,7 +149,7 @@ export class MappingJsonService {
     output: NodeMappingOutput | undefined | null
   ): SerializedMappedNodeOutput | undefined {
     return {
-      // nodes: { key: "uid label [tag]" }
+      // nodes: { key: "uid [label|tag]" }
       nodes: this.adaptNodes(output?.nodes),
       // triples: [ "s p o", "s p "ol"" ]
       triples: this.adaptTriples(output?.triples),
@@ -195,6 +199,24 @@ export class MappingJsonService {
     );
   }
 
+  private parseNode(text: string | null | undefined): MappedNode | null {
+    if (!text) {
+      return null;
+    }
+    // parse node from "uid [label|tag]" (uid required)
+    const m = text.match(
+      /^((?:(?!\[[^\[\]]+\]$).)*)(?:\[([^\]\|]+)?(?:\|([^\]]+))?\])?/
+    );
+    if (!m) {
+      return null;
+    }
+    return {
+      uid: m[1].trim(),
+      label: m[2]?.trim(),
+      tag: m[3]?.trim(),
+    };
+  }
+
   private getMappedNodes(nodes?: {
     [key: string]: string;
   }): { [key: string]: MappedNode } | undefined {
@@ -203,15 +225,10 @@ export class MappingJsonService {
     }
     const result: { [key: string]: MappedNode } = {};
     for (let key in nodes) {
-      const parts = nodes[key].split(' ');
-      result[key] = {
-        uid: parts[0],
-        label: parts[1],
-        tag:
-          parts.length > 2
-            ? parts[2].substring(1, parts[2].length - 1)
-            : undefined,
-      };
+      const node = this.parseNode(nodes[key]);
+      if (node) {
+        result[key] = node;
+      }
     }
     return result;
   }
