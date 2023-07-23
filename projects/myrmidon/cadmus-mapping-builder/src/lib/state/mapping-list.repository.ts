@@ -11,21 +11,15 @@ import {
 import { createStore, select, withProps } from '@ngneat/elf';
 import {
   withEntities,
-  addEntities,
-  updateEntities,
   deleteEntities,
   withActiveId,
   selectActiveEntity,
-  setActiveId,
-  setEntities,
   upsertEntities,
   deleteAllEntities,
-  resetActiveId,
 } from '@ngneat/elf-entities';
 import {
   withRequestsCache,
   withRequestsStatus,
-  updateRequestStatus,
   selectRequestStatus,
   StatusState,
 } from '@ngneat/elf-requests';

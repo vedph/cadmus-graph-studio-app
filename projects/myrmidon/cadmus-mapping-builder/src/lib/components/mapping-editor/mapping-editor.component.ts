@@ -48,6 +48,7 @@ export class MappingEditorComponent {
   public description: FormControl<string | null>;
   public source: FormControl<string>;
   public sid: FormControl<string>;
+  public scalarPattern: FormControl<string | null>;
   public output: FormControl<NodeMappingOutput | null>;
   public form: FormGroup;
 
@@ -79,6 +80,7 @@ export class MappingEditorComponent {
       ],
       nonNullable: true,
     });
+    this.scalarPattern = formBuilder.control(null, Validators.maxLength(500));
     this.output = formBuilder.control(null);
     this.form = formBuilder.group({
       ordinal: this.ordinal,
@@ -93,6 +95,7 @@ export class MappingEditorComponent {
       description: this.description,
       source: this.source,
       sid: this.sid,
+      scalarPattern: this.scalarPattern,
       output: this.output,
     });
     // events
@@ -117,6 +120,7 @@ export class MappingEditorComponent {
     this.description.setValue(mapping.description || null);
     this.source.setValue(mapping.source);
     this.sid.setValue(mapping.sid);
+    this.scalarPattern.setValue(mapping.scalarPattern || null);
     this.output.setValue(mapping.output || null);
     this.form.markAsPristine();
   }
@@ -143,6 +147,7 @@ export class MappingEditorComponent {
       description: this.description.value || undefined,
       source: this.source.value,
       sid: this.sid.value,
+      scalarPattern: this.scalarPattern.value || undefined,
       output: this.output.value || undefined,
     };
   }

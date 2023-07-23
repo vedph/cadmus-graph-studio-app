@@ -37,6 +37,19 @@
           >
         </mat-form-field>
 
+        <!-- scalarPattern -->
+        <mat-form-field>
+          <mat-label>scalar pattern</mat-label>
+          <input matInput [formControl]="scalarPattern" />
+          <mat-error
+            *ngIf="
+              $any(scalarPattern).errors?.maxLength &&
+              (scalarPattern.dirty || scalarPattern.touched)
+            "
+            >pattern too long</mat-error
+          >
+        </mat-form-field>
+
         <!-- sid -->
         <mat-form-field>
           <mat-label>SID</mat-label>

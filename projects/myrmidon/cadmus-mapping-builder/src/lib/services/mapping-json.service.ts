@@ -30,6 +30,7 @@ export interface SerializedMappedNode {
   description?: string;
   source: string;
   sid: string;
+  scalarPattern?: string;
   output?: SerializedMappedNodeOutput;
   children?: SerializedMappedNode[];
 }
@@ -177,6 +178,7 @@ export class MappingJsonService {
       description: node.description,
       source: node.source,
       sid: node.sid,
+      scalarPattern: node.scalarPattern,
       output: this.adaptMappingOutput(node.output),
       children: node.children?.map((c) =>
         this.getSerializedMappedNode(c, dropId)
@@ -265,6 +267,7 @@ export class MappingJsonService {
       description: node.description,
       source: node.source,
       sid: node.sid,
+      scalarPattern: node.scalarPattern,
       output: {
         nodes: this.getMappedNodes(node.output?.nodes),
         triples: this.getMappedTriples(node.output?.triples),

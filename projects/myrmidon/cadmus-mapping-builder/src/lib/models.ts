@@ -35,6 +35,7 @@ export interface NodeMapping {
   description?: string;
   source: string;
   sid: string;
+  scalarPattern?: string;
   output?: NodeMappingOutput;
   children?: NodeMapping[];
   // added for viewmodel

@@ -35,6 +35,8 @@ docker build . -t vedph2020/cadmus-graph-studio-app:0.0.10-prod
 
 ## History
 
+- 2023-07-23: added scalar pattern to mapping.
+
 ### 0.0.10
 
 - 2023-07-19:
