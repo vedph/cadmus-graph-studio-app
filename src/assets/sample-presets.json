@@ -386,6 +386,34 @@
       }
     ]
   },
+  "map_rel_persons": {
+    "persons": [
+      {
+        "type": "pseudonym",
+        "name": "Tityrus",
+        "ids": [
+          {
+            "target": {
+              "gid": "http://www.dbpedia.org/resource/Petrarch",
+              "label": "Petrarch"
+            }
+          }
+        ]
+      },
+      {
+        "type": "pseudonym",
+        "name": "Meliboeus",
+        "ids": [
+          {
+            "target": {
+              "gid": "http://www.dbpedia.org/resource/Francesco_Barbato",
+              "label": "Francesco Barbato"
+            }
+          }
+        ]
+      }
+    ]
+  },
   "map_ref_texts": {
     "texts": [
       {

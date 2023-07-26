@@ -99,7 +99,7 @@
       ]
     },
     "work_assertion": {
-      "name": "event/assertion",
+      "name": "work/assertion",
       "description": "Map the assertion of an event to EVENT itn:has_probability RANK^^xsd:float.",
       "source": "assertion",
       "sid": "{$sid}/assertion",
@@ -452,6 +452,36 @@
             },
             "triples": ["{?event} crm:P11_has_participant {?carrier}"]
           }
+        },
+        {
+          "name": "text sent event/related/attachment (external global)",
+          "source": "relatedEntities[?relation=='text:send:attachment' && !id.target.name && starts_with(id.target.gid, '@')]",
+          "output": {
+            "nodes": {
+              "attachment": "{@slice(id.target.gid, 1)}"
+            },
+            "triples": ["{?event} crm:P16_used_specific_object {?attachment}"]
+          }
+        },
+        {
+          "name": "text sent event/related/attachment (external local)",
+          "source": "relatedEntities[?relation=='text:send:attachment' && !id.target.name && !(starts_with(id.target.gid, '@'))]",
+          "output": {
+            "nodes": {
+              "attachment": "{@id.target.gid}"
+            },
+            "triples": ["{?event} crm:P16_used_specific_object {?attachment}"]
+          }
+        },
+        {
+          "name": "text sent event/related/attachment (internal)",
+          "source": "relatedEntities[?relation=='text:send:attachment' && id.target.name]",
+          "output": {
+            "nodes": {
+              "attachment": "itn:persons/{@id.target.partId}/{@id.target.value} [itn:persons/{@id.target.value}]"
+            },
+            "triples": ["{?event} crm:P16_used_specific_object {?attachment}"]
+          }
         }
       ]
     },
@@ -554,7 +584,7 @@
           }
         },
         {
-          "name": "text sent event/related/has_participant (external global)",
+          "name": "text reception event/related/has_participant (external global)",
           "source": "relatedEntities[?relation=='text:reception:carrier' && !id.target.name && starts_with(id.target.gid, '@')]",
           "output": {
             "nodes": {
@@ -564,7 +594,7 @@
           }
         },
         {
-          "name": "text sent event/related/has_participant (external local)",
+          "name": "text reception event/related/has_participant (external local)",
           "source": "relatedEntities[?relation=='text:reception:carrier' && !id.target.name && !(starts_with(id.target.gid, '@'))]",
           "output": {
             "nodes": {
@@ -574,13 +604,43 @@
           }
         },
         {
-          "name": "text sent event/related/has_participant (internal)",
+          "name": "text reception event/related/has_participant (internal)",
           "source": "relatedEntities[?relation=='text:reception:carrier' && id.target.name]",
           "output": {
             "nodes": {
               "carrier": "itn:persons/{@id.target.partId}/{@id.target.value} [itn:persons/{@id.target.value}]"
             },
             "triples": ["{?event} crm:P11_has_participant {?carrier}"]
+          }
+        },
+        {
+          "name": "text reception event/related/attachment (external global)",
+          "source": "relatedEntities[?relation=='text:reception:attachment' && !id.target.name && starts_with(id.target.gid, '@')]",
+          "output": {
+            "nodes": {
+              "attachment": "{@slice(id.target.gid, 1)}"
+            },
+            "triples": ["{?event} crm:P16_used_specific_object {?attachment}"]
+          }
+        },
+        {
+          "name": "text reception event/related/attachment (external local)",
+          "source": "relatedEntities[?relation=='text:reception:attachment' && !id.target.name && !(starts_with(id.target.gid, '@'))]",
+          "output": {
+            "nodes": {
+              "attachment": "{@id.target.gid}"
+            },
+            "triples": ["{?event} crm:P16_used_specific_object {?attachment}"]
+          }
+        },
+        {
+          "name": "text reception event/related/attachment (internal)",
+          "source": "relatedEntities[?relation=='text:reception:attachment' && id.target.name]",
+          "output": {
+            "nodes": {
+              "attachment": "itn:persons/{@id.target.partId}/{@id.target.value} [itn:persons/{@id.target.value}]"
+            },
+            "triples": ["{?event} crm:P16_used_specific_object {?attachment}"]
           }
         }
       ]
@@ -944,6 +1004,78 @@
               "{?source_text} crm:P106i_forms_part_of {?source_work}",
               "{?source_text} crm:P3_has_note \"{@.}\"",
               "{?source_text} P67_refers_to {?target_text}"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "rel-persons-part",
+      "sourceType": 2,
+      "facetFilter": "work",
+      "partTypeFilter": "it.vedph.itinera.related-persons",
+      "description": "An event assigns the specified appellation to the specified person and is carried out by the item's work.",
+      "source": "persons",
+      "sid": "{$part-id}",
+      "output": {
+        "metadata": {
+          "work": "itn:works/{$metadata-pid}/{$item-eid}"
+        },
+        "nodes": {
+          "assignment": "itn:assignments##",
+          "appellation": "itn:events/{$part-id}/{@type} [itn:events/{@type}]",
+          "type": "itn:work-rp-types/{@type}"
+        },
+        "triples": [
+          "{?appellation} a crm:E41_appellation",
+          "{?appellation} rdfs:label \"{@value}\"",
+          "{?assignment} a E13_attribute_assignment",
+          "{?assignment} P14_carried_out_by {?work}",
+          "{?assignment} P141_assigned {?appellation}",
+          "{?appellation} crm:P2_has_type {$type}",
+          "{?appellation} crm:P14_carried_out_by {$work}"
+        ]
+      },
+      "children": [
+        {
+          "name": "rel-persons-part (external global)/ids",
+          "source": "ids[?!target.name && starts_with(target.gid, '@')]",
+          "output": {
+            "nodes": {
+              "person": "{!_substring({@target.gid} & 1)}"
+            },
+            "triples": [
+              "{?assignment} crm:P140_assigned_attribute_to {?person}",
+              "{?person} a E21_person",
+              "{?person} P1_is_identified_by {?appellation}"
+            ]
+          }
+        },
+        {
+          "name": "rel-persons-part (external local)/ids",
+          "source": "ids[?!target.name && !(starts_with(target.gid, '@'))]",
+          "output": {
+            "nodes": {
+              "person": "{@target.gid}"
+            },
+            "triples": [
+              "{?assignment} crm:P140_assigned_attribute_to {?person}",
+              "{?person} a E21_person",
+              "{?person} P1_is_identified_by {?appellation}"
+            ]
+          }
+        },
+        {
+          "name": "rel-persons-part (internal)/ids",
+          "source": "ids[?target.name]",
+          "output": {
+            "nodes": {
+              "person": "itn:persons/{@target.partId}/{@target.value} [itn:persons/{@target.value}]"
+            },
+            "triples": [
+              "{?assignment} crm:P140_assigned_attribute_to {?person}",
+              "{?person} a E21_person",
+              "{?person} P1_is_identified_by {?appellation}"
             ]
           }
         }
