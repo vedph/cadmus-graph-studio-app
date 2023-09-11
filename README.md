@@ -15,7 +15,7 @@ This is a minimalist editor for helping users build their graph mapping rules.
 4. build image like (change version number accordingly):
 
 ```bash
-docker build . -t vedph2020/cadmus-graph-studio-app:0.0.10 -t vedph2020/cadmus-graph-studio-app:latest
+docker build . -t vedph2020/cadmus-graph-studio-app:0.0.11 -t vedph2020/cadmus-graph-studio-app:latest
 ```
 
 For production:
@@ -30,12 +30,14 @@ window.__env.apiUrl = "https://cadmus-graph-studio-api.fusi-soft.com/api/";
 (3) build prod image:
 
 ```bash
-docker build . -t vedph2020/cadmus-graph-studio-app:0.0.10-prod
+docker build . -t vedph2020/cadmus-graph-studio-app:0.0.11-prod
 ```
 
 ## History
 
-- 2023-09-07: updated Angular.
+### 0.0.11
+
+- 2023-09-07: updated Angular and some mappings.
 - 2023-08-07:
   - updated Angular and packages.
   - added more mappings.
