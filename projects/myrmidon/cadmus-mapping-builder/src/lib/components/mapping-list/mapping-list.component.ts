@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { Observable, take } from 'rxjs';
+import { Observable } from 'rxjs';
 
-import { PaginationData } from '@ngneat/elf-pagination';
+import { DataPage } from '@myrmidon/ng-tools';
 import { DialogService } from '@myrmidon/ng-mat-tools';
 
 import { NodeMappingListRepository } from '../../state/mapping-list.repository';
@@ -14,8 +14,8 @@ import { NodeMapping } from '../../models';
   styleUrls: ['./mapping-list.component.css'],
 })
 export class MappingListComponent {
-  public pagination$: Observable<PaginationData & { data: NodeMapping[] }>;
-  public loading$: Observable<boolean>;
+  public page$: Observable<DataPage<NodeMapping>>;
+  public loading$: Observable<boolean | undefined>;
   public sourceTypes = [
     { id: 0, label: 'any' },
     { id: 1, label: 'item' },
@@ -29,29 +29,26 @@ export class MappingListComponent {
     private _repository: NodeMappingListRepository,
     private _dialogService: DialogService
   ) {
-    this.pagination$ = _repository.pagination$;
+    this.page$ = _repository.page$;
     this.loading$ = _repository.loading$;
     // event
     this.mappingEdit = new EventEmitter<NodeMapping>();
   }
 
-  public pageChange(event: PageEvent): void {
-    this._repository.loadPage(event.pageIndex + 1, event.pageSize);
+  public onPageChange(event: PageEvent): void {
+    this._repository.setPage(event.pageIndex + 1, event.pageSize);
   }
 
-  public clearCache(): void {
-    this._repository.clearCache();
-    this._repository.loadPage(1);
+  public reset(): void {
+    this._repository.reset();
   }
 
   public deleteMapping(mapping: NodeMapping): void {
     this._dialogService
       .confirm(`Delete mapping ${mapping.name}?`, 'Delete')
-      .pipe(take(1))
       .subscribe((yes) => {
         if (yes) {
           this._repository.deleteMapping(mapping.id);
-          this.clearCache();
         }
       });
   }

@@ -13,7 +13,7 @@ import { NodeMappingListRepository } from '../../state/mapping-list.repository';
 export class MappingFilterComponent implements OnInit, OnDestroy {
   private _sub?: Subscription;
   public filter$: Observable<NodeMappingFilter>;
-  public loading$: Observable<boolean>;
+  public loading$: Observable<boolean | undefined>;
 
   public sourceType: FormControl<number>;
   public name: FormControl<string | null>;

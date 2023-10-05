@@ -37,8 +37,7 @@ export class AppComponent {
       .pipe(take(1))
       .subscribe((json) => {
         _mappingService.importMappings(json);
-        _repositoryService.clearCache();
-        _repositoryService.loadPage(1);
+        _repositoryService.reset();
       });
     // load presets
     assetService
@@ -59,8 +58,7 @@ export class AppComponent {
       .subscribe((yes) => {
         if (yes) {
           this._mappingService.clear();
-          this._repositoryService.clearCache();
-          this._repositoryService.loadPage(1);
+          this._repositoryService.reset();
         }
       });
   }

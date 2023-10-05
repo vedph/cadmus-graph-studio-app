@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -17,8 +18,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 
 import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
-import { NgToolsModule } from '@myrmidon/ng-tools';
+
 import { NgMatToolsModule } from '@myrmidon/ng-mat-tools';
+import { NgToolsModule } from '@myrmidon/ng-tools';
+import { PagedDataBrowsersModule } from '@myrmidon/paged-data-browsers';
 
 import { MappingFilterComponent } from './components/mapping-filter/mapping-filter.component';
 import { MappingListComponent } from './components/mapping-list/mapping-list.component';
@@ -50,6 +53,7 @@ import { MappingRunnerComponent } from './components/mapping-runner/mapping-runn
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
+    MatDialogModule,
     MatExpansionModule,
     MatFormFieldModule,
     MatIconModule,
@@ -64,6 +68,7 @@ import { MappingRunnerComponent } from './components/mapping-runner/mapping-runn
     MonacoEditorModule,
     NgToolsModule,
     NgMatToolsModule,
+    PagedDataBrowsersModule,
   ],
   exports: [
     MappingFilterComponent,

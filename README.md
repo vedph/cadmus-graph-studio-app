@@ -15,7 +15,7 @@ This is a minimalist editor for helping users build their graph mapping rules.
 4. build image like (change version number accordingly):
 
 ```bash
-docker build . -t vedph2020/cadmus-graph-studio-app:0.0.11 -t vedph2020/cadmus-graph-studio-app:latest
+docker build . -t vedph2020/cadmus-graph-studio-app:0.1.0 -t vedph2020/cadmus-graph-studio-app:latest
 ```
 
 For production:
@@ -34,6 +34,12 @@ docker build . -t vedph2020/cadmus-graph-studio-app:0.0.11-prod
 ```
 
 ## History
+
+### 0.1.0
+
+- 2023-10-05:
+  - ⚠️ removed ELF.
+  - updated packages and Angular.
 
 ### 0.0.11
 

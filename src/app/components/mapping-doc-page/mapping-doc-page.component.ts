@@ -1,5 +1,4 @@
 import { Component, Inject } from '@angular/core';
-import { take } from 'rxjs';
 
 import {
   NODE_MAPPING_SERVICE,
@@ -61,21 +60,16 @@ export class MappingDocPageComponent {
   }
 
   public exportToDocument() {
-    this._mappingService
-      .exportMappings()
-      .pipe(take(1))
-      .subscribe((json) => {
-        this.json.setValue(json);
-      });
+    this._mappingService.exportMappings().subscribe((json) => {
+      this.json.setValue(json);
+    });
   }
 
   public importFromDocument() {
     this._mappingService
       .importMappings(this.json.value)
-      .pipe(take(1))
       .subscribe((mappings) => {
-        this._repository.clearCache();
-        this._repository.loadPage(1);
+        this._repository.reset();
         this._snackbar.open('Mappings imported: ' + mappings.length, 'OK', {
           duration: 3000,
         });

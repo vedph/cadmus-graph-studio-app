@@ -1,13 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-// elf
-import { devTools } from '@ngneat/elf-devtools';
-import { Actions } from '@ngneat/effects-ng';
 
 // material
 import { MatButtonModule } from '@angular/material/button';
@@ -43,16 +39,6 @@ import { HomeComponent } from './components/home/home.component';
 import { MappingEditorPageComponent } from './components/mapping-editor-page/mapping-editor-page.component';
 import { EnvServiceProvider } from '@myrmidon/ng-tools';
 import { MappingDocPageComponent } from './components/mapping-doc-page/mapping-doc-page.component';
-
-// https://ngneat.github.io/elf/docs/dev-tools/
-export function initElfDevTools(actions: Actions) {
-  return () => {
-    devTools({
-      name: 'Cadmus Graph Studio',
-      actionsDispatcher: actions,
-    });
-  };
-}
 
 @NgModule({
   declarations: [
@@ -93,13 +79,6 @@ export function initElfDevTools(actions: Actions) {
   providers: [
     // environment service
     EnvServiceProvider,
-    // ELF dev tools
-    {
-      provide: APP_INITIALIZER,
-      multi: true,
-      useFactory: initElfDevTools,
-      deps: [Actions],
-    },
     // use RAM-based store for mappings
     {
       provide: NODE_MAPPING_SERVICE,

@@ -1,5 +1,5 @@
 <mat-progress-bar *ngIf="loading$ | async"></mat-progress-bar>
-<div *ngIf="pagination$ | async as pagination">
+<div *ngIf="page$ | async as page">
   <table>
     <thead>
       <tr>
@@ -15,7 +15,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let m of pagination.data">
+      <tr *ngFor="let m of page.items">
         <td class="fit-width">
           <button
             type="button"
@@ -47,11 +47,11 @@
   </table>
 
   <mat-paginator
-    [length]="(pagination$ | async)?.total || 0"
-    [pageSize]="(pagination$ | async)?.perPage || 20"
-    [pageSizeOptions]="[2, 20, 50, 75, 100]"
-    [pageIndex]="((pagination$ | async)?.currentPage || 1) - 1"
+    [length]="page.total"
+    [pageIndex]="page.pageNumber - 1"
+    [pageSize]="page.pageSize"
+    [pageSizeOptions]="[5, 10, 20, 50, 100]"
+    (page)="onPageChange($event)"
     [showFirstLastButtons]="true"
-    (page)="pageChange($event)"
   ></mat-paginator>
 </div>
