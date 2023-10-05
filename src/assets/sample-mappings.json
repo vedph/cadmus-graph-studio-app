@@ -1,7 +1,7 @@
 {
   "namedMappings": {
     "event_description": {
-      "name": "event/description",
+      "name": "event_description",
       "description": "Map the description of an event to EVENT crm:P3_has_note LITERAL.",
       "source": "description",
       "sid": "{$sid}/description",
@@ -10,7 +10,7 @@
       }
     },
     "event_note": {
-      "name": "event/note",
+      "name": "event_note",
       "description": "Map the note of an event to EVENT crm:P3_has_note LITERAL.",
       "source": "note",
       "sid": "{$sid}/note",
@@ -19,13 +19,13 @@
       }
     },
     "event_chronotopes": {
-      "name": "event/chronotopes",
+      "name": "event_chronotopes",
       "description": "For each chronotope, map the place/date of an event to triples which create a place node for the place and link it to the event via a triple using crm:P7_took_place_at for places; and to triples using crm:P4_has_time_span which in turn has a new timespan node has object.",
       "source": "chronotopes",
       "sid": "{$sid}/chronotope",
       "children": [
         {
-          "name": "event/chronotopes/place",
+          "name": "event_chronotopes/place",
           "source": "place",
           "output": {
             "nodes": {
@@ -38,7 +38,7 @@
           }
         },
         {
-          "name": "event/chronotopes/date",
+          "name": "event_chronotopes/date",
           "source": "date",
           "output": {
             "metadata": {
@@ -58,7 +58,7 @@
       ]
     },
     "event_assertion": {
-      "name": "event/assertion",
+      "name": "event_assertion",
       "description": "Map the assertion of an event to EVENT itn:has_probability RANK^^xsd:float.",
       "source": "assertion",
       "sid": "{$sid}/assertion",
@@ -76,7 +76,7 @@
       },
       "children": [
         {
-          "name": "event/assertion/references",
+          "name": "event_assertion/references",
           "source": "references",
           "sid": "{$sid}/assertion/reference",
           "children": [
@@ -117,7 +117,7 @@
       },
       "children": [
         {
-          "name": "event/assertion/references",
+          "name": "event_assertion/references",
           "source": "references",
           "sid": "{$sid}/assertion/reference",
           "children": [
@@ -174,7 +174,7 @@
       }
     },
     {
-      "name": "work chronotopes",
+      "name": "work_chronotopes",
       "sourceType": 2,
       "facetFilter": "work",
       "partTypeFilter": "it.vedph.chronotopes",
@@ -189,12 +189,12 @@
       },
       "children": [
         {
-          "name": "work chronotopes/chronotopes",
+          "name": "work_chronotopes/chronotopes",
           "description": "For each chronotope, map the place/date of an event to triples which create a place node for the place and link it to the event via a triple using crm:P7_took_place_at for places; and to triples using crm:P4_has_time_span which in turn has a new timespan node has object.",
           "source": "chronotopes",
           "children": [
             {
-              "name": "work chronotopes/chronotopes/place",
+              "name": "work_chronotopes/chronotopes/place",
               "source": "place",
               "output": {
                 "nodes": {
@@ -207,7 +207,7 @@
               }
             },
             {
-              "name": "work chronotopes/chronotopes/date",
+              "name": "work_chronotopes/chronotopes/date",
               "source": "date",
               "output": {
                 "metadata": {
@@ -232,7 +232,7 @@
       ]
     },
     {
-      "name": "work info",
+      "name": "work_info",
       "sourceType": 2,
       "facetFilter": "work",
       "partTypeFilter": "it.vedph.itinera.literary-work-info",
@@ -257,7 +257,7 @@
       },
       "children": [
         {
-          "name": "work-info/author-ids (external global)",
+          "name": "work_info/author-ids@eg",
           "source": "authorIds[?!target.name && starts_with(target.gid, '@')]",
           "output": {
             "nodes": {
@@ -272,7 +272,7 @@
           ]
         },
         {
-          "name": "work-info/author-ids (external local)",
+          "name": "work_info/author-ids@el",
           "source": "authorIds[?!target.name && !(starts_with(target.gid, '@'))]",
           "output": {
             "nodes": {
@@ -287,7 +287,7 @@
           ]
         },
         {
-          "name": "work-info/author-ids (internal)",
+          "name": "work_info/author-ids@i",
           "source": "authorIds[?target.name]",
           "output": {
             "nodes": {
@@ -302,7 +302,7 @@
           ]
         },
         {
-          "name": "work-info/isLost",
+          "name": "work_info/isLost",
           "source": "isLost",
           "scalarPattern": "true",
           "output": {
@@ -318,7 +318,7 @@
       ]
     },
     {
-      "name": "text sent event",
+      "name": "text_sent_event",
       "sourceType": 2,
       "facetFilter": "work",
       "partTypeFilter": "it.vedph.historical-events",
@@ -356,7 +356,7 @@
           "name": "event_period"
         },
         {
-          "name": "text sent event/related/carried_out_by (external global)",
+          "name": "text_sent_event/related/carried_out_by@eg",
           "source": "relatedEntities[?relation=='text:send:sender' && !id.target.name && starts_with(id.target.gid, '@')]",
           "output": {
             "nodes": {
@@ -366,7 +366,7 @@
           }
         },
         {
-          "name": "text sent event/related/carried_out_by (external local)",
+          "name": "text_sent_event/related/carried_out_by@el",
           "source": "relatedEntities[?relation=='text:send:sender' && !id.target.name && !(starts_with(id.target.gid, '@'))]",
           "output": {
             "nodes": {
@@ -376,7 +376,7 @@
           }
         },
         {
-          "name": "text sent event/related/carried_out_by (internal)",
+          "name": "text_sent_event/related/carried_out_by@i",
           "source": "relatedEntities[?relation=='text:send:sender' && id.target.name]",
           "output": {
             "nodes": {
@@ -386,7 +386,7 @@
           }
         },
         {
-          "name": "text sent event/related/has_participant (external global)",
+          "name": "text_sent_event/related/has_participant@eg",
           "source": "relatedEntities[?relation=='text:send:recipient' && !id.target.name && starts_with(id.target.gid, '@')]",
           "output": {
             "nodes": {
@@ -396,7 +396,7 @@
           }
         },
         {
-          "name": "text sent event/related/has_participant (external local)",
+          "name": "text_sent_event/related/has_participant@el",
           "source": "relatedEntities[?relation=='text:send:recipient' && !id.target.name && !(starts_with(id.target.gid, '@'))]",
           "output": {
             "nodes": {
@@ -406,7 +406,7 @@
           }
         },
         {
-          "name": "text sent event/related/has_participant (internal)",
+          "name": "text_sent_event/related/has_participant@i",
           "source": "relatedEntities[?relation=='text:send:recipient' && id.target.name]",
           "output": {
             "nodes": {
@@ -416,7 +416,7 @@
           }
         },
         {
-          "name": "text sent event/related/has_participant (external global)",
+          "name": "text_sent_event/related/has_participant@eg",
           "source": "relatedEntities[?relation=='text:send:carrier' && !id.target.name && starts_with(id.target.gid, '@')]",
           "output": {
             "nodes": {
@@ -426,7 +426,7 @@
           }
         },
         {
-          "name": "text sent event/related/has_participant (external local)",
+          "name": "text_sent_event/related/has_participant@el",
           "source": "relatedEntities[?relation=='text:send:carrier' && !id.target.name && !(starts_with(id.target.gid, '@'))]",
           "output": {
             "nodes": {
@@ -436,7 +436,7 @@
           }
         },
         {
-          "name": "text sent event/related/has_participant (internal)",
+          "name": "text_sent_event/related/has_participant@i",
           "source": "relatedEntities[?relation=='text:send:carrier' && id.target.name]",
           "output": {
             "nodes": {
@@ -446,7 +446,7 @@
           }
         },
         {
-          "name": "text sent event/related/attachment (external global)",
+          "name": "text_sent_event/related/attachment@eg",
           "source": "relatedEntities[?relation=='text:send:attachment' && !id.target.name && starts_with(id.target.gid, '@')]",
           "output": {
             "nodes": {
@@ -456,7 +456,7 @@
           }
         },
         {
-          "name": "text sent event/related/attachment (external local)",
+          "name": "text_sent_event/related/attachment@el",
           "source": "relatedEntities[?relation=='text:send:attachment' && !id.target.name && !(starts_with(id.target.gid, '@'))]",
           "output": {
             "nodes": {
@@ -466,7 +466,7 @@
           }
         },
         {
-          "name": "text sent event/related/attachment (internal)",
+          "name": "text_sent_event/related/attachment@i",
           "source": "relatedEntities[?relation=='text:send:attachment' && id.target.name]",
           "output": {
             "nodes": {
@@ -478,7 +478,7 @@
       ]
     },
     {
-      "name": "text reception event",
+      "name": "text_reception_event",
       "sourceType": 2,
       "facetFilter": "work",
       "partTypeFilter": "it.vedph.historical-events",
@@ -516,7 +516,7 @@
           "name": "event_period"
         },
         {
-          "name": "text reception event/related/carried_out_by (external global)",
+          "name": "text_reception_event/related/carried_out_by@eg",
           "source": "relatedEntities[?relation=='text:reception:recipient' && !id.target.name && starts_with(id.target.gid, '@')]",
           "output": {
             "nodes": {
@@ -526,7 +526,7 @@
           }
         },
         {
-          "name": "text reception event/related/carried_out_by (external local)",
+          "name": "text_reception_event/related/carried_out_by@el",
           "source": "relatedEntities[?relation=='text:reception:recipient' && !id.target.name && !(starts_with(id.target.gid, '@'))]",
           "output": {
             "nodes": {
@@ -536,7 +536,7 @@
           }
         },
         {
-          "name": "text reception event/related/carried_out_by (internal)",
+          "name": "text_reception_event/related/carried_out_by@i",
           "source": "relatedEntities[?relation=='text:reception:recipient' && id.target.name]",
           "output": {
             "nodes": {
@@ -546,7 +546,7 @@
           }
         },
         {
-          "name": "text reception event/related/has_participant (external global)",
+          "name": "text_reception_event/related/has_participant@eg",
           "source": "relatedEntities[?relation=='text:reception:sender' && !id.target.name && starts_with(id.target.gid, '@')]",
           "output": {
             "nodes": {
@@ -556,7 +556,7 @@
           }
         },
         {
-          "name": "text reception event/related/has_participant (external local)",
+          "name": "text_reception_event/related/has_participant@el",
           "source": "relatedEntities[?relation=='text:reception:sender' && !id.target.name && !(starts_with(id.target.gid, '@'))]",
           "output": {
             "nodes": {
@@ -566,7 +566,7 @@
           }
         },
         {
-          "name": "text reception event/related/has_participant (internal)",
+          "name": "text_reception_event/related/has_participant@i",
           "source": "relatedEntities[?relation=='text:reception:sender' && id.target.name]",
           "output": {
             "nodes": {
@@ -576,7 +576,7 @@
           }
         },
         {
-          "name": "text reception event/related/has_participant (external global)",
+          "name": "text_reception_event/related/has_participant@eg",
           "source": "relatedEntities[?relation=='text:reception:carrier' && !id.target.name && starts_with(id.target.gid, '@')]",
           "output": {
             "nodes": {
@@ -586,7 +586,7 @@
           }
         },
         {
-          "name": "text reception event/related/has_participant (external local)",
+          "name": "text_reception_event/related/has_participant@el",
           "source": "relatedEntities[?relation=='text:reception:carrier' && !id.target.name && !(starts_with(id.target.gid, '@'))]",
           "output": {
             "nodes": {
@@ -596,7 +596,7 @@
           }
         },
         {
-          "name": "text reception event/related/has_participant (internal)",
+          "name": "text_reception_event/related/has_participant@i",
           "source": "relatedEntities[?relation=='text:reception:carrier' && id.target.name]",
           "output": {
             "nodes": {
@@ -606,7 +606,7 @@
           }
         },
         {
-          "name": "text reception event/related/attachment (external global)",
+          "name": "text_reception_event/related/attachment@eg",
           "source": "relatedEntities[?relation=='text:reception:attachment' && !id.target.name && starts_with(id.target.gid, '@')]",
           "output": {
             "nodes": {
@@ -616,7 +616,7 @@
           }
         },
         {
-          "name": "text reception event/related/attachment (external local)",
+          "name": "text_reception_event/related/attachment@el",
           "source": "relatedEntities[?relation=='text:reception:attachment' && !id.target.name && !(starts_with(id.target.gid, '@'))]",
           "output": {
             "nodes": {
@@ -626,7 +626,7 @@
           }
         },
         {
-          "name": "text reception event/related/attachment (internal)",
+          "name": "text_reception_event/related/attachment@i",
           "source": "relatedEntities[?relation=='text:reception:attachment' && id.target.name]",
           "output": {
             "nodes": {
@@ -638,7 +638,7 @@
       ]
     },
     {
-      "name": "text transcription event",
+      "name": "text_transcription_event",
       "sourceType": 2,
       "facetFilter": "work",
       "partTypeFilter": "it.vedph.historical-events",
@@ -676,7 +676,7 @@
           "name": "event_period"
         },
         {
-          "name": "text transcription event/related/carried_out_by (external global)",
+          "name": "text_transcription_event/related/carried_out_by@eg",
           "source": "relatedEntities[?relation=='text:transcription:transcriber' && !id.target.name && starts_with(id.target.gid, '@')]",
           "output": {
             "nodes": {
@@ -686,7 +686,7 @@
           }
         },
         {
-          "name": "text transcription event/related/carried_out_by (external local)",
+          "name": "text_transcription_event/related/carried_out_by@el",
           "source": "relatedEntities[?relation=='text:transcription:transcriber' && !id.target.name && !(starts_with(id.target.gid, '@'))]",
           "output": {
             "nodes": {
@@ -696,7 +696,7 @@
           }
         },
         {
-          "name": "text transcription event/related/carried_out_by (internal)",
+          "name": "text_transcription_event/related/carried_out_by@i",
           "source": "relatedEntities[?relation=='text:transcription:transcriber' && id.target.name]",
           "output": {
             "nodes": {
@@ -706,7 +706,7 @@
           }
         },
         {
-          "name": "text transcription event/related/has_produced (external global)",
+          "name": "text_transcription_event/related/has_produced@eg",
           "source": "relatedEntities[?relation=='text:transcription:copy' && !id.target.name && starts_with(id.target.gid, '@')]",
           "output": {
             "nodes": {
@@ -716,7 +716,7 @@
           }
         },
         {
-          "name": "text transcription event/related/has_produced (external local)",
+          "name": "text_transcription_event/related/has_produced@el",
           "source": "relatedEntities[?relation=='text:transcription:copy' && !id.target.name && !(starts_with(id.target.gid, '@'))]",
           "output": {
             "nodes": {
@@ -726,7 +726,7 @@
           }
         },
         {
-          "name": "text transcription event/related/has_produced (internal)",
+          "name": "text_transcription_event/related/has_produced@i",
           "source": "relatedEntities[?relation=='text:transcription:copy' && id.target.name]",
           "output": {
             "nodes": {
@@ -738,7 +738,7 @@
       ]
     },
     {
-      "name": "text collection event",
+      "name": "text_collection_event",
       "sourceType": 2,
       "facetFilter": "work",
       "partTypeFilter": "it.vedph.historical-events",
@@ -776,7 +776,7 @@
           "name": "event_period"
         },
         {
-          "name": "text collection event/related/has_component (external global)",
+          "name": "text_collection_event/related/has_component@eg",
           "source": "relatedEntities[?relation=='text:collection:collector' && !id.target.name && starts_with(id.target.gid, '@')]",
           "output": {
             "nodes": {
@@ -786,7 +786,7 @@
           }
         },
         {
-          "name": "text collection event/related/has_component (external local)",
+          "name": "text_collection_event/related/has_component@el",
           "source": "relatedEntities[?relation=='text:collection:collector' && !id.target.name && !(starts_with(id.target.gid, '@'))]",
           "output": {
             "nodes": {
@@ -796,7 +796,7 @@
           }
         },
         {
-          "name": "text collection event/related/has_component (internal)",
+          "name": "text_collection_event/related/has_component@i",
           "source": "relatedEntities[?relation=='text:collection:collector' && id.target.name]",
           "output": {
             "nodes": {
@@ -808,7 +808,7 @@
       ]
     },
     {
-      "name": "text version event",
+      "name": "text_version_event",
       "sourceType": 2,
       "facetFilter": "work",
       "partTypeFilter": "it.vedph.historical-events",
@@ -846,7 +846,7 @@
           "name": "event_period"
         },
         {
-          "name": "text version event/related/refers_to (external global)",
+          "name": "text_version_event/related/refers_to@eg",
           "source": "relatedEntities[?relation=='text:version:previous' && !id.target.name && starts_with(id.target.gid, '@')]",
           "output": {
             "nodes": {
@@ -856,7 +856,7 @@
           }
         },
         {
-          "name": "text version event/related/refers_to (external local)",
+          "name": "text_version_event/related/refers_to@el",
           "source": "relatedEntities[?relation=='text:version:previous' && !id.target.name && !(starts_with(id.target.gid, '@'))]",
           "output": {
             "nodes": {
@@ -866,7 +866,7 @@
           }
         },
         {
-          "name": "text version event/related/refers_to (internal)",
+          "name": "text_version_event/related/refers_to@i",
           "source": "relatedEntities[?relation=='text:version:previous' && id.target.name]",
           "output": {
             "nodes": {
@@ -878,7 +878,7 @@
       ]
     },
     {
-      "name": "ref-text-parts (external global)",
+      "name": "ref_text_parts@eg",
       "sourceType": 2,
       "facetFilter": "work",
       "partTypeFilter": "it.vedph.itinera.referenced-texts",
@@ -903,7 +903,7 @@
       },
       "children": [
         {
-          "name": "ref-text-parts (external global)/sourceCits",
+          "name": "ref_text_parts@eg/sourceCits",
           "source": "sourceCitations",
           "output": {
             "nodes": {
@@ -920,7 +920,7 @@
       ]
     },
     {
-      "name": "ref-text-parts (external local)",
+      "name": "ref_text_parts@el",
       "sourceType": 2,
       "facetFilter": "work",
       "partTypeFilter": "it.vedph.itinera.referenced-texts",
@@ -944,7 +944,7 @@
       },
       "children": [
         {
-          "name": "ref-text-parts (external local)/sourceCits",
+          "name": "ref_text_parts@el/sourceCits",
           "source": "sourceCitations",
           "output": {
             "nodes": {
@@ -961,7 +961,7 @@
       ]
     },
     {
-      "name": "ref-text-parts (internal)",
+      "name": "ref_text_parts@i",
       "sourceType": 2,
       "facetFilter": "work",
       "partTypeFilter": "it.vedph.itinera.referenced-texts",
@@ -985,7 +985,7 @@
       },
       "children": [
         {
-          "name": "ref-text-parts (internal)/sourceCits",
+          "name": "ref_text_parts@i/sourceCits",
           "source": "sourceCitations",
           "output": {
             "nodes": {
@@ -1002,7 +1002,7 @@
       ]
     },
     {
-      "name": "rel-persons-part",
+      "name": "rel_persons_part",
       "sourceType": 2,
       "facetFilter": "work",
       "partTypeFilter": "it.vedph.itinera.related-persons",
@@ -1029,7 +1029,7 @@
       },
       "children": [
         {
-          "name": "rel-persons-part (external global)/ids",
+          "name": "rel_persons_part@eg/ids",
           "source": "ids[?!target.name && starts_with(target.gid, '@')]",
           "output": {
             "nodes": {
@@ -1043,7 +1043,7 @@
           }
         },
         {
-          "name": "rel-persons-part (external local)/ids",
+          "name": "rel_persons_part@el/ids",
           "source": "ids[?!target.name && !(starts_with(target.gid, '@'))]",
           "output": {
             "nodes": {
@@ -1057,7 +1057,7 @@
           }
         },
         {
-          "name": "rel-persons-part (internal)/ids",
+          "name": "rel_persons_part@i/ids",
           "source": "ids[?target.name]",
           "output": {
             "nodes": {
@@ -1073,7 +1073,7 @@
       ]
     },
     {
-      "name": "manuscript hands",
+      "name": "manuscript_hands",
       "sourceType": 2,
       "facetFilter": "manuscript",
       "partTypeFilter": "it.vedph.codicology.hands",
@@ -1094,11 +1094,11 @@
       },
       "children": [
         {
-          "name": "manuscript hands/instances",
+          "name": "manuscript_hands/instances",
           "source": "instances",
           "children": [
             {
-              "name": "manuscript hands/instances/ranges",
+              "name": "manuscript_hands/instances/ranges",
               "source": "ranges",
               "output": {
                 "nodes": {
