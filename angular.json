@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "cadmus-graph-studio:build:production"
+              "buildTarget": "cadmus-graph-studio:build:production"
             },
             "development": {
-              "browserTarget": "cadmus-graph-studio:build:development"
+              "buildTarget": "cadmus-graph-studio:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "cadmus-graph-studio:build"
+            "buildTarget": "cadmus-graph-studio:build"
           }
         },
         "test": {
