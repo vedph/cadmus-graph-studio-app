@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -40,51 +40,45 @@ import { MappingEditorPageComponent } from './components/mapping-editor-page/map
 import { EnvServiceProvider } from '@myrmidon/ng-tools';
 import { MappingDocPageComponent } from './components/mapping-doc-page/mapping-doc-page.component';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    MappingEditorPageComponent,
-    MappingDocPageComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    // material
-    MatButtonModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatMenuModule,
-    MatPaginatorModule,
-    MatProgressBarModule,
-    MatSelectModule,
-    MatSnackBarModule,
-    MatTabsModule,
-    MatTooltipModule,
-    MatToolbarModule,
-    // vendor
-    MonacoEditorModule.forRoot(),
-    // locals
-    CadmusMappingBuilderModule,
-  ],
-  providers: [
-    // environment service
-    EnvServiceProvider,
-    // use RAM-based store for mappings
-    {
-      provide: NODE_MAPPING_SERVICE,
-      useClass: RamNodeMappingService,
-    },
-  ],
-  bootstrap: [AppComponent],
-})
+@NgModule({ declarations: [
+        AppComponent,
+        HomeComponent,
+        MappingEditorPageComponent,
+        MappingDocPageComponent,
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        // material
+        MatButtonModule,
+        MatCardModule,
+        MatCheckboxModule,
+        MatExpansionModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
+        MatMenuModule,
+        MatPaginatorModule,
+        MatProgressBarModule,
+        MatSelectModule,
+        MatSnackBarModule,
+        MatTabsModule,
+        MatTooltipModule,
+        MatToolbarModule,
+        // vendor
+        MonacoEditorModule.forRoot(),
+        // locals
+        CadmusMappingBuilderModule], providers: [
+        // environment service
+        EnvServiceProvider,
+        // use RAM-based store for mappings
+        {
+            provide: NODE_MAPPING_SERVICE,
+            useClass: RamNodeMappingService,
+        },
+        provideHttpClient(withInterceptorsFromDi()),
+    ] })
 export class AppModule {}
