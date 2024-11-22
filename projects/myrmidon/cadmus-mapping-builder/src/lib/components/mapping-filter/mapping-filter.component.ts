@@ -9,6 +9,7 @@ import { NodeMappingListRepository } from '../../state/mapping-list.repository';
   selector: 'cadmus-mapping-filter',
   templateUrl: './mapping-filter.component.html',
   styleUrls: ['./mapping-filter.component.css'],
+  standalone: false,
 })
 export class MappingFilterComponent implements OnInit, OnDestroy {
   private _sub?: Subscription;

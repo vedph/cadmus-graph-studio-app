@@ -18,6 +18,7 @@ import { MappingJsonService } from '../../services/mapping-json.service';
   selector: 'cadmus-mapping-tree-editor',
   templateUrl: './mapping-tree-editor.component.html',
   styleUrls: ['./mapping-tree-editor.component.css'],
+  standalone: false,
 })
 export class MappingTreeEditorComponent {
   private _mapping?: NodeMapping;

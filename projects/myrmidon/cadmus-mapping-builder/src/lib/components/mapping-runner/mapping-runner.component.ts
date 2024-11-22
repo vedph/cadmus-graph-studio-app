@@ -21,6 +21,7 @@ import {
   selector: 'cadmus-mapping-runner',
   templateUrl: './mapping-runner.component.html',
   styleUrls: ['./mapping-runner.component.css'],
+  standalone: false,
 })
 export class MappingRunnerComponent {
   private _mapping: NodeMapping | undefined;

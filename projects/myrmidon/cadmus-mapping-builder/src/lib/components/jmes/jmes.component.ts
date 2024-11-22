@@ -24,6 +24,7 @@ import { GraphStudioApiService } from '../../services/graph-studio-api.service';
   selector: 'cadmus-jmes',
   templateUrl: './jmes.component.html',
   styleUrls: ['./jmes.component.css'],
+  standalone: false,
 })
 export class JmesComponent implements OnInit, OnDestroy {
   private _sub?: Subscription;

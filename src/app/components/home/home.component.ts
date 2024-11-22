@@ -3,9 +3,10 @@ import { Router } from '@angular/router';
 import { NodeMapping } from '@myrmidon/cadmus-mapping-builder';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.css'],
+    standalone: false
 })
 export class HomeComponent {
   constructor(private _router: Router) {}

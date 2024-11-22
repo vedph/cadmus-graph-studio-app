@@ -27,9 +27,10 @@ function jsonValidator(): ValidatorFn {
 }
 
 @Component({
-  selector: 'app-mapping-doc-page',
-  templateUrl: './mapping-doc-page.component.html',
-  styleUrls: ['./mapping-doc-page.component.css'],
+    selector: 'app-mapping-doc-page',
+    templateUrl: './mapping-doc-page.component.html',
+    styleUrls: ['./mapping-doc-page.component.css'],
+    standalone: false
 })
 export class MappingDocPageComponent {
   public editorOptions = {

@@ -17,6 +17,7 @@ import { NodeMapping, NodeMappingOutput } from '../../models';
   selector: 'cadmus-mapping-editor',
   templateUrl: './mapping-editor.component.html',
   styleUrls: ['./mapping-editor.component.css'],
+  standalone: false,
 })
 export class MappingEditorComponent {
   private _mapping?: NodeMapping;

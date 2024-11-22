@@ -17,6 +17,7 @@ import { RamCacheService } from '../../services/ram-cache.service';
   selector: 'cadmus-cached-text-picker',
   templateUrl: './cached-text-picker.component.html',
   styleUrls: ['./cached-text-picker.component.css'],
+  standalone: false,
 })
 export class CachedTextPickerComponent implements OnInit {
   private _keyPrefix: string | undefined;

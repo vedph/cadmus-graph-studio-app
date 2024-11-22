@@ -18,6 +18,7 @@ import { MappedTriple } from '../../models';
   selector: 'cadmus-mapping-output-editor',
   templateUrl: './mapping-output-editor.component.html',
   styleUrls: ['./mapping-output-editor.component.css'],
+  standalone: false,
 })
 export class MappingOutputEditorComponent {
   private _output?: NodeMappingOutput;
@@ -75,7 +76,9 @@ export class MappingOutputEditorComponent {
       return null;
     }
     // parse node from "key uid [label|tag]" (key uid required)
-    const m = text.match(/^(\S+)\s+((?:(?!\[[^\[\]]+\]$).)*)(?:\[([^\]\|]+)?(?:\|([^\]]+))?\])?/);
+    const m = text.match(
+      /^(\S+)\s+((?:(?!\[[^\[\]]+\]$).)*)(?:\[([^\]\|]+)?(?:\|([^\]]+))?\])?/
+    );
     if (!m) {
       return null;
     }

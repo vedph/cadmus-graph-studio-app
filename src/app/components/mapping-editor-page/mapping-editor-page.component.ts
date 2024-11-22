@@ -10,9 +10,10 @@ import {
 } from 'projects/myrmidon/cadmus-mapping-builder/src/public-api';
 
 @Component({
-  selector: 'app-mapping-editor-page',
-  templateUrl: './mapping-editor-page.component.html',
-  styleUrls: ['./mapping-editor-page.component.css'],
+    selector: 'app-mapping-editor-page',
+    templateUrl: './mapping-editor-page.component.html',
+    styleUrls: ['./mapping-editor-page.component.css'],
+    standalone: false
 })
 export class MappingEditorPageComponent {
   public initialMapping?: NodeMapping;

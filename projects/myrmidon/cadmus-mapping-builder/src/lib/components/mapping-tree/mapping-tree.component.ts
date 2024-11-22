@@ -14,6 +14,7 @@ import { NodeMapping } from '../../models';
   selector: 'cadmus-mapping-tree',
   templateUrl: './mapping-tree.component.html',
   styleUrls: ['./mapping-tree.component.css'],
+  standalone: false,
 })
 export class MappingTreeComponent {
   private _mapping?: NodeMapping;

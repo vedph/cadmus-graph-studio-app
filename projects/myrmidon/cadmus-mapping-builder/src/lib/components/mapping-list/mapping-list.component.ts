@@ -12,6 +12,7 @@ import { NodeMapping } from '../../models';
   selector: 'cadmus-mapping-list',
   templateUrl: './mapping-list.component.html',
   styleUrls: ['./mapping-list.component.css'],
+  standalone: false,
 })
 export class MappingListComponent {
   public page$: Observable<DataPage<NodeMapping>>;
