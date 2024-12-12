@@ -17,11 +17,10 @@
     <button
       type="submit"
       mat-flat-button
-      color="primary"
       [disabled]="form.invalid || busy"
       matTooltip="Run JMES"
     >
-      <mat-icon>play_circle</mat-icon> run
+      <mat-icon class="mat-primary">play_circle</mat-icon> run
     </button>
     <div>
       <mat-progress-bar *ngIf="busy" mode="indeterminate"></mat-progress-bar>

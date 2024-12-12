@@ -12,22 +12,20 @@
       <button
         type="button"
         mat-icon-button
-        color="primary"
         [disabled]="!key.value"
         (click)="pick()"
         matTooltip="Pick this preset"
       >
-        <mat-icon>login</mat-icon>
+        <mat-icon class="mat-primary">login</mat-icon>
       </button>
       <button
         type="button"
         mat-icon-button
-        color="warn"
         [disabled]="!key.value"
         (click)="remove()"
         matTooltip="Delete this preset"
       >
-        <mat-icon>delete</mat-icon>
+        <mat-icon class="mat-warn">delete</mat-icon>
       </button>
     </ng-container>
 
@@ -51,11 +49,10 @@
     <button
       type="submit"
       mat-icon-button
-      color="primary"
       [disabled]="form.invalid || !text"
       matTooltip="Add text as preset"
     >
-      <mat-icon>add_circle</mat-icon>
+      <mat-icon class="mat-primary">add_circle</mat-icon>
     </button>
   </div>
 </form>

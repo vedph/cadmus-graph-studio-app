@@ -66,20 +66,18 @@
     <button
       type="button"
       mat-icon-button
-      color="warn"
       matTooltip="Close without saving"
       (click)="cancel()"
     >
-      <mat-icon>cancel</mat-icon>
+      <mat-icon class="mat-warn">cancel</mat-icon>
     </button>
     <button
       type="submit"
       [disabled]="form.invalid"
       mat-icon-button
-      color="primary"
       matTooltip="Save mapping output"
     >
-      <mat-icon>check_circle</mat-icon>
+      <mat-icon class="mat-primary">check_circle</mat-icon>
     </button>
   </div>
 </form>

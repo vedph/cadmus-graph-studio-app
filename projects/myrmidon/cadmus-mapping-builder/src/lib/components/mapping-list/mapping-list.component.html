@@ -17,21 +17,11 @@
     <tbody>
       <tr *ngFor="let m of page.items">
         <td class="fit-width">
-          <button
-            type="button"
-            mat-icon-button
-            color="primary"
-            (click)="editMapping(m)"
-          >
-            <mat-icon>edit</mat-icon>
+          <button type="button" mat-icon-button (click)="editMapping(m)">
+            <mat-icon class="mat-primary">edit</mat-icon>
           </button>
-          <button
-            type="button"
-            mat-icon-button
-            color="warn"
-            (click)="deleteMapping(m)"
-          >
-            <mat-icon>delete</mat-icon>
+          <button type="button" mat-icon-button (click)="deleteMapping(m)">
+            <mat-icon class="mat-warn">delete</mat-icon>
           </button>
         </td>
         <td>{{ m.id }}</td>

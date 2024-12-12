@@ -19,8 +19,7 @@ import { MatTreeModule } from '@angular/material/tree';
 
 import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 
-import { NgToolsModule } from '@myrmidon/ng-tools';
-import { PagedDataBrowsersModule } from '@myrmidon/paged-data-browsers';
+import { FlatLookupPipe } from '@myrmidon/ngx-tools';
 
 import { MappingFilterComponent } from './components/mapping-filter/mapping-filter.component';
 import { MappingListComponent } from './components/mapping-list/mapping-list.component';
@@ -65,8 +64,8 @@ import { MappingRunnerComponent } from './components/mapping-runner/mapping-runn
     MatTreeModule,
     // vendor
     MonacoEditorModule,
-    NgToolsModule,
-    PagedDataBrowsersModule,
+    // myrmidon
+    FlatLookupPipe,
   ],
   exports: [
     MappingFilterComponent,

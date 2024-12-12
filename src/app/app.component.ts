@@ -11,7 +11,7 @@ import {
 import { AssetService } from './services/asset.service';
 import { DialogService } from '@myrmidon/ngx-mat-tools';
 import { Router } from '@angular/router';
-import { EnvService } from '@myrmidon/ng-tools';
+import { EnvService } from '@myrmidon/ngx-tools';
 
 @Component({
   selector: 'app-root',

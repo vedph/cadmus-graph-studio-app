@@ -8,7 +8,7 @@ import {
   ErrorService,
   ErrorWrapper,
   deepCopy,
-} from '@myrmidon/ng-tools';
+} from '@myrmidon/ngx-tools';
 
 import { GraphSet, NodeMapping } from '../models';
 import { MappingJsonService } from './mapping-json.service';

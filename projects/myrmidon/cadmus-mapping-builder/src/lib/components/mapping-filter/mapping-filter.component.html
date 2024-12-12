@@ -15,11 +15,7 @@
   <div>
     <mat-form-field>
       <mat-label>name</mat-label>
-      <input
-        matInput
-        [formControl]="name"
-        autocomplete="off"
-      />
+      <input matInput [formControl]="name" autocomplete="off" />
     </mat-form-field>
   </div>
 
@@ -27,11 +23,7 @@
   <div>
     <mat-form-field>
       <mat-label>facet</mat-label>
-      <input
-        matInput
-        [formControl]="facet"
-        autocomplete="off"
-      />
+      <input matInput [formControl]="facet" autocomplete="off" />
     </mat-form-field>
   </div>
 
@@ -39,11 +31,7 @@
   <div>
     <mat-form-field>
       <mat-label>group</mat-label>
-      <input
-        matInput
-        [formControl]="group"
-        autocomplete="off"
-      />
+      <input matInput [formControl]="group" autocomplete="off" />
     </mat-form-field>
   </div>
 
@@ -66,11 +54,7 @@
   <div>
     <mat-form-field>
       <mat-label>title</mat-label>
-      <input
-        matInput
-        [formControl]="title"
-        autocomplete="off"
-      />
+      <input matInput [formControl]="title" autocomplete="off" />
     </mat-form-field>
   </div>
 
@@ -78,11 +62,7 @@
   <div>
     <mat-form-field>
       <mat-label>part type</mat-label>
-      <input
-        matInput
-        [formControl]="partType"
-        autocomplete="off"
-      />
+      <input matInput [formControl]="partType" autocomplete="off" />
     </mat-form-field>
   </div>
 
@@ -90,11 +70,7 @@
   <div>
     <mat-form-field>
       <mat-label>part role</mat-label>
-      <input
-        matInput
-        [formControl]="partRole"
-        autocomplete="off"
-      />
+      <input matInput [formControl]="partRole" autocomplete="off" />
     </mat-form-field>
   </div>
 
@@ -104,19 +80,17 @@
         type="button"
         mat-icon-button
         (click)="reset()"
-        color="warn"
         matTooltip="Reset all the filters"
       >
-        <mat-icon>clear</mat-icon>
+        <mat-icon class="mat-warn">clear</mat-icon>
       </button>
       <button
         type="submit"
         mat-icon-button
-        color="primary"
         [disabled]="form.invalid || (loading$ | async)"
         matTooltip="Apply filters"
       >
-        <mat-icon>check_circle</mat-icon>
+        <mat-icon class="mat-primary">check_circle</mat-icon>
       </button>
     </div>
   </div>

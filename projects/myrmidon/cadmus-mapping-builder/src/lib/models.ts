@@ -1,4 +1,4 @@
-import { DataPage } from '@myrmidon/ng-tools';
+import { DataPage } from '@myrmidon/ngx-tools';
 import { Observable } from 'rxjs';
 
 export interface MappedNode {

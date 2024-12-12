@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 
-import { DataPage } from '@myrmidon/ng-tools';
+import { DataPage } from '@myrmidon/ngx-tools';
 
 import { NodeMappingService, NodeMappingFilter, NodeMapping } from '../models';
 import { MappingJsonService } from './mapping-json.service';

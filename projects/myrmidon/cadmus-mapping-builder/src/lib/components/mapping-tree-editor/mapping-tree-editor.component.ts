@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { take } from 'rxjs';
 
 import { DialogService } from '@myrmidon/ngx-mat-tools';
-import { deepCopy } from '@myrmidon/ng-tools';
+import { deepCopy } from '@myrmidon/ngx-tools';
 
 import { NodeMapping } from '../../models';
 import { MappingJsonService } from '../../services/mapping-json.service';

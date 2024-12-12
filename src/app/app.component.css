@@ -17,3 +17,10 @@ footer a {
 footer a:hover {
   text-decoration: underline;
 }
+mat-toolbar {
+  background-color: #1976d2;
+  color: white;
+}
+mat-toolbar mat-icon {
+  color: white;
+}

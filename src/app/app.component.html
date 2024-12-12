@@ -1,5 +1,5 @@
 <header>
-  <mat-toolbar color="primary">
+  <mat-toolbar>
     <span id="logo"
       ><img src="./assets/img/logo-white-40.png" alt="Fusisoft"
     /></span>
@@ -11,7 +11,7 @@
     </button>
     <mat-menu #fileMenu>
       <a mat-menu-item (click)="clear()">
-        <mat-icon color="warn">delete</mat-icon>
+        <mat-icon class="mat-warn">delete</mat-icon>
         Clear mappings</a
       >
       <a mat-menu-item (click)="export()">
@@ -19,7 +19,7 @@
         Export mappings</a
       >
       <a mat-menu-item (click)="view()">
-        <mat-icon color="primary">description</mat-icon>
+        <mat-icon class="mat-primary">description</mat-icon>
         View mappings</a
       >
     </mat-menu>
@@ -41,7 +41,7 @@
       <a rel="noopener" href="https://www.unive.it/pag/39287" target="_blank"
         >VeDPH</a
       >
-      - version {{version}} -
+      - version {{ version }} -
       <a
         rel="noopener"
         href="https://myrmex.github.io/overview/cadmus"

@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 
-import { NgToolsValidators } from '@myrmidon/ng-tools';
+import { NgxToolsValidators } from '@myrmidon/ngx-tools';
 
 import { NodeMapping, NodeMappingOutput } from '../../models';
 
@@ -73,7 +73,7 @@ export class MappingEditorComponent {
     });
     this.sid = formBuilder.control('', {
       validators: [
-        NgToolsValidators.conditionalValidator(
+        NgxToolsValidators.conditionalValidator(
           () => !this._mapping?.parent,
           Validators.required
         ),

@@ -37,7 +37,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { MappingEditorPageComponent } from './components/mapping-editor-page/mapping-editor-page.component';
-import { EnvServiceProvider } from '@myrmidon/ng-tools';
+import { EnvServiceProvider } from '@myrmidon/ngx-tools';
 import { MappingDocPageComponent } from './components/mapping-doc-page/mapping-doc-page.component';
 
 @NgModule({ declarations: [

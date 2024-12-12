@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { deepCopy } from '@myrmidon/ng-tools';
+import { deepCopy } from '@myrmidon/ngx-tools';
 
 import {
   MappedNode,

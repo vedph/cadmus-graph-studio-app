@@ -279,14 +279,14 @@
 
   <!-- buttons -->
   <div class="form-row">
-    <button type="button" mat-flat-button color="warn" (click)="cancel()">
+    <button type="button" mat-flat-button class="mat-warn" (click)="cancel()">
       <mat-icon>cancel</mat-icon> close
     </button>
     <button
       type="submit"
       [disabled]="form.invalid"
       mat-flat-button
-      color="primary"
+      class="mat-primary"
     >
       <mat-icon>check_circle</mat-icon> save
     </button>
