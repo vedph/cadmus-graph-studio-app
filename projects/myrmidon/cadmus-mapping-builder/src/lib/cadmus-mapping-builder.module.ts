@@ -19,7 +19,6 @@ import { MatTreeModule } from '@angular/material/tree';
 
 import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 
-import { NgMatToolsModule } from '@myrmidon/ng-mat-tools';
 import { NgToolsModule } from '@myrmidon/ng-tools';
 import { PagedDataBrowsersModule } from '@myrmidon/paged-data-browsers';
 
@@ -67,7 +66,6 @@ import { MappingRunnerComponent } from './components/mapping-runner/mapping-runn
     // vendor
     MonacoEditorModule,
     NgToolsModule,
-    NgMatToolsModule,
     PagedDataBrowsersModule,
   ],
   exports: [

@@ -14,8 +14,6 @@ import {
   NODE_MAPPING_SERVICE,
 } from '../models';
 
-const PAGE_SIZE = 20;
-
 export interface NodeMappingListProps {
   filter: NodeMappingFilter;
 }

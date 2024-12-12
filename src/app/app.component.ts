@@ -9,15 +9,15 @@ import {
 } from 'projects/myrmidon/cadmus-mapping-builder/src/public-api';
 
 import { AssetService } from './services/asset.service';
-import { DialogService } from '@myrmidon/ng-mat-tools';
+import { DialogService } from '@myrmidon/ngx-mat-tools';
 import { Router } from '@angular/router';
 import { EnvService } from '@myrmidon/ng-tools';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css'],
-    standalone: false
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+  standalone: false,
 })
 export class AppComponent {
   public version: string;
