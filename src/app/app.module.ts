@@ -1,5 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -37,48 +40,51 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { MappingEditorPageComponent } from './components/mapping-editor-page/mapping-editor-page.component';
-import { EnvServiceProvider } from '@myrmidon/ngx-tools';
 import { MappingDocPageComponent } from './components/mapping-doc-page/mapping-doc-page.component';
 
-@NgModule({ declarations: [
-        AppComponent,
-        HomeComponent,
-        MappingEditorPageComponent,
-        MappingDocPageComponent,
-    ],
-    bootstrap: [AppComponent], imports: [BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        // material
-        MatButtonModule,
-        MatCardModule,
-        MatCheckboxModule,
-        MatExpansionModule,
-        MatFormFieldModule,
-        MatIconModule,
-        MatInputModule,
-        MatMenuModule,
-        MatPaginatorModule,
-        MatProgressBarModule,
-        MatSelectModule,
-        MatSnackBarModule,
-        MatTabsModule,
-        MatTooltipModule,
-        MatToolbarModule,
-        // vendor
-        MonacoEditorModule.forRoot(),
-        // locals
-        CadmusMappingBuilderModule], providers: [
-        // environment service
-        EnvServiceProvider,
-        // use RAM-based store for mappings
-        {
-            provide: NODE_MAPPING_SERVICE,
-            useClass: RamNodeMappingService,
-        },
-        provideHttpClient(withInterceptorsFromDi()),
-    ] })
+@NgModule({
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    MappingEditorPageComponent,
+    MappingDocPageComponent,
+  ],
+  bootstrap: [AppComponent],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    // material
+    MatButtonModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatMenuModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatSelectModule,
+    MatSnackBarModule,
+    MatTabsModule,
+    MatTooltipModule,
+    MatToolbarModule,
+    // vendor
+    MonacoEditorModule.forRoot(),
+    // locals
+    CadmusMappingBuilderModule,
+  ],
+  providers: [
+    // use RAM-based store for mappings
+    {
+      provide: NODE_MAPPING_SERVICE,
+      useClass: RamNodeMappingService,
+    },
+    provideHttpClient(withInterceptorsFromDi()),
+  ],
+})
 export class AppModule {}
