@@ -7,7 +7,7 @@
           mat-button
           (click)="onNodeClick(node)"
           [class.hilite]="isSelected(node)"
-        >
+          >
           {{ node.name }}
         </a>
         <button
@@ -15,7 +15,7 @@
           mat-icon-button
           matTooltip="Delete this mapping"
           (click)="deleteNode(node)"
-        >
+          >
           <mat-icon class="mat-warn">clear</mat-icon>
         </button>
         <button
@@ -23,7 +23,7 @@
           mat-icon-button
           matTooltip="Add a child mapping"
           (click)="addChildNode(node)"
-        >
+          >
           <mat-icon class="mat-primary">add_circle</mat-icon>
         </button>
       </div>
@@ -38,7 +38,7 @@
         mat-icon-button
         matTreeNodeToggle
         [attr.aria-label]="'Toggle ' + node.name"
-      >
+        >
         <mat-icon>
           {{ treeControl.isExpanded(node) ? "expand_more" : "chevron_right" }}
         </mat-icon>
@@ -47,14 +47,16 @@
         mat-button
         (click)="onNodeClick(node)"
         [class.hilite]="isSelected(node)"
-      >
+        >
         {{ node.name }}
       </a>
     </div>
     <ul class="tree-nested-node">
-      <div *ngIf="treeControl.isExpanded(node)">
-        <ng-container matTreeNodeOutlet></ng-container>
-      </div>
+      @if (treeControl.isExpanded(node)) {
+        <div>
+          <ng-container matTreeNodeOutlet></ng-container>
+        </div>
+      }
     </ul>
   </mat-nested-tree-node>
 
@@ -67,7 +69,7 @@
           mat-icon-button
           matTreeNodeToggle
           [attr.aria-label]="'Toggle ' + node.name"
-        >
+          >
           <mat-icon>
             {{ treeControl.isExpanded(node) ? "expand_more" : "chevron_right" }}
           </mat-icon>
@@ -76,14 +78,16 @@
           mat-button
           (click)="onNodeClick(node)"
           [class.hilite]="isSelected(node)"
-        >
+          >
           {{ node.name }}
         </a>
       </div>
       <ul class="tree-nested-node">
-        <div *ngIf="treeControl.isExpanded(node)">
-          <ng-container matTreeNodeOutlet></ng-container>
-        </div>
+        @if (treeControl.isExpanded(node)) {
+          <div>
+            <ng-container matTreeNodeOutlet></ng-container>
+          </div>
+        }
       </ul>
     </li>
   </mat-nested-tree-node>
